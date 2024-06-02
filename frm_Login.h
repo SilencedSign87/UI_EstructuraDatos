@@ -61,6 +61,7 @@ namespace GUIEstructuraDeDatos {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frm_Login::typeid));
 			this->L_inicioSesion = (gcnew System::Windows::Forms::Label());
 			this->txt_User = (gcnew System::Windows::Forms::TextBox());
 			this->L_user = (gcnew System::Windows::Forms::Label());
@@ -126,6 +127,7 @@ namespace GUIEstructuraDeDatos {
 				static_cast<System::Byte>(0)));
 			this->txt_Pass->Location = System::Drawing::Point(45, 246);
 			this->txt_Pass->Name = L"txt_Pass";
+			this->txt_Pass->PasswordChar = '*';
 			this->txt_Pass->Size = System::Drawing::Size(267, 22);
 			this->txt_Pass->TabIndex = 4;
 			this->txt_Pass->UseSystemPasswordChar = true;
@@ -184,11 +186,12 @@ namespace GUIEstructuraDeDatos {
 			this->ClientSize = System::Drawing::Size(856, 426);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximumSize = System::Drawing::Size(872, 465);
 			this->MinimumSize = System::Drawing::Size(872, 465);
 			this->Name = L"frm_Login";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"MyForm";
+			this->Text = L"Inicio de Sesión";
 			this->Activated += gcnew System::EventHandler(this, &frm_Login::frm_Login_Activated);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
@@ -199,7 +202,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Void bttn_inicar_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ user = txt_User->Text;
 		String^ pass = txt_Pass->Text;
-		if (user == Datos::Instance->Username && pass==Datos::Instance->Password) {
+		if (user == Datos::Instance->Username && pass == Datos::Instance->Password) {
 			L_estadoSesion->Text = "Sesión iniciada!";
 			frm_MenuPrincipal^ menuPrincipal = gcnew frm_MenuPrincipal(this); // Inicializa la nueva ventana
 			menuPrincipal->Show();

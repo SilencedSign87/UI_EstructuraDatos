@@ -137,6 +137,9 @@
     <ClInclude Include="frm_MenuPrincipal.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Granel.hpp" />
+    <ClInclude Include="Producto.hpp" />
+    <ClInclude Include="Unitario.hpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frm_CambiarCred.resx">

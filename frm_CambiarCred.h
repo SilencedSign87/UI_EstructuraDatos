@@ -162,8 +162,10 @@ namespace GUIEstructuraDeDatos {
 			this->txt_Npass->Enabled = false;
 			this->txt_Npass->Location = System::Drawing::Point(50, 425);
 			this->txt_Npass->Name = L"txt_Npass";
+			this->txt_Npass->PasswordChar = '*';
 			this->txt_Npass->Size = System::Drawing::Size(351, 28);
 			this->txt_Npass->TabIndex = 8;
+			this->txt_Npass->UseSystemPasswordChar = true;
 			this->txt_Npass->Visible = false;
 			// 
 			// L_Npass
@@ -211,8 +213,10 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->txt_pass->Location = System::Drawing::Point(50, 150);
 			this->txt_pass->Name = L"txt_pass";
+			this->txt_pass->PasswordChar = '*';
 			this->txt_pass->Size = System::Drawing::Size(351, 28);
 			this->txt_pass->TabIndex = 3;
+			this->txt_pass->UseSystemPasswordChar = true;
 			// 
 			// txt_user
 			// 
@@ -246,11 +250,12 @@ namespace GUIEstructuraDeDatos {
 			this->ClientSize = System::Drawing::Size(734, 561);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximumSize = System::Drawing::Size(750, 600);
 			this->MinimumSize = System::Drawing::Size(750, 600);
 			this->Name = L"frm_CambiarCred";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"frm_CambiarCred";
+			this->Text = L"Cambio de Credenciales";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &frm_CambiarCred::frm_CambiarCred_FormClosing);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
