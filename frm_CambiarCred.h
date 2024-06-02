@@ -57,6 +57,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::Label^ L_Npass;
 	private: System::Windows::Forms::TextBox^ txt_Nuser;
 	private: System::Windows::Forms::Button^ bttn_cambiar;
+	private: System::Windows::Forms::Label^ label4;
 
 
 
@@ -89,6 +90,7 @@ namespace GUIEstructuraDeDatos {
 			this->txt_user = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -97,13 +99,14 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
+			this->panel1->Controls->Add(this->label4);
 			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Font = (gcnew System::Drawing::Font(L"Fira Code", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->panel1->Location = System::Drawing::Point(0, 0);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(260, 560);
+			this->panel1->Size = System::Drawing::Size(264, 560);
 			this->panel1->TabIndex = 0;
 			// 
 			// button1
@@ -242,6 +245,19 @@ namespace GUIEstructuraDeDatos {
 			this->label2->Size = System::Drawing::Size(162, 25);
 			this->label2->TabIndex = 0;
 			this->label2->Text = L"Usuario actual:";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Fira Code", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->ForeColor = System::Drawing::Color::White;
+			this->label4->Location = System::Drawing::Point(12, 182);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(242, 64);
+			this->label4->TabIndex = 3;
+			this->label4->Text = L"Sistema de Almacén \r\ny Ventas";
+			this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// frm_CambiarCred
 			// 

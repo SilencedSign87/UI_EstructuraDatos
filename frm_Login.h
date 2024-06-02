@@ -45,6 +45,8 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Label^ L_estadoSesion;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label3;
 
 	protected:
 
@@ -71,7 +73,10 @@ namespace GUIEstructuraDeDatos {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->L_estadoSesion = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
+			this->panel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// L_inicioSesion
@@ -153,7 +158,7 @@ namespace GUIEstructuraDeDatos {
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Controls->Add(this->txt_Pass);
 			this->panel1->Controls->Add(this->txt_User);
-			this->panel1->Location = System::Drawing::Point(2, 3);
+			this->panel1->Location = System::Drawing::Point(0, 0);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(393, 420);
 			this->panel1->TabIndex = 6;
@@ -174,27 +179,56 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->panel2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
-			this->panel2->Location = System::Drawing::Point(402, 3);
+			this->panel2->Controls->Add(this->label3);
+			this->panel2->Controls->Add(this->label2);
+			this->panel2->Font = (gcnew System::Drawing::Font(L"Fira Code", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->panel2->Location = System::Drawing::Point(400, 0);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(452, 420);
 			this->panel2->TabIndex = 7;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"label2.Image")));
+			this->label2->Location = System::Drawing::Point(181, 51);
+			this->label2->MinimumSize = System::Drawing::Size(125, 125);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(125, 125);
+			this->label2->TabIndex = 0;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Fira Code", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->ForeColor = System::Drawing::Color::White;
+			this->label3->Location = System::Drawing::Point(111, 210);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(269, 76);
+			this->label3->TabIndex = 1;
+			this->label3->Text = L"Sistema de Almacén\r\ny Venta";
+			this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// frm_Login
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(856, 426);
+			this->ClientSize = System::Drawing::Size(854, 421);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->MaximumSize = System::Drawing::Size(872, 465);
-			this->MinimumSize = System::Drawing::Size(872, 465);
+			this->MaximumSize = System::Drawing::Size(870, 460);
+			this->MinimumSize = System::Drawing::Size(870, 460);
 			this->Name = L"frm_Login";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Inicio de Sesión";
 			this->Activated += gcnew System::EventHandler(this, &frm_Login::frm_Login_Activated);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			this->panel2->ResumeLayout(false);
+			this->panel2->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
