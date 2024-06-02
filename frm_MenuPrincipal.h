@@ -656,7 +656,7 @@ namespace GUIEstructuraDeDatos {
 
 		label4->Visible = true;
 		incrementador_cantidad->Visible = true;
-		incrementador_cantidad->DecimalPlaces = 1;
+		incrementador_cantidad->DecimalPlaces = 2;
 		incrementador_cantidad->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
 
 		label_unidad->Visible = true;
