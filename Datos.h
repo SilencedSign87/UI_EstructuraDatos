@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <cliext/vector>
+#include <string>
 #include "Producto.hpp"
 #include "Granel.hpp"
 #include "Unitario.hpp"
@@ -8,22 +8,145 @@
 public ref class Datos
 {
 private:
-	static Datos^ instance;
+
+	ref struct Nodo  //arbol
+	{
+		Producto^ producto;
+		Nodo^ derecha;
+		Nodo^ izquierda;
+		int  altura;
+
+		Nodo(Producto^ prod) {
+			this->producto = prod;
+			this->derecha = nullptr;
+			this->izquierda = nullptr;
+			this->altura = 1;
+		}
+	};
+
+	Nodo^ raiz; //raiz del arbol
+	System::Collections::Generic::Dictionary<System::String^, int>^ nombre2id; //dicionadio de nombres a id's
+
+
+	static Datos^ instance; //instancia estática
 
 	Datos() //constructor privado
 	{
 		this->Username = "admin";
 		this->Password = "admin";
-		this->listaProductos = gcnew cliext::vector<Producto^>();
-		this->longitud = 0;
+		this->raiz = nullptr;
+		this->nombre2id = gcnew System::Collections::Generic::Dictionary<System::String^, int>();
+	}
+
+	//--------------------------------------------------------------------------------------- obtener datos de los nodos
+
+	int getAltura(Nodo^ nodo) {
+		return (nodo == nullptr) ? 0 : nodo->altura;
+	};
+
+	int getBalance(Nodo^ nodo) {
+		return (nodo == nullptr) ? 0 : getAltura(nodo->izquierda) - getAltura(nodo->derecha);
+	}
+
+	//--------------------------------------------------------------------------------------- Rotación del arbol
+
+	Nodo^ rotarIzquierda(Nodo^ x) { //rota el arbol a ra izquierda, retorna la nueva raiz
+		Nodo^ y = x->derecha;
+		Nodo^ Arbol2 = y->izquierda;
+
+		y->izquierda = x;
+		x->izquierda = Arbol2;
+
+		x->altura = System::Math::Max(getAltura(x->izquierda), getAltura(x->derecha)) + 1;
+		y->altura = System::Math::Max(getAltura(y->izquierda), getAltura(y->derecha)) + 1;
+
+		return y;
+	}
+
+	Nodo^ rotarDerecha(Nodo^ y) {
+		Nodo^ x = y->izquierda;
+		Nodo^ arbol2 = x->derecha;
+
+		x->derecha = y;
+		y->izquierda = arbol2;
+
+		y->altura = System::Math::Max(getAltura(y->izquierda), getAltura(y->derecha)) + 1;
+		x->altura = System::Math::Max(getAltura(x->izquierda), getAltura(x->derecha)) + 1;
+
+		return x;
+	}
+
+	//--------------------------------------------------------------------------------------- insertar nuevo nodo
+
+	Nodo^ insertarNuevo(Nodo^ nodo, Producto^ producto)
+	{
+		if (nodo == nullptr) {
+			return gcnew Nodo(producto);
+		}
+		if (producto->Id < nodo->producto->Id) {
+			nodo->izquierda = insertarNuevo(nodo->izquierda, producto);
+		}
+		else if (producto->Id > nodo->producto->Id)
+		{
+			nodo->derecha = insertarNuevo(nodo->izquierda, producto);
+		}
+		else {
+			return nodo;
+		}
+
+		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda), getAltura(nodo->derecha));
+
+		int balance = getBalance(nodo); //obtener el balance del nodo (#ramas izquierdas - #derechas)
+
+		if (balance > 1 && producto->Id < nodo->izquierda->producto->Id) {
+			return rotarDerecha(nodo);
+		}
+
+		if (balance > 1 && producto->Id > nodo->izquierda->producto->Id) {
+			nodo->izquierda = rotarIzquierda(nodo->izquierda);
+			return rotarDerecha(nodo);
+		}
+
+		if (balance<-1 && producto->Id > nodo->derecha->producto->Id) {
+			return rotarIzquierda(nodo);
+		}
+
+		if (balance < -1 && producto->Id < nodo->derecha->producto->Id) {
+			nodo->derecha = rotarDerecha(nodo->derecha);
+			return rotarIzquierda(nodo);
+		}
+
+		return nodo;
+	}
+
+	//--------------------------------------------------------------------------------------- Buscar
+
+	Nodo^ buscarNodoId(Nodo^ nodo, int id)
+	{
+		if (nodo == nullptr || nodo->producto->Id == id) {
+			return nodo;
+		}
+		if (id < nodo->producto->Id) {
+			return buscarNodoId(nodo->izquierda, id);
+		}
+		else {
+			return buscarNodoId(nodo->derecha, id);
+		}
+	}
+
+	Nodo^ buscarNodoNombre(Nodo^ nodo, System::String^ nombre) {
+		if (!nombre2id->ContainsKey(nombre)) {
+			return nullptr;
+		}
+		int id = nombre2id[nombre];
+		return buscarNodoId(nodo, id);
 	}
 
 public:
-	//datos
+
+	//datos publicos
 	property System::String^ Username;
 	property System::String^ Password;
-	property cliext::vector <Producto^>^ listaProductos;
-	property int longitud;
 
 	//instancia estática (única)
 	static property Datos^ Instance
@@ -37,28 +160,18 @@ public:
 			return instance;
 		}
 	}
-
-	void agregarGranel(System::String^ nombre, float precio, float cantidad, System::String^ unidad) {
-		Granel^ nuevo = gcnew Granel(nombre, this->longitud + 10000, precio, cantidad, unidad);
-		this->listaProductos->push_back(nuevo);
-		this->longitud++;
-
+	void añadeProducto(Producto^ producto) {
+		raiz = insertarNuevo(raiz, producto);
+		this->nombre2id[producto->Nombre] = producto->Id;
 	}
 
-	void agregarUnitario(System::String^ nombre, float precio, int cantidad) {
-		Unitario^ nuevo = gcnew Unitario(nombre, this->longitud + 10000, precio, cantidad);
-		this->listaProductos->push_back(nuevo);
-		this->longitud++;
+	Producto^ buscarProductoId(int id) {
+		Nodo^ aux= buscarNodoId(raiz, id);
+		return aux->producto;
 	}
 
-	Producto^ obtenerProducto(int index)
-	{
-		if (index >= 0 && index < this->longitud) {
-			return this->listaProductos[index];
-		}
-		else //manejo de errores
-		{
-			return nullptr;
-		}
+	Producto^ buscarProductoNombre(System::String^ nombre) {
+		Nodo^ aux = buscarNodoNombre(raiz, nombre);
+		return aux->producto;
 	}
 };
