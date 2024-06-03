@@ -91,7 +91,7 @@ private:
 		}
 		else if (producto->Id > nodo->producto->Id)
 		{
-			nodo->derecha = insertarNuevo(nodo->izquierda, producto);
+			nodo->derecha = insertarNuevo(nodo->derecha, producto);
 		}
 		else {
 			cantidad--;
@@ -128,7 +128,7 @@ private:
 	Nodo^ buscarNodoId(Nodo^ nodo, int id)
 	{
 		if (nodo == nullptr || nodo->producto->Id == id) {
-			return nodo;
+			return nodo; // Retorna nullptr si no lo encuentra, si lo encuentra retorna el nodo.
 		}
 		if (id < nodo->producto->Id) {
 			return buscarNodoId(nodo->izquierda, id);

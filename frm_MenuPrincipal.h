@@ -75,11 +75,12 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::TextBox^ txt_busqueda;
 	private: System::Windows::Forms::ListBox^ list_busqueda;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::Button^ bttn_añadir2Lista;
 
 
 
 
-	private: System::Windows::Forms::Button^ button1;
+
 
 
 
@@ -96,10 +97,10 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_precio;
 	private: System::Windows::Forms::DataGridView^ Tabla_productos;
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_nombre;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_ID;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_Cantidad;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_precio;
+
+
+
+
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
 	private: System::Windows::Forms::NumericUpDown^ incrementador_precio;
@@ -108,6 +109,15 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DomainUpDown^ seleccionador_unidad;
 	private: System::Windows::Forms::Label^ L_unidad;
 	private: System::Windows::Forms::Label^ L_unidadPrecio;
+	private: System::Windows::Forms::Button^ bttn_cancelarCambios;
+
+	private: System::Windows::Forms::Button^ bttn_actualizarDatosTabla;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_nombre;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_ID;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_Cantidad;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_precio;
+
 
 
 
@@ -145,15 +155,11 @@ namespace GUIEstructuraDeDatos {
 			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->c_precio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->bttn_añadir2Lista = (gcnew System::Windows::Forms::Button());
 			this->list_busqueda = (gcnew System::Windows::Forms::ListBox());
 			this->txt_busqueda = (gcnew System::Windows::Forms::TextBox());
 			this->tab_Lista = (gcnew System::Windows::Forms::TabPage());
 			this->Tabla_productos = (gcnew System::Windows::Forms::DataGridView());
-			this->data_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->data_ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->data_Cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->data_precio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tab_Registro = (gcnew System::Windows::Forms::TabPage());
 			this->L_unidadPrecio = (gcnew System::Windows::Forms::Label());
 			this->L_unidad = (gcnew System::Windows::Forms::Label());
@@ -174,6 +180,13 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->bttn_actualizarDatosTabla = (gcnew System::Windows::Forms::Button());
+			this->bttn_cancelarCambios = (gcnew System::Windows::Forms::Button());
+			this->data_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->data_ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->data_Cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->data_precio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
@@ -208,7 +221,7 @@ namespace GUIEstructuraDeDatos {
 			this->tab_venta->Controls->Add(this->label5);
 			this->tab_venta->Controls->Add(this->bttn_realizaVenta);
 			this->tab_venta->Controls->Add(this->dataGridView1);
-			this->tab_venta->Controls->Add(this->button1);
+			this->tab_venta->Controls->Add(this->bttn_añadir2Lista);
 			this->tab_venta->Controls->Add(this->list_busqueda);
 			this->tab_venta->Controls->Add(this->txt_busqueda);
 			this->tab_venta->Location = System::Drawing::Point(4, 34);
@@ -270,7 +283,7 @@ namespace GUIEstructuraDeDatos {
 				this->c_nombre,
 					this->c_id, this->c_cantidad, this->c_precio
 			});
-			this->dataGridView1->Location = System::Drawing::Point(4, 224);
+			this->dataGridView1->Location = System::Drawing::Point(6, 188);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(4);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
@@ -308,15 +321,15 @@ namespace GUIEstructuraDeDatos {
 			this->c_precio->ReadOnly = true;
 			this->c_precio->Width = 125;
 			// 
-			// button1
+			// bttn_añadir2Lista
 			// 
-			this->button1->Location = System::Drawing::Point(599, 66);
-			this->button1->Margin = System::Windows::Forms::Padding(4);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(205, 73);
-			this->button1->TabIndex = 3;
-			this->button1->Text = L"Añadir a la lista";
-			this->button1->UseVisualStyleBackColor = true;
+			this->bttn_añadir2Lista->Location = System::Drawing::Point(599, 66);
+			this->bttn_añadir2Lista->Margin = System::Windows::Forms::Padding(4);
+			this->bttn_añadir2Lista->Name = L"bttn_añadir2Lista";
+			this->bttn_añadir2Lista->Size = System::Drawing::Size(205, 73);
+			this->bttn_añadir2Lista->TabIndex = 3;
+			this->bttn_añadir2Lista->Text = L"Añadir a la lista";
+			this->bttn_añadir2Lista->UseVisualStyleBackColor = true;
 			// 
 			// list_busqueda
 			// 
@@ -342,6 +355,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// tab_Lista
 			// 
+			this->tab_Lista->Controls->Add(this->label7);
+			this->tab_Lista->Controls->Add(this->bttn_cancelarCambios);
+			this->tab_Lista->Controls->Add(this->bttn_actualizarDatosTabla);
 			this->tab_Lista->Controls->Add(this->Tabla_productos);
 			this->tab_Lista->Location = System::Drawing::Point(4, 34);
 			this->tab_Lista->Margin = System::Windows::Forms::Padding(4);
@@ -354,47 +370,19 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// Tabla_productos
 			// 
+			this->Tabla_productos->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
+			this->Tabla_productos->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
 			this->Tabla_productos->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->Tabla_productos->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->data_nombre,
 					this->data_ID, this->data_Cantidad, this->data_precio
 			});
-			this->Tabla_productos->Location = System::Drawing::Point(24, 23);
+			this->Tabla_productos->Location = System::Drawing::Point(8, 72);
 			this->Tabla_productos->Margin = System::Windows::Forms::Padding(4);
 			this->Tabla_productos->Name = L"Tabla_productos";
 			this->Tabla_productos->RowHeadersWidth = 51;
-			this->Tabla_productos->Size = System::Drawing::Size(796, 731);
+			this->Tabla_productos->Size = System::Drawing::Size(812, 618);
 			this->Tabla_productos->TabIndex = 0;
-			// 
-			// data_nombre
-			// 
-			this->data_nombre->HeaderText = L"Nombre";
-			this->data_nombre->MinimumWidth = 6;
-			this->data_nombre->Name = L"data_nombre";
-			this->data_nombre->ReadOnly = true;
-			this->data_nombre->Width = 200;
-			// 
-			// data_ID
-			// 
-			this->data_ID->HeaderText = L"ID";
-			this->data_ID->MinimumWidth = 6;
-			this->data_ID->Name = L"data_ID";
-			this->data_ID->ReadOnly = true;
-			this->data_ID->Width = 50;
-			// 
-			// data_Cantidad
-			// 
-			this->data_Cantidad->HeaderText = L"Cantidad";
-			this->data_Cantidad->MinimumWidth = 6;
-			this->data_Cantidad->Name = L"data_Cantidad";
-			this->data_Cantidad->Width = 125;
-			// 
-			// data_precio
-			// 
-			this->data_precio->HeaderText = L"Precio";
-			this->data_precio->MinimumWidth = 6;
-			this->data_precio->Name = L"data_precio";
-			this->data_precio->Width = 75;
 			// 
 			// tab_Registro
 			// 
@@ -601,7 +589,7 @@ namespace GUIEstructuraDeDatos {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ForeColor = System::Drawing::Color::White;
-			this->label6->Location = System::Drawing::Point(41, 196);
+			this->label6->Location = System::Drawing::Point(71, 196);
 			this->label6->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(192, 50);
@@ -644,6 +632,64 @@ namespace GUIEstructuraDeDatos {
 			this->label1->Size = System::Drawing::Size(167, 154);
 			this->label1->TabIndex = 0;
 			// 
+			// bttn_actualizarDatosTabla
+			// 
+			this->bttn_actualizarDatosTabla->Location = System::Drawing::Point(516, 711);
+			this->bttn_actualizarDatosTabla->Name = L"bttn_actualizarDatosTabla";
+			this->bttn_actualizarDatosTabla->Size = System::Drawing::Size(239, 37);
+			this->bttn_actualizarDatosTabla->TabIndex = 1;
+			this->bttn_actualizarDatosTabla->Text = L"Guardar cambios";
+			this->bttn_actualizarDatosTabla->UseVisualStyleBackColor = true;
+			// 
+			// bttn_cancelarCambios
+			// 
+			this->bttn_cancelarCambios->Location = System::Drawing::Point(8, 711);
+			this->bttn_cancelarCambios->Name = L"bttn_cancelarCambios";
+			this->bttn_cancelarCambios->Size = System::Drawing::Size(207, 37);
+			this->bttn_cancelarCambios->TabIndex = 2;
+			this->bttn_cancelarCambios->Text = L"Cancelar Cambios";
+			this->bttn_cancelarCambios->UseVisualStyleBackColor = true;
+			// 
+			// data_nombre
+			// 
+			this->data_nombre->HeaderText = L"Nombre";
+			this->data_nombre->MinimumWidth = 6;
+			this->data_nombre->Name = L"data_nombre";
+			this->data_nombre->Width = 97;
+			// 
+			// data_ID
+			// 
+			this->data_ID->HeaderText = L"ID";
+			this->data_ID->MinimumWidth = 6;
+			this->data_ID->Name = L"data_ID";
+			this->data_ID->ReadOnly = true;
+			this->data_ID->Width = 57;
+			// 
+			// data_Cantidad
+			// 
+			this->data_Cantidad->HeaderText = L"Cantidad";
+			this->data_Cantidad->MinimumWidth = 6;
+			this->data_Cantidad->Name = L"data_Cantidad";
+			this->data_Cantidad->Width = 117;
+			// 
+			// data_precio
+			// 
+			this->data_precio->HeaderText = L"Precio";
+			this->data_precio->MinimumWidth = 6;
+			this->data_precio->Name = L"data_precio";
+			this->data_precio->Width = 97;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->ForeColor = System::Drawing::SystemColors::AppWorkspace;
+			this->label7->Location = System::Drawing::Point(20, 13);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(782, 50);
+			this->label7->TabIndex = 3;
+			this->label7->Text = L"Para modificar los productos cambie los valores en la tabla y presione guarda\r\nsi"
+				L"no, cancele los cambios";
+			// 
 			// frm_MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -665,6 +711,7 @@ namespace GUIEstructuraDeDatos {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->tab_Lista->ResumeLayout(false);
+			this->tab_Lista->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Tabla_productos))->EndInit();
 			this->tab_Registro->ResumeLayout(false);
 			this->tab_Registro->PerformLayout();
