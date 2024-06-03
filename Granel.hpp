@@ -5,9 +5,9 @@ public ref class Granel : public Producto
 {
 private:
 	System::String^ _unidad;
-	float _cantidad;
+	System::Decimal^ _cantidad;
 public:
-	Granel(System::String^ nombre, int id, float precio, float cantidad, System::String^ unidad) :Producto(nombre, id, precio) //constructor
+	Granel(System::String^ nombre, int id, System::Decimal^ precio, System::Decimal^ cantidad, System::String^ unidad) :Producto(nombre, id, precio) //constructor
 	{
 		this->_cantidad = cantidad;
 		this->_unidad = unidad;
@@ -24,12 +24,12 @@ public:
 			this->_unidad = unidad;
 		}
 	}
-	property float cantidad
+	property System::Decimal^ cantidad
 	{
-		float get() {
+		System::Decimal^ get() {
 			return _cantidad;
 		}
-		void set(float cantidad) {
+		void set(System::Decimal^ cantidad) {
 			this->_cantidad = cantidad;
 		}
 	}

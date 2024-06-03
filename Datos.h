@@ -25,6 +25,7 @@ private:
 	};
 
 	Nodo^ raiz; //raiz del arbol
+	int cantidad;
 	System::Collections::Generic::Dictionary<System::String^, int>^ nombre2id; //dicionadio de nombres a id's
 
 
@@ -36,6 +37,7 @@ private:
 		this->Password = "admin";
 		this->raiz = nullptr;
 		this->nombre2id = gcnew System::Collections::Generic::Dictionary<System::String^, int>();
+		this->cantidad = 0;
 	}
 
 	//--------------------------------------------------------------------------------------- obtener datos de los nodos
@@ -44,7 +46,7 @@ private:
 		return (nodo == nullptr) ? 0 : nodo->altura;
 	};
 
-	int getBalance(Nodo^ nodo) {
+	int getBalance(Nodo^ nodo) { //positivo -> rotar a la derecha; negativo->rotar a la izquierda
 		return (nodo == nullptr) ? 0 : getAltura(nodo->izquierda) - getAltura(nodo->derecha);
 	}
 
@@ -55,7 +57,7 @@ private:
 		Nodo^ Arbol2 = y->izquierda;
 
 		y->izquierda = x;
-		x->izquierda = Arbol2;
+		x->derecha = Arbol2;
 
 		x->altura = System::Math::Max(getAltura(x->izquierda), getAltura(x->derecha)) + 1;
 		y->altura = System::Math::Max(getAltura(y->izquierda), getAltura(y->derecha)) + 1;
@@ -80,6 +82,7 @@ private:
 
 	Nodo^ insertarNuevo(Nodo^ nodo, Producto^ producto)
 	{
+		cantidad++;
 		if (nodo == nullptr) {
 			return gcnew Nodo(producto);
 		}
@@ -91,6 +94,7 @@ private:
 			nodo->derecha = insertarNuevo(nodo->izquierda, producto);
 		}
 		else {
+			cantidad--;
 			return nodo;
 		}
 
@@ -102,13 +106,13 @@ private:
 			return rotarDerecha(nodo);
 		}
 
+		if (balance<-1 && producto->Id > nodo->derecha->producto->Id) {
+			return rotarIzquierda(nodo);
+		}
+
 		if (balance > 1 && producto->Id > nodo->izquierda->producto->Id) {
 			nodo->izquierda = rotarIzquierda(nodo->izquierda);
 			return rotarDerecha(nodo);
-		}
-
-		if (balance<-1 && producto->Id > nodo->derecha->producto->Id) {
-			return rotarIzquierda(nodo);
 		}
 
 		if (balance < -1 && producto->Id < nodo->derecha->producto->Id) {
@@ -142,6 +146,14 @@ private:
 		return buscarNodoId(nodo, id);
 	}
 
+	void ObtenerProductos(Nodo^ nodo, System::Collections::Generic::List<Producto^ >^ lista) {
+		if (nodo != nullptr) {
+			ObtenerProductos(nodo->izquierda, lista);
+			lista->Add(nodo->producto);
+			ObtenerProductos(nodo->derecha, lista);
+		}
+	}
+
 public:
 
 	//datos publicos
@@ -166,7 +178,7 @@ public:
 	}
 
 	Producto^ buscarProductoId(int id) {
-		Nodo^ aux= buscarNodoId(raiz, id);
+		Nodo^ aux = buscarNodoId(raiz, id);
 		return aux->producto;
 	}
 
@@ -174,4 +186,17 @@ public:
 		Nodo^ aux = buscarNodoNombre(raiz, nombre);
 		return aux->producto;
 	}
+
+	System::Collections::Generic::List< Producto^>^ obtenerTodosProducto() { //Obtiene todos los productos
+		System::Collections::Generic::List<Producto^ >^ productos = gcnew System::Collections::Generic::List<Producto^ >();
+		ObtenerProductos(raiz, productos);
+		return productos;
+	}
+
+	property int CantidadProducto {
+		int get() {
+			return cantidad;
+		}
+	}
+
 };

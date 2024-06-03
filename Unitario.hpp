@@ -7,9 +7,9 @@ private:
 	int _cantidad;
 public:
 
-	Unitario(System::String^ nombre, int id, float precio, int cantidad) :Producto(nombre, id, precio) //constructor
+	Unitario(System::String^ nombre, int id, System::Decimal^ precio, int cantidad) :Producto(nombre, id, precio) //constructor
 	{
-		this->_cantidad = cantidad;
+		this->_cantidad = cantidad; //Solo la parte entera
 	}
 
 	// Setters y Getters
@@ -19,7 +19,7 @@ public:
 			return _cantidad;
 		}
 		void set(int cantidad) {
-			this->_cantidad = cantidad;
+			this->_cantidad = cantidad; //Solo la parte entera
 		}
 	}
 

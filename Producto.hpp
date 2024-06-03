@@ -7,11 +7,16 @@ public ref class Producto
 private:
 	System::String^ _nombre;
 	int _id;
-	float _precio;
+	System::Decimal^ _precio;
 
 public:
-	Producto() : _nombre(""), _id(0), _precio(0.0f) {}
-	Producto(System::String^ nombre, int id, float precio) : _nombre(nombre), _id(id), _precio(precio) {}
+
+	Producto(System::String^ nombre, int id, System::Decimal^ precio)
+	{
+		this->_nombre = nombre;
+		this->_id = id; //asegurarse que sea solo la parte entera
+		this->_precio = precio; //con parte decimal
+	}
 
 	// Setters y Getters
 
@@ -30,15 +35,15 @@ public:
 			return _id;
 		}
 		void set(int value) {
-			_id = value;
+			_id =value; //asegura que sea solo la parte entera
 		}
 	}
 
-	virtual property float Precio {
-		float get() {
+	virtual property System::Decimal^ Precio {
+		System::Decimal^ get() {
 			return _precio;
 		}
-		void set(float value) {
+		void set(System::Decimal^ value) {
 			_precio = value;
 		}
 	}
