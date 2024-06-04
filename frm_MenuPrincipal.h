@@ -40,7 +40,7 @@ namespace GUIEstructuraDeDatos {
 				delete components;
 			}
 		}
-		// ---------------------------- Estructura lista enlazada ----------------------------------------------
+	// ---------------------------- Estructura lista enlazada ----------------------------------------------
 	private: ref struct itemVenta
 	{
 		Producto^ producto;
@@ -153,8 +153,10 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::TextBox^ txt_busqueda;
 	private: System::Windows::Forms::ListBox^ list_busqueda;
 	private: System::Windows::Forms::DataGridView^ tabla_venta;
+private: System::Windows::Forms::Button^ bttn_guardaCambiosVenta;
 
-	private: System::Windows::Forms::Button^ bttn_añadir2Lista;
+
+
 
 
 
@@ -202,11 +204,13 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_Cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_precio;
 	private: System::Windows::Forms::TableLayoutPanel^ tablePanel_Registro;
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_nombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
+private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
+
 
 
 
@@ -248,7 +252,6 @@ namespace GUIEstructuraDeDatos {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frm_MenuPrincipal::typeid));
 			this->tab_Control = (gcnew System::Windows::Forms::TabControl());
 			this->tab_venta = (gcnew System::Windows::Forms::TabPage());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->numero_total_venta = (gcnew System::Windows::Forms::NumericUpDown());
 			this->bttn_cancelaVenta = (gcnew System::Windows::Forms::Button());
 			this->label5 = (gcnew System::Windows::Forms::Label());
@@ -258,7 +261,7 @@ namespace GUIEstructuraDeDatos {
 			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->c_subtotal = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->bttn_añadir2Lista = (gcnew System::Windows::Forms::Button());
+			this->bttn_guardaCambiosVenta = (gcnew System::Windows::Forms::Button());
 			this->list_busqueda = (gcnew System::Windows::Forms::ListBox());
 			this->txt_busqueda = (gcnew System::Windows::Forms::TextBox());
 			this->tab_Lista = (gcnew System::Windows::Forms::TabPage());
@@ -291,6 +294,7 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->bttn_cancelarCambiosVenta = (gcnew System::Windows::Forms::Button());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -320,13 +324,13 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// tab_venta
 			// 
-			this->tab_venta->Controls->Add(this->button1);
+			this->tab_venta->Controls->Add(this->bttn_cancelarCambiosVenta);
 			this->tab_venta->Controls->Add(this->numero_total_venta);
 			this->tab_venta->Controls->Add(this->bttn_cancelaVenta);
 			this->tab_venta->Controls->Add(this->label5);
 			this->tab_venta->Controls->Add(this->bttn_realizaVenta);
 			this->tab_venta->Controls->Add(this->tabla_venta);
-			this->tab_venta->Controls->Add(this->bttn_añadir2Lista);
+			this->tab_venta->Controls->Add(this->bttn_guardaCambiosVenta);
 			this->tab_venta->Controls->Add(this->list_busqueda);
 			this->tab_venta->Controls->Add(this->txt_busqueda);
 			this->tab_venta->Location = System::Drawing::Point(4, 37);
@@ -335,15 +339,6 @@ namespace GUIEstructuraDeDatos {
 			this->tab_venta->TabIndex = 2;
 			this->tab_venta->Text = L"Venta";
 			this->tab_venta->UseVisualStyleBackColor = true;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(484, 128);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(189, 39);
-			this->button1->TabIndex = 8;
-			this->button1->Text = L"Borrar producto";
-			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// numero_total_venta
 			// 
@@ -431,15 +426,15 @@ namespace GUIEstructuraDeDatos {
 			this->c_subtotal->ReadOnly = true;
 			this->c_subtotal->Width = 125;
 			// 
-			// bttn_añadir2Lista
+			// bttn_guardaCambiosVenta
 			// 
-			this->bttn_añadir2Lista->Location = System::Drawing::Point(484, 79);
-			this->bttn_añadir2Lista->Name = L"bttn_añadir2Lista";
-			this->bttn_añadir2Lista->Size = System::Drawing::Size(189, 39);
-			this->bttn_añadir2Lista->TabIndex = 3;
-			this->bttn_añadir2Lista->Text = L"Añadir producto";
-			this->bttn_añadir2Lista->UseVisualStyleBackColor = true;
-			this->bttn_añadir2Lista->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_añadir2Lista_Click);
+			this->bttn_guardaCambiosVenta->Location = System::Drawing::Point(480, 79);
+			this->bttn_guardaCambiosVenta->Name = L"bttn_guardaCambiosVenta";
+			this->bttn_guardaCambiosVenta->Size = System::Drawing::Size(189, 39);
+			this->bttn_guardaCambiosVenta->TabIndex = 3;
+			this->bttn_guardaCambiosVenta->Text = L"Guardar Cambios";
+			this->bttn_guardaCambiosVenta->UseVisualStyleBackColor = true;
+			this->bttn_guardaCambiosVenta->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_añadir2Lista_Click);
 			// 
 			// list_busqueda
 			// 
@@ -801,6 +796,15 @@ namespace GUIEstructuraDeDatos {
 			this->label1->Size = System::Drawing::Size(125, 125);
 			this->label1->TabIndex = 0;
 			// 
+			// bttn_cancelarCambiosVenta
+			// 
+			this->bttn_cancelarCambiosVenta->Location = System::Drawing::Point(477, 131);
+			this->bttn_cancelarCambiosVenta->Name = L"bttn_cancelarCambiosVenta";
+			this->bttn_cancelarCambiosVenta->Size = System::Drawing::Size(199, 39);
+			this->bttn_cancelarCambiosVenta->TabIndex = 8;
+			this->bttn_cancelarCambiosVenta->Text = L"Cancelar Cambios";
+			this->bttn_cancelarCambiosVenta->UseVisualStyleBackColor = true;
+			// 
 			// frm_MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1133,10 +1137,14 @@ namespace GUIEstructuraDeDatos {
 			}
 		}
 	}
+	//------------------------------------- click del boton de guardad cambios en Ventas -------------------------------------------------
 	private: System::Void bttn_añadir2Lista_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+		for (int i = 0; i < lista->longitud; i++) {
+
+		}
 	}
-		   //------------------------------------- Soble click en la lista de busqueda -------------------------------------------------
+	//------------------------------------- doble click en la lista de busqueda -------------------------------------------------
 	private: System::Void list_busqueda_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		System::String^ aux = list_busqueda->SelectedItem->ToString()->ToLower();
@@ -1167,15 +1175,19 @@ namespace GUIEstructuraDeDatos {
 	}
 	private: void DibujaListaVenta() {
 		ListaVenta^ temp = lista; //copia
-
+		tabla_venta->Rows->Clear();
 		while (temp != nullptr) {
-			System::String^ nombre = temp->item->producto->Nombre;
+			System::String^ nombre = temp->item->producto->Nombre; //esto por alguna razón es nulo, temp.item=null
 			int id = temp->item->producto->Id;
 			System::Decimal^ cantidad = temp->item->cantidad;
 			System::Decimal^ subtotal = temp->item->subtotal;
 			System::String^ unidad = temp->item->unidad;
 
+			System::String^ cantidad_compuesta = cantidad->ToString()+" "+unidad;
 
+			tabla_venta->Rows->Add(nombre,id,cantidad_compuesta,subtotal);
+
+			temp->item = temp->item->next;
 		}
 	}
 	};
