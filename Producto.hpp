@@ -13,7 +13,7 @@ public:
 
 	Producto(System::String^ nombre, int id, System::Decimal^ precio)
 	{
-		this->_nombre = nombre;
+		this->_nombre = nombre->ToLower();
 		this->_id = id; //asegurarse que sea solo la parte entera
 		this->_precio = precio; //con parte decimal
 	}
@@ -26,7 +26,7 @@ public:
 		}
 
 		void set(System::String^ value) {
-			_nombre = value;
+			_nombre = value->ToLower();
 		}
 	}
 

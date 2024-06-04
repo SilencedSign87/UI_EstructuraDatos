@@ -187,6 +187,21 @@ public:
 		return aux->producto;
 	}
 
+	System::Collections::Generic::List<Producto^ >^ buscarDinamico(System::String^ segmento) {
+		segmento = segmento->ToLower();
+		System::Collections::Generic::List<Producto^ >^ productos = gcnew System::Collections::Generic::List<Producto^ >();
+		System::Collections::Generic::List<Producto^ >^ productosEncontrados = gcnew System::Collections::Generic::List<Producto^ >();
+		ObtenerProductos(raiz, productos);
+		for each (Producto ^ e in productos)
+		{
+			System::String^ aux = e->Nombre->ToLower();
+			if (aux->Contains(segmento)) {
+				productosEncontrados->Add(e);
+			}
+		}
+		return productosEncontrados;
+	}
+
 	System::Collections::Generic::List< Producto^>^ obtenerTodosProducto() { //Obtiene todos los productos
 		System::Collections::Generic::List<Producto^ >^ productos = gcnew System::Collections::Generic::List<Producto^ >();
 		ObtenerProductos(raiz, productos);

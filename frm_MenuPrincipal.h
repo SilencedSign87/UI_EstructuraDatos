@@ -74,7 +74,8 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::TabPage^ tab_venta;
 	private: System::Windows::Forms::TextBox^ txt_busqueda;
 	private: System::Windows::Forms::ListBox^ list_busqueda;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridView^ tabla_venta;
+
 	private: System::Windows::Forms::Button^ bttn_añadir2Lista;
 
 
@@ -102,7 +103,8 @@ namespace GUIEstructuraDeDatos {
 
 
 	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
+	private: System::Windows::Forms::NumericUpDown^ numero_total_venta;
+
 	private: System::Windows::Forms::NumericUpDown^ incrementador_precio;
 
 	private: System::Windows::Forms::NumericUpDown^ incrementador_cantidad;
@@ -113,14 +115,24 @@ namespace GUIEstructuraDeDatos {
 
 	private: System::Windows::Forms::Button^ bttn_actualizarDatosTabla;
 	private: System::Windows::Forms::Label^ label7;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_nombre;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_precio;
+
+
+
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_nombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_ID;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_Cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_precio;
+	private: System::Windows::Forms::TableLayoutPanel^ tablePanel_Registro;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_nombre;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
+
+
+
+
 
 
 
@@ -158,15 +170,12 @@ namespace GUIEstructuraDeDatos {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frm_MenuPrincipal::typeid));
 			this->tab_Control = (gcnew System::Windows::Forms::TabControl());
 			this->tab_venta = (gcnew System::Windows::Forms::TabPage());
-			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->numero_total_venta = (gcnew System::Windows::Forms::NumericUpDown());
 			this->bttn_cancelaVenta = (gcnew System::Windows::Forms::Button());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->bttn_realizaVenta = (gcnew System::Windows::Forms::Button());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->c_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_precio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tabla_venta = (gcnew System::Windows::Forms::DataGridView());
 			this->bttn_añadir2Lista = (gcnew System::Windows::Forms::Button());
 			this->list_busqueda = (gcnew System::Windows::Forms::ListBox());
 			this->txt_busqueda = (gcnew System::Windows::Forms::TextBox());
@@ -180,6 +189,9 @@ namespace GUIEstructuraDeDatos {
 			this->data_Cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->data_precio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tab_Registro = (gcnew System::Windows::Forms::TabPage());
+			this->tablePanel_Registro = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->es_Granel = (gcnew System::Windows::Forms::RadioButton());
+			this->es_Unitario = (gcnew System::Windows::Forms::RadioButton());
 			this->L_unidadPrecio = (gcnew System::Windows::Forms::Label());
 			this->L_unidad = (gcnew System::Windows::Forms::Label());
 			this->seleccionador_unidad = (gcnew System::Windows::Forms::DomainUpDown());
@@ -192,20 +204,23 @@ namespace GUIEstructuraDeDatos {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->txt_prodName = (gcnew System::Windows::Forms::TextBox());
-			this->es_Unitario = (gcnew System::Windows::Forms::RadioButton());
-			this->es_Granel = (gcnew System::Windows::Forms::RadioButton());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->c_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_subtotal = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tabla_venta))->BeginInit();
 			this->tab_Lista->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Tabla_productos))->BeginInit();
 			this->tab_Registro->SuspendLayout();
+			this->tablePanel_Registro->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_precio))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_cantidad))->BeginInit();
 			this->panel1->SuspendLayout();
@@ -227,36 +242,46 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// tab_venta
 			// 
-			this->tab_venta->Controls->Add(this->numericUpDown1);
+			this->tab_venta->Controls->Add(this->button1);
+			this->tab_venta->Controls->Add(this->numero_total_venta);
 			this->tab_venta->Controls->Add(this->bttn_cancelaVenta);
 			this->tab_venta->Controls->Add(this->label5);
 			this->tab_venta->Controls->Add(this->bttn_realizaVenta);
-			this->tab_venta->Controls->Add(this->dataGridView1);
+			this->tab_venta->Controls->Add(this->tabla_venta);
 			this->tab_venta->Controls->Add(this->bttn_añadir2Lista);
 			this->tab_venta->Controls->Add(this->list_busqueda);
 			this->tab_venta->Controls->Add(this->txt_busqueda);
-			this->tab_venta->Location = System::Drawing::Point(4, 34);
+			this->tab_venta->Location = System::Drawing::Point(4, 37);
 			this->tab_venta->Name = L"tab_venta";
-			this->tab_venta->Size = System::Drawing::Size(718, 619);
+			this->tab_venta->Size = System::Drawing::Size(718, 616);
 			this->tab_venta->TabIndex = 2;
 			this->tab_venta->Text = L"Venta";
 			this->tab_venta->UseVisualStyleBackColor = true;
 			// 
-			// numericUpDown1
+			// button1
 			// 
-			this->numericUpDown1->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
-			this->numericUpDown1->Location = System::Drawing::Point(512, 558);
-			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
-			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->ReadOnly = true;
-			this->numericUpDown1->Size = System::Drawing::Size(106, 28);
-			this->numericUpDown1->TabIndex = 7;
+			this->button1->Location = System::Drawing::Point(484, 128);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(189, 39);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"Borrar producto";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// numero_total_venta
+			// 
+			this->numero_total_venta->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			this->numero_total_venta->Location = System::Drawing::Point(603, 564);
+			this->numero_total_venta->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
+			this->numero_total_venta->Name = L"numero_total_venta";
+			this->numero_total_venta->ReadOnly = true;
+			this->numero_total_venta->Size = System::Drawing::Size(106, 31);
+			this->numero_total_venta->TabIndex = 7;
 			// 
 			// bttn_cancelaVenta
 			// 
 			this->bttn_cancelaVenta->BackColor = System::Drawing::Color::Red;
 			this->bttn_cancelaVenta->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->bttn_cancelaVenta->Location = System::Drawing::Point(23, 551);
+			this->bttn_cancelaVenta->Location = System::Drawing::Point(17, 557);
 			this->bttn_cancelaVenta->Name = L"bttn_cancelaVenta";
 			this->bttn_cancelaVenta->Size = System::Drawing::Size(92, 43);
 			this->bttn_cancelaVenta->TabIndex = 6;
@@ -266,15 +291,15 @@ namespace GUIEstructuraDeDatos {
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(332, 560);
+			this->label5->Location = System::Drawing::Point(423, 566);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(182, 25);
+			this->label5->Size = System::Drawing::Size(199, 28);
 			this->label5->TabIndex = 5;
 			this->label5->Text = L"Precio final: S/.";
 			// 
 			// bttn_realizaVenta
 			// 
-			this->bttn_realizaVenta->Location = System::Drawing::Point(137, 551);
+			this->bttn_realizaVenta->Location = System::Drawing::Point(228, 557);
 			this->bttn_realizaVenta->Name = L"bttn_realizaVenta";
 			this->bttn_realizaVenta->Size = System::Drawing::Size(189, 43);
 			this->bttn_realizaVenta->TabIndex = 2;
@@ -282,73 +307,47 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_realizaVenta->UseVisualStyleBackColor = true;
 			this->bttn_realizaVenta->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_realizaVenta_Click);
 			// 
-			// dataGridView1
+			// tabla_venta
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+			this->tabla_venta->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->tabla_venta->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->c_nombre,
-					this->c_id, this->c_cantidad, this->c_precio
+					this->c_id, this->c_cantidad, this->c_subtotal
 			});
-			this->dataGridView1->Location = System::Drawing::Point(4, 153);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->Size = System::Drawing::Size(708, 347);
-			this->dataGridView1->TabIndex = 4;
-			// 
-			// c_nombre
-			// 
-			this->c_nombre->HeaderText = L"Nombre";
-			this->c_nombre->MinimumWidth = 6;
-			this->c_nombre->Name = L"c_nombre";
-			this->c_nombre->ReadOnly = true;
-			this->c_nombre->Width = 300;
-			// 
-			// c_id
-			// 
-			this->c_id->HeaderText = L"ID";
-			this->c_id->MinimumWidth = 6;
-			this->c_id->Name = L"c_id";
-			this->c_id->ReadOnly = true;
-			// 
-			// c_cantidad
-			// 
-			this->c_cantidad->HeaderText = L"Cantidad";
-			this->c_cantidad->MinimumWidth = 6;
-			this->c_cantidad->Name = L"c_cantidad";
-			this->c_cantidad->Width = 150;
-			// 
-			// c_precio
-			// 
-			this->c_precio->HeaderText = L"Sub total";
-			this->c_precio->MinimumWidth = 6;
-			this->c_precio->Name = L"c_precio";
-			this->c_precio->ReadOnly = true;
-			this->c_precio->Width = 125;
+			this->tabla_venta->Location = System::Drawing::Point(5, 185);
+			this->tabla_venta->Name = L"tabla_venta";
+			this->tabla_venta->RowHeadersWidth = 51;
+			this->tabla_venta->Size = System::Drawing::Size(708, 355);
+			this->tabla_venta->TabIndex = 4;
 			// 
 			// bttn_añadir2Lista
 			// 
-			this->bttn_añadir2Lista->Location = System::Drawing::Point(449, 54);
+			this->bttn_añadir2Lista->Location = System::Drawing::Point(484, 79);
 			this->bttn_añadir2Lista->Name = L"bttn_añadir2Lista";
-			this->bttn_añadir2Lista->Size = System::Drawing::Size(154, 59);
+			this->bttn_añadir2Lista->Size = System::Drawing::Size(189, 39);
 			this->bttn_añadir2Lista->TabIndex = 3;
-			this->bttn_añadir2Lista->Text = L"Añadir a la lista";
+			this->bttn_añadir2Lista->Text = L"Añadir producto";
 			this->bttn_añadir2Lista->UseVisualStyleBackColor = true;
+			this->bttn_añadir2Lista->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_añadir2Lista_Click);
 			// 
 			// list_busqueda
 			// 
 			this->list_busqueda->FormattingEnabled = true;
-			this->list_busqueda->ItemHeight = 25;
-			this->list_busqueda->Location = System::Drawing::Point(23, 54);
+			this->list_busqueda->ItemHeight = 28;
+			this->list_busqueda->Location = System::Drawing::Point(23, 79);
 			this->list_busqueda->Name = L"list_busqueda";
-			this->list_busqueda->Size = System::Drawing::Size(407, 54);
+			this->list_busqueda->Size = System::Drawing::Size(407, 88);
 			this->list_busqueda->TabIndex = 1;
+			this->list_busqueda->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &frm_MenuPrincipal::list_busqueda_MouseDoubleClick);
 			// 
 			// txt_busqueda
 			// 
+			this->txt_busqueda->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->txt_busqueda->ForeColor = System::Drawing::Color::Silver;
-			this->txt_busqueda->Location = System::Drawing::Point(23, 19);
+			this->txt_busqueda->Location = System::Drawing::Point(23, 25);
 			this->txt_busqueda->Name = L"txt_busqueda";
-			this->txt_busqueda->Size = System::Drawing::Size(407, 28);
+			this->txt_busqueda->Size = System::Drawing::Size(407, 31);
 			this->txt_busqueda->TabIndex = 0;
 			this->txt_busqueda->Text = L"Ingrese el nombre del producto...";
 			this->txt_busqueda->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::txt_busqueda_Click);
@@ -360,10 +359,10 @@ namespace GUIEstructuraDeDatos {
 			this->tab_Lista->Controls->Add(this->bttn_cancelarCambios);
 			this->tab_Lista->Controls->Add(this->bttn_actualizarDatosTabla);
 			this->tab_Lista->Controls->Add(this->Tabla_productos);
-			this->tab_Lista->Location = System::Drawing::Point(4, 34);
+			this->tab_Lista->Location = System::Drawing::Point(4, 37);
 			this->tab_Lista->Name = L"tab_Lista";
 			this->tab_Lista->Padding = System::Windows::Forms::Padding(3);
-			this->tab_Lista->Size = System::Drawing::Size(718, 619);
+			this->tab_Lista->Size = System::Drawing::Size(718, 616);
 			this->tab_Lista->TabIndex = 1;
 			this->tab_Lista->Text = L"Lista";
 			this->tab_Lista->UseVisualStyleBackColor = true;
@@ -377,7 +376,7 @@ namespace GUIEstructuraDeDatos {
 			this->label7->Location = System::Drawing::Point(5, 5);
 			this->label7->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(698, 44);
+			this->label7->Size = System::Drawing::Size(784, 48);
 			this->label7->TabIndex = 3;
 			this->label7->Text = L"Para modificar los productos cambie los valores en la tabla y presione guardar ca"
 				L"mbios\r\nsino, cancele los cambios";
@@ -431,6 +430,7 @@ namespace GUIEstructuraDeDatos {
 			this->data_ID->MinimumWidth = 6;
 			this->data_ID->Name = L"data_ID";
 			this->data_ID->ReadOnly = true;
+			this->data_ID->Width = 110;
 			// 
 			// data_Cantidad
 			// 
@@ -444,9 +444,11 @@ namespace GUIEstructuraDeDatos {
 			this->data_precio->HeaderText = L"Precio";
 			this->data_precio->MinimumWidth = 6;
 			this->data_precio->Name = L"data_precio";
+			this->data_precio->Width = 110;
 			// 
 			// tab_Registro
 			// 
+			this->tab_Registro->Controls->Add(this->tablePanel_Registro);
 			this->tab_Registro->Controls->Add(this->L_unidadPrecio);
 			this->tab_Registro->Controls->Add(this->L_unidad);
 			this->tab_Registro->Controls->Add(this->seleccionador_unidad);
@@ -459,22 +461,59 @@ namespace GUIEstructuraDeDatos {
 			this->tab_Registro->Controls->Add(this->label3);
 			this->tab_Registro->Controls->Add(this->label2);
 			this->tab_Registro->Controls->Add(this->txt_prodName);
-			this->tab_Registro->Controls->Add(this->es_Unitario);
-			this->tab_Registro->Controls->Add(this->es_Granel);
-			this->tab_Registro->Location = System::Drawing::Point(4, 34);
+			this->tab_Registro->Location = System::Drawing::Point(4, 37);
 			this->tab_Registro->Name = L"tab_Registro";
 			this->tab_Registro->Padding = System::Windows::Forms::Padding(3);
-			this->tab_Registro->Size = System::Drawing::Size(718, 619);
+			this->tab_Registro->Size = System::Drawing::Size(718, 616);
 			this->tab_Registro->TabIndex = 0;
 			this->tab_Registro->Text = L"Registro";
 			this->tab_Registro->UseVisualStyleBackColor = true;
+			// 
+			// tablePanel_Registro
+			// 
+			this->tablePanel_Registro->ColumnCount = 2;
+			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				60)));
+			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				40)));
+			this->tablePanel_Registro->Controls->Add(this->es_Granel, 0, 0);
+			this->tablePanel_Registro->Controls->Add(this->es_Unitario, 1, 0);
+			this->tablePanel_Registro->Location = System::Drawing::Point(157, 44);
+			this->tablePanel_Registro->Name = L"tablePanel_Registro";
+			this->tablePanel_Registro->RowCount = 1;
+			this->tablePanel_Registro->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
+				100)));
+			this->tablePanel_Registro->Size = System::Drawing::Size(412, 38);
+			this->tablePanel_Registro->TabIndex = 17;
+			// 
+			// es_Granel
+			// 
+			this->es_Granel->AutoSize = true;
+			this->es_Granel->Location = System::Drawing::Point(3, 3);
+			this->es_Granel->Name = L"es_Granel";
+			this->es_Granel->Size = System::Drawing::Size(195, 32);
+			this->es_Granel->TabIndex = 0;
+			this->es_Granel->Text = L"Producto Granel";
+			this->es_Granel->UseVisualStyleBackColor = true;
+			this->es_Granel->CheckedChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::es_Granel_CheckedChanged);
+			// 
+			// es_Unitario
+			// 
+			this->es_Unitario->AutoSize = true;
+			this->es_Unitario->Location = System::Drawing::Point(250, 3);
+			this->es_Unitario->Name = L"es_Unitario";
+			this->es_Unitario->Size = System::Drawing::Size(159, 32);
+			this->es_Unitario->TabIndex = 1;
+			this->es_Unitario->Text = L"Producto Unitario";
+			this->es_Unitario->UseVisualStyleBackColor = true;
+			this->es_Unitario->CheckedChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::es_Unitario_CheckedChanged);
 			// 
 			// L_unidadPrecio
 			// 
 			this->L_unidadPrecio->AutoSize = true;
 			this->L_unidadPrecio->Location = System::Drawing::Point(496, 275);
 			this->L_unidadPrecio->Name = L"L_unidadPrecio";
-			this->L_unidadPrecio->Size = System::Drawing::Size(0, 25);
+			this->L_unidadPrecio->Size = System::Drawing::Size(0, 28);
 			this->L_unidadPrecio->TabIndex = 16;
 			// 
 			// L_unidad
@@ -482,7 +521,7 @@ namespace GUIEstructuraDeDatos {
 			this->L_unidad->AutoSize = true;
 			this->L_unidad->Location = System::Drawing::Point(491, 206);
 			this->L_unidad->Name = L"L_unidad";
-			this->L_unidad->Size = System::Drawing::Size(0, 25);
+			this->L_unidad->Size = System::Drawing::Size(0, 28);
 			this->L_unidad->TabIndex = 15;
 			// 
 			// seleccionador_unidad
@@ -493,7 +532,7 @@ namespace GUIEstructuraDeDatos {
 			this->seleccionador_unidad->Items->Add(L"Mililitro");
 			this->seleccionador_unidad->Location = System::Drawing::Point(168, 345);
 			this->seleccionador_unidad->Name = L"seleccionador_unidad";
-			this->seleccionador_unidad->Size = System::Drawing::Size(276, 28);
+			this->seleccionador_unidad->Size = System::Drawing::Size(276, 31);
 			this->seleccionador_unidad->TabIndex = 14;
 			this->seleccionador_unidad->Text = L"Seleccione una unidad...";
 			this->seleccionador_unidad->Visible = false;
@@ -507,7 +546,7 @@ namespace GUIEstructuraDeDatos {
 			this->incrementador_precio->Location = System::Drawing::Point(168, 275);
 			this->incrementador_precio->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->incrementador_precio->Name = L"incrementador_precio";
-			this->incrementador_precio->Size = System::Drawing::Size(313, 28);
+			this->incrementador_precio->Size = System::Drawing::Size(313, 31);
 			this->incrementador_precio->TabIndex = 13;
 			this->incrementador_precio->Visible = false;
 			// 
@@ -515,7 +554,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->incrementador_cantidad->Location = System::Drawing::Point(168, 205);
 			this->incrementador_cantidad->Name = L"incrementador_cantidad";
-			this->incrementador_cantidad->Size = System::Drawing::Size(313, 28);
+			this->incrementador_cantidad->Size = System::Drawing::Size(313, 31);
 			this->incrementador_cantidad->TabIndex = 12;
 			this->incrementador_cantidad->Visible = false;
 			// 
@@ -534,9 +573,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_Registrar
 			// 
-			this->bttn_Registrar->Location = System::Drawing::Point(236, 409);
+			this->bttn_Registrar->Location = System::Drawing::Point(218, 409);
 			this->bttn_Registrar->Name = L"bttn_Registrar";
-			this->bttn_Registrar->Size = System::Drawing::Size(110, 40);
+			this->bttn_Registrar->Size = System::Drawing::Size(128, 40);
 			this->bttn_Registrar->TabIndex = 10;
 			this->bttn_Registrar->Text = L"Registrar";
 			this->bttn_Registrar->UseVisualStyleBackColor = true;
@@ -548,7 +587,7 @@ namespace GUIEstructuraDeDatos {
 			this->label_unidad->AutoSize = true;
 			this->label_unidad->Location = System::Drawing::Point(168, 315);
 			this->label_unidad->Name = L"label_unidad";
-			this->label_unidad->Size = System::Drawing::Size(362, 25);
+			this->label_unidad->Size = System::Drawing::Size(397, 28);
 			this->label_unidad->TabIndex = 8;
 			this->label_unidad->Text = L"Unidad del producto: (Kg, g, L, mL)";
 			this->label_unidad->Visible = false;
@@ -558,7 +597,7 @@ namespace GUIEstructuraDeDatos {
 			this->label4->AutoSize = true;
 			this->label4->Location = System::Drawing::Point(168, 245);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(82, 25);
+			this->label4->Size = System::Drawing::Size(89, 28);
 			this->label4->TabIndex = 6;
 			this->label4->Text = L"Precio:";
 			this->label4->Visible = false;
@@ -568,7 +607,7 @@ namespace GUIEstructuraDeDatos {
 			this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(168, 175);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(292, 25);
+			this->label3->Size = System::Drawing::Size(320, 28);
 			this->label3->TabIndex = 4;
 			this->label3->Text = L"Cantidad total del producto:";
 			this->label3->Visible = false;
@@ -578,7 +617,7 @@ namespace GUIEstructuraDeDatos {
 			this->label2->AutoSize = true;
 			this->label2->Location = System::Drawing::Point(168, 105);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(212, 25);
+			this->label2->Size = System::Drawing::Size(232, 28);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"Nombre del producto:";
 			this->label2->Visible = false;
@@ -587,31 +626,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->txt_prodName->Location = System::Drawing::Point(168, 135);
 			this->txt_prodName->Name = L"txt_prodName";
-			this->txt_prodName->Size = System::Drawing::Size(393, 28);
+			this->txt_prodName->Size = System::Drawing::Size(393, 31);
 			this->txt_prodName->TabIndex = 2;
 			this->txt_prodName->Visible = false;
-			// 
-			// es_Unitario
-			// 
-			this->es_Unitario->AutoSize = true;
-			this->es_Unitario->Location = System::Drawing::Point(361, 33);
-			this->es_Unitario->Name = L"es_Unitario";
-			this->es_Unitario->Size = System::Drawing::Size(200, 29);
-			this->es_Unitario->TabIndex = 1;
-			this->es_Unitario->Text = L"Producto Unitario";
-			this->es_Unitario->UseVisualStyleBackColor = true;
-			this->es_Unitario->CheckedChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::es_Unitario_CheckedChanged);
-			// 
-			// es_Granel
-			// 
-			this->es_Granel->AutoSize = true;
-			this->es_Granel->Location = System::Drawing::Point(174, 33);
-			this->es_Granel->Name = L"es_Granel";
-			this->es_Granel->Size = System::Drawing::Size(180, 29);
-			this->es_Granel->TabIndex = 0;
-			this->es_Granel->Text = L"Producto Granel";
-			this->es_Granel->UseVisualStyleBackColor = true;
-			this->es_Granel->CheckedChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::es_Granel_CheckedChanged);
 			// 
 			// panel1
 			// 
@@ -634,9 +651,9 @@ namespace GUIEstructuraDeDatos {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ForeColor = System::Drawing::Color::White;
-			this->label6->Location = System::Drawing::Point(53, 159);
+			this->label6->Location = System::Drawing::Point(17, 159);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(192, 50);
+			this->label6->Size = System::Drawing::Size(210, 56);
 			this->label6->TabIndex = 3;
 			this->label6->Text = L"Sistema de Almacén\r\ny Ventas";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -673,11 +690,42 @@ namespace GUIEstructuraDeDatos {
 			this->label1->Size = System::Drawing::Size(125, 125);
 			this->label1->TabIndex = 0;
 			// 
+			// c_nombre
+			// 
+			this->c_nombre->HeaderText = L"Nombre";
+			this->c_nombre->MinimumWidth = 6;
+			this->c_nombre->Name = L"c_nombre";
+			this->c_nombre->ReadOnly = true;
+			this->c_nombre->Width = 300;
+			// 
+			// c_id
+			// 
+			this->c_id->HeaderText = L"ID";
+			this->c_id->MinimumWidth = 6;
+			this->c_id->Name = L"c_id";
+			this->c_id->ReadOnly = true;
+			this->c_id->Width = 110;
+			// 
+			// c_cantidad
+			// 
+			this->c_cantidad->HeaderText = L"Cantidad";
+			this->c_cantidad->MinimumWidth = 6;
+			this->c_cantidad->Name = L"c_cantidad";
+			this->c_cantidad->Width = 150;
+			// 
+			// c_subtotal
+			// 
+			this->c_subtotal->HeaderText = L"Sub total";
+			this->c_subtotal->MinimumWidth = 6;
+			this->c_subtotal->Name = L"c_subtotal";
+			this->c_subtotal->ReadOnly = true;
+			this->c_subtotal->Width = 125;
+			// 
 			// frm_MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(984, 661);
+			this->ClientSize = System::Drawing::Size(984, 659);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->tab_Control);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -690,13 +738,15 @@ namespace GUIEstructuraDeDatos {
 			this->tab_Control->ResumeLayout(false);
 			this->tab_venta->ResumeLayout(false);
 			this->tab_venta->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tabla_venta))->EndInit();
 			this->tab_Lista->ResumeLayout(false);
 			this->tab_Lista->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Tabla_productos))->EndInit();
 			this->tab_Registro->ResumeLayout(false);
 			this->tab_Registro->PerformLayout();
+			this->tablePanel_Registro->ResumeLayout(false);
+			this->tablePanel_Registro->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_precio))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_cantidad))->EndInit();
 			this->panel1->ResumeLayout(false);
@@ -765,10 +815,29 @@ namespace GUIEstructuraDeDatos {
 		cambiarCredencial->Show();
 		this->Hide();
 	}
+		   //----------------------------------------------------------------------------------------------------------------- cuando el texto cambia
+	private: System::Void txt_busqueda_TextChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		list_busqueda->Items->Clear();
 
-	private: System::Void txt_busqueda_TextChanged(System::Object^ sender, System::EventArgs^ e) { //cuando el texto cambia
+		if (txt_busqueda->Text->Length < 1) {
+			return;
+		}
 
+		System::Collections::Generic::List<Producto^ >^ aux = Datos::Instance->buscarDinamico(txt_busqueda->Text);
+		if (aux != nullptr)
+		{
+			for each (Producto ^ p in aux)
+			{
+				list_busqueda->Items->Add(p->Nombre);
+			}
+		}
+		else
+		{
+
+		}
 	}
+		   //-------------------------------------------------------------------------------------------------------------------
 	private: System::Void txt_busqueda_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		txt_busqueda->Text = "";
@@ -944,6 +1013,7 @@ namespace GUIEstructuraDeDatos {
 						auxG->Precio = precio;
 						auxG->unidad = unidad;
 					}
+					delete e;
 				}
 				else if (unidad->Equals("")) { //Es unitario
 					cantidadU = System::Convert::ToInt32(Tabla_productos->Rows[i]->Cells["data_Cantidad"]->Value);
@@ -954,9 +1024,10 @@ namespace GUIEstructuraDeDatos {
 						auxU->cantidad = cantidadU;
 						auxU->Precio = precio;
 					}
+					delete e;
 				}
 				else {
-					MessageBox::Show("Unidad desconocida en el producto: "+nombre+"\nporfavor intente con las unidades aceptadas:\nKg, g, L, mL");
+					MessageBox::Show("Unidad desconocida en el producto: " + nombre + "\nporfavor intente con las unidades aceptadas:\nKg, g, L, mL");
 				}
 			}
 
@@ -981,6 +1052,42 @@ namespace GUIEstructuraDeDatos {
 				}
 			}
 		}
+	}
+	private: System::Void bttn_añadir2Lista_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+	}
+	private: System::Void list_busqueda_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+	{
+		System::String^ aux = list_busqueda->SelectedItem->ToString()->ToLower();
+
+		Producto^ cast = Datos::Instance->buscarProductoNombre(aux);
+
+		Granel^ g = dynamic_cast<Granel^>(cast);
+		Unitario^ u = dynamic_cast<Unitario^>(cast);
+
+		if (g != nullptr) // es granel
+		{
+			System::String^ cantidad = "1 " + g->unidad;
+			System::Decimal subtotal = System::Decimal::Multiply(1, static_cast<System::Decimal>(g->Precio));
+
+			tabla_venta->Rows->Add(g->Nombre, g->Id, cantidad, subtotal);
+		}
+		else if (u != nullptr) //es unitario
+		{
+			System::Decimal subtotal = System::Decimal::Multiply(1, static_cast<System::Decimal>(u->Precio));
+			tabla_venta->Rows->Add(u->Nombre, u->Id, 1, subtotal);
+		}
+
+		System::Decimal total;
+
+		for (int i = 0; i < tabla_venta->Rows->Count; i++) {
+			total = System::Decimal::Add(total, System::Convert::ToDecimal(tabla_venta->Rows[i]->Cells["c_subtotal"]->Value));
+		}
+		numero_total_venta->Value = total;
+		delete g;
+		delete u;
+		delete cast;
+		delete aux;
 	}
 	};
 }
