@@ -252,6 +252,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(frm_MenuPrincipal::typeid));
 			this->tab_Control = (gcnew System::Windows::Forms::TabControl());
 			this->tab_venta = (gcnew System::Windows::Forms::TabPage());
+			this->bttn_cancelarCambiosVenta = (gcnew System::Windows::Forms::Button());
 			this->numero_total_venta = (gcnew System::Windows::Forms::NumericUpDown());
 			this->bttn_cancelaVenta = (gcnew System::Windows::Forms::Button());
 			this->label5 = (gcnew System::Windows::Forms::Label());
@@ -294,7 +295,6 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->bttn_cancelarCambiosVenta = (gcnew System::Windows::Forms::Button());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -339,6 +339,15 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->tab_venta->TabIndex = 2;
 			this->tab_venta->Text = L"Venta";
 			this->tab_venta->UseVisualStyleBackColor = true;
+			// 
+			// bttn_cancelarCambiosVenta
+			// 
+			this->bttn_cancelarCambiosVenta->Location = System::Drawing::Point(477, 131);
+			this->bttn_cancelarCambiosVenta->Name = L"bttn_cancelarCambiosVenta";
+			this->bttn_cancelarCambiosVenta->Size = System::Drawing::Size(199, 39);
+			this->bttn_cancelarCambiosVenta->TabIndex = 8;
+			this->bttn_cancelarCambiosVenta->Text = L"Cancelar Cambios";
+			this->bttn_cancelarCambiosVenta->UseVisualStyleBackColor = true;
 			// 
 			// numero_total_venta
 			// 
@@ -579,17 +588,17 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// 
 			this->tablePanel_Registro->ColumnCount = 2;
 			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				60)));
+				55)));
 			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				40)));
+				45)));
 			this->tablePanel_Registro->Controls->Add(this->es_Granel, 0, 0);
 			this->tablePanel_Registro->Controls->Add(this->es_Unitario, 1, 0);
-			this->tablePanel_Registro->Location = System::Drawing::Point(157, 44);
+			this->tablePanel_Registro->Location = System::Drawing::Point(130, 44);
 			this->tablePanel_Registro->Name = L"tablePanel_Registro";
 			this->tablePanel_Registro->RowCount = 1;
 			this->tablePanel_Registro->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
 				100)));
-			this->tablePanel_Registro->Size = System::Drawing::Size(412, 38);
+			this->tablePanel_Registro->Size = System::Drawing::Size(502, 38);
 			this->tablePanel_Registro->TabIndex = 17;
 			// 
 			// es_Granel
@@ -606,9 +615,9 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// es_Unitario
 			// 
 			this->es_Unitario->AutoSize = true;
-			this->es_Unitario->Location = System::Drawing::Point(250, 3);
+			this->es_Unitario->Location = System::Drawing::Point(279, 3);
 			this->es_Unitario->Name = L"es_Unitario";
-			this->es_Unitario->Size = System::Drawing::Size(159, 32);
+			this->es_Unitario->Size = System::Drawing::Size(217, 32);
 			this->es_Unitario->TabIndex = 1;
 			this->es_Unitario->Text = L"Producto Unitario";
 			this->es_Unitario->UseVisualStyleBackColor = true;
@@ -735,6 +744,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->txt_prodName->Size = System::Drawing::Size(393, 31);
 			this->txt_prodName->TabIndex = 2;
 			this->txt_prodName->Visible = false;
+			this->txt_prodName->TextChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::txt_prodName_TextChanged);
 			// 
 			// panel1
 			// 
@@ -795,15 +805,6 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(125, 125);
 			this->label1->TabIndex = 0;
-			// 
-			// bttn_cancelarCambiosVenta
-			// 
-			this->bttn_cancelarCambiosVenta->Location = System::Drawing::Point(477, 131);
-			this->bttn_cancelarCambiosVenta->Name = L"bttn_cancelarCambiosVenta";
-			this->bttn_cancelarCambiosVenta->Size = System::Drawing::Size(199, 39);
-			this->bttn_cancelarCambiosVenta->TabIndex = 8;
-			this->bttn_cancelarCambiosVenta->Text = L"Cancelar Cambios";
-			this->bttn_cancelarCambiosVenta->UseVisualStyleBackColor = true;
 			// 
 			// frm_MenuPrincipal
 			// 
@@ -1176,19 +1177,26 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 	private: void DibujaListaVenta() {
 		ListaVenta^ temp = lista; //copia
 		tabla_venta->Rows->Clear();
-		while (temp != nullptr) {
-			System::String^ nombre = temp->item->producto->Nombre; //esto por alguna razón es nulo, temp.item=null
+
+		while (temp->item != nullptr) {
+			System::String^ nombre = temp->item->producto->Nombre;
 			int id = temp->item->producto->Id;
 			System::Decimal^ cantidad = temp->item->cantidad;
 			System::Decimal^ subtotal = temp->item->subtotal;
 			System::String^ unidad = temp->item->unidad;
-
-			System::String^ cantidad_compuesta = cantidad->ToString()+" "+unidad;
+			System::String^ cantidad_compuesta;
+			if (!unidad->Equals("")) {
+				cantidad_compuesta = cantidad->ToString() + " " + unidad;
+			}
+			else
+			{
+				cantidad_compuesta = cantidad->ToString();
+			}
 
 			tabla_venta->Rows->Add(nombre,id,cantidad_compuesta,subtotal);
 
-			temp->item = temp->item->next;
+			temp->item = temp->item->next; //siguiente item en la lista
 		}
 	}
-	};
+};
 }
