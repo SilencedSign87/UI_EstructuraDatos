@@ -40,7 +40,85 @@ namespace GUIEstructuraDeDatos {
 				delete components;
 			}
 		}
+		// ---------------------------- Estructura lista enlazada ----------------------------------------------
+	private: ref struct itemVenta
+	{
+		Producto^ producto;
+		System::String^ unidad;
+		System::Decimal^ cantidad;
+
+		System::Decimal^ subtotal;
+
+		itemVenta^ next; //siguiente
+
+		itemVenta() {
+			this->producto = nullptr;
+			this->next = nullptr;
+		}
+		itemVenta(Producto^ prod, System::Decimal^ cantidad) {
+			this->producto = prod;
+			this->cantidad = cantidad;
+			this->subtotal = System::Decimal::Multiply(static_cast<System::Decimal>(this->cantidad), static_cast<System::Decimal>(this->producto->Precio));
+			this->next = nullptr;
+		}
+	};
+	private: ref class ListaVenta {
+	public:
+		itemVenta^ item;
+		int longitud;
+
+		void agregarUnitario(Producto^ prod, System::Decimal cantidad) {
+			cantidad = System::Decimal::Truncate(cantidad);
+			itemVenta^ nuevo = gcnew itemVenta(prod, cantidad);
+			nuevo->unidad = "";
+			itemVenta^ aux1 = item;
+			itemVenta^ aux2 = nullptr;
+
+			while (aux1 != nullptr && aux1->subtotal->CompareTo(nuevo->subtotal) > 0)
+			{
+				aux2 = aux1;
+				aux1 = aux1->next;
+			}
+			if (item == aux1) {
+				item = nuevo;
+			}
+			else {
+				aux2->next = nuevo;
+			}
+			nuevo->next = aux1;
+		}
+
+		void agregarGranel(Producto^ prod, System::Decimal cantidad) {
+			itemVenta^ nuevo = gcnew itemVenta(prod, cantidad);
+			Granel^ aux = dynamic_cast<Granel^>(prod);
+			if (aux != nullptr) {
+				nuevo->unidad = aux->unidad;
+			}
+			itemVenta^ aux1 = item;
+			itemVenta^ aux2 = nullptr;
+
+			while (aux1 != nullptr && aux1->subtotal->CompareTo(nuevo->subtotal) > 0)
+			{
+				aux2 = aux1;
+				aux1 = aux1->next;
+			}
+			if (item == aux1) {
+				item = nuevo;
+			}
+			else {
+				aux2->next = nuevo;
+			}
+			nuevo->next = aux1;
+		}
+
+
+	};
+
+		   // -------------------------- Datos Globales --------------------------------------------
 	private: System::Windows::Forms::Form^ previousForm; //form anterior
+
+	private: ListaVenta^ lista = gcnew ListaVenta();
+		   // --------------------------------------------------------------------------------------
 
 	private: System::Windows::Forms::TabControl^ tab_Control;
 	private: System::Windows::Forms::TabPage^ tab_Registro;
@@ -176,6 +254,10 @@ namespace GUIEstructuraDeDatos {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->bttn_realizaVenta = (gcnew System::Windows::Forms::Button());
 			this->tabla_venta = (gcnew System::Windows::Forms::DataGridView());
+			this->c_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->c_subtotal = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->bttn_añadir2Lista = (gcnew System::Windows::Forms::Button());
 			this->list_busqueda = (gcnew System::Windows::Forms::ListBox());
 			this->txt_busqueda = (gcnew System::Windows::Forms::TextBox());
@@ -209,10 +291,6 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->c_nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_cantidad = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->c_subtotal = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -269,6 +347,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// numero_total_venta
 			// 
+			this->numero_total_venta->DecimalPlaces = 2;
 			this->numero_total_venta->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
 			this->numero_total_venta->Location = System::Drawing::Point(603, 564);
 			this->numero_total_venta->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
@@ -276,6 +355,7 @@ namespace GUIEstructuraDeDatos {
 			this->numero_total_venta->ReadOnly = true;
 			this->numero_total_venta->Size = System::Drawing::Size(106, 31);
 			this->numero_total_venta->TabIndex = 7;
+			this->numero_total_venta->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// bttn_cancelaVenta
 			// 
@@ -319,6 +399,37 @@ namespace GUIEstructuraDeDatos {
 			this->tabla_venta->RowHeadersWidth = 51;
 			this->tabla_venta->Size = System::Drawing::Size(708, 355);
 			this->tabla_venta->TabIndex = 4;
+			// 
+			// c_nombre
+			// 
+			this->c_nombre->HeaderText = L"Nombre";
+			this->c_nombre->MinimumWidth = 6;
+			this->c_nombre->Name = L"c_nombre";
+			this->c_nombre->ReadOnly = true;
+			this->c_nombre->Width = 300;
+			// 
+			// c_id
+			// 
+			this->c_id->HeaderText = L"ID";
+			this->c_id->MinimumWidth = 6;
+			this->c_id->Name = L"c_id";
+			this->c_id->ReadOnly = true;
+			this->c_id->Width = 110;
+			// 
+			// c_cantidad
+			// 
+			this->c_cantidad->HeaderText = L"Cantidad";
+			this->c_cantidad->MinimumWidth = 6;
+			this->c_cantidad->Name = L"c_cantidad";
+			this->c_cantidad->Width = 150;
+			// 
+			// c_subtotal
+			// 
+			this->c_subtotal->HeaderText = L"Sub total";
+			this->c_subtotal->MinimumWidth = 6;
+			this->c_subtotal->Name = L"c_subtotal";
+			this->c_subtotal->ReadOnly = true;
+			this->c_subtotal->Width = 125;
 			// 
 			// bttn_añadir2Lista
 			// 
@@ -690,37 +801,6 @@ namespace GUIEstructuraDeDatos {
 			this->label1->Size = System::Drawing::Size(125, 125);
 			this->label1->TabIndex = 0;
 			// 
-			// c_nombre
-			// 
-			this->c_nombre->HeaderText = L"Nombre";
-			this->c_nombre->MinimumWidth = 6;
-			this->c_nombre->Name = L"c_nombre";
-			this->c_nombre->ReadOnly = true;
-			this->c_nombre->Width = 300;
-			// 
-			// c_id
-			// 
-			this->c_id->HeaderText = L"ID";
-			this->c_id->MinimumWidth = 6;
-			this->c_id->Name = L"c_id";
-			this->c_id->ReadOnly = true;
-			this->c_id->Width = 110;
-			// 
-			// c_cantidad
-			// 
-			this->c_cantidad->HeaderText = L"Cantidad";
-			this->c_cantidad->MinimumWidth = 6;
-			this->c_cantidad->Name = L"c_cantidad";
-			this->c_cantidad->Width = 150;
-			// 
-			// c_subtotal
-			// 
-			this->c_subtotal->HeaderText = L"Sub total";
-			this->c_subtotal->MinimumWidth = 6;
-			this->c_subtotal->Name = L"c_subtotal";
-			this->c_subtotal->ReadOnly = true;
-			this->c_subtotal->Width = 125;
-			// 
 			// frm_MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1056,38 +1136,47 @@ namespace GUIEstructuraDeDatos {
 	private: System::Void bttn_añadir2Lista_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 	}
+		   //------------------------------------- Soble click en la lista de busqueda -------------------------------------------------
 	private: System::Void list_busqueda_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		System::String^ aux = list_busqueda->SelectedItem->ToString()->ToLower();
 
-		Producto^ cast = Datos::Instance->buscarProductoNombre(aux);
+		Producto^ productoAux = Datos::Instance->buscarProductoNombre(aux);
+		if (productoAux != nullptr) {
+			Granel^ tempGra = dynamic_cast<Granel^>(productoAux);
+			if (tempGra != nullptr) {
+				lista->agregarGranel(tempGra, 1);
+				MessageBox::Show("Producto añadido, puede cambiar la cantidad en la tabla, si la cantidad es \"0\" se eliminará el producto");
+				DibujaListaVenta();
+				return;
+			}
+			Unitario^ tempgUni = dynamic_cast<Unitario^>(productoAux);
+			if (tempgUni != nullptr) {
+				lista->agregarUnitario(tempgUni, 1);
+				MessageBox::Show("Producto añadido, puede cambiar la cantidad en la tabla, si la cantidad es \"0\" se eliminará el producto");
+				DibujaListaVenta();
+				return;
+			}
 
-		Granel^ g = dynamic_cast<Granel^>(cast);
-		Unitario^ u = dynamic_cast<Unitario^>(cast);
-
-		if (g != nullptr) // es granel
-		{
-			System::String^ cantidad = "1 " + g->unidad;
-			System::Decimal subtotal = System::Decimal::Multiply(1, static_cast<System::Decimal>(g->Precio));
-
-			tabla_venta->Rows->Add(g->Nombre, g->Id, cantidad, subtotal);
 		}
-		else if (u != nullptr) //es unitario
-		{
-			System::Decimal subtotal = System::Decimal::Multiply(1, static_cast<System::Decimal>(u->Precio));
-			tabla_venta->Rows->Add(u->Nombre, u->Id, 1, subtotal);
+		else {
+			MessageBox::Show("Ocurrio un error inesperado, nada a cambiado");
+			return;
 		}
 
-		System::Decimal total;
+	}
+	private: void DibujaListaVenta() {
+		ListaVenta^ temp = lista; //copia
 
-		for (int i = 0; i < tabla_venta->Rows->Count; i++) {
-			total = System::Decimal::Add(total, System::Convert::ToDecimal(tabla_venta->Rows[i]->Cells["c_subtotal"]->Value));
+		while (temp != nullptr) {
+			System::String^ nombre = temp->item->producto->Nombre;
+			int id = temp->item->producto->Id;
+			System::Decimal^ cantidad = temp->item->cantidad;
+			System::Decimal^ subtotal = temp->item->subtotal;
+			System::String^ unidad = temp->item->unidad;
+
+
 		}
-		numero_total_venta->Value = total;
-		delete g;
-		delete u;
-		delete cast;
-		delete aux;
 	}
 	};
 }
