@@ -132,7 +132,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::RadioButton^ es_Unitario;
 	private: System::Windows::Forms::RadioButton^ es_Granel;
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::Button^ bttn_CambiarCredenciales;
 
 
@@ -210,6 +210,7 @@ private: System::Windows::Forms::Button^ bttn_guardaCambiosVenta;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
 private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
+private: System::Windows::Forms::PictureBox^ pictureBox1;
 
 
 
@@ -291,10 +292,10 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->txt_prodName = (gcnew System::Windows::Forms::TextBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -306,6 +307,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_precio))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_cantidad))->BeginInit();
 			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// tab_Control
@@ -333,9 +335,9 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->tab_venta->Controls->Add(this->bttn_guardaCambiosVenta);
 			this->tab_venta->Controls->Add(this->list_busqueda);
 			this->tab_venta->Controls->Add(this->txt_busqueda);
-			this->tab_venta->Location = System::Drawing::Point(4, 37);
+			this->tab_venta->Location = System::Drawing::Point(4, 34);
 			this->tab_venta->Name = L"tab_venta";
-			this->tab_venta->Size = System::Drawing::Size(718, 616);
+			this->tab_venta->Size = System::Drawing::Size(718, 619);
 			this->tab_venta->TabIndex = 2;
 			this->tab_venta->Text = L"Venta";
 			this->tab_venta->UseVisualStyleBackColor = true;
@@ -357,7 +359,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->numero_total_venta->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000, 0, 0, 0 });
 			this->numero_total_venta->Name = L"numero_total_venta";
 			this->numero_total_venta->ReadOnly = true;
-			this->numero_total_venta->Size = System::Drawing::Size(106, 31);
+			this->numero_total_venta->Size = System::Drawing::Size(106, 28);
 			this->numero_total_venta->TabIndex = 7;
 			this->numero_total_venta->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -377,7 +379,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label5->AutoSize = true;
 			this->label5->Location = System::Drawing::Point(423, 566);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(199, 28);
+			this->label5->Size = System::Drawing::Size(182, 25);
 			this->label5->TabIndex = 5;
 			this->label5->Text = L"Precio final: S/.";
 			// 
@@ -448,10 +450,10 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// list_busqueda
 			// 
 			this->list_busqueda->FormattingEnabled = true;
-			this->list_busqueda->ItemHeight = 28;
+			this->list_busqueda->ItemHeight = 25;
 			this->list_busqueda->Location = System::Drawing::Point(23, 79);
 			this->list_busqueda->Name = L"list_busqueda";
-			this->list_busqueda->Size = System::Drawing::Size(407, 88);
+			this->list_busqueda->Size = System::Drawing::Size(407, 79);
 			this->list_busqueda->TabIndex = 1;
 			this->list_busqueda->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &frm_MenuPrincipal::list_busqueda_MouseDoubleClick);
 			// 
@@ -462,7 +464,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->txt_busqueda->ForeColor = System::Drawing::Color::Silver;
 			this->txt_busqueda->Location = System::Drawing::Point(23, 25);
 			this->txt_busqueda->Name = L"txt_busqueda";
-			this->txt_busqueda->Size = System::Drawing::Size(407, 31);
+			this->txt_busqueda->Size = System::Drawing::Size(407, 28);
 			this->txt_busqueda->TabIndex = 0;
 			this->txt_busqueda->Text = L"Ingrese el nombre del producto...";
 			this->txt_busqueda->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::txt_busqueda_Click);
@@ -474,10 +476,10 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->tab_Lista->Controls->Add(this->bttn_cancelarCambios);
 			this->tab_Lista->Controls->Add(this->bttn_actualizarDatosTabla);
 			this->tab_Lista->Controls->Add(this->Tabla_productos);
-			this->tab_Lista->Location = System::Drawing::Point(4, 37);
+			this->tab_Lista->Location = System::Drawing::Point(4, 34);
 			this->tab_Lista->Name = L"tab_Lista";
 			this->tab_Lista->Padding = System::Windows::Forms::Padding(3);
-			this->tab_Lista->Size = System::Drawing::Size(718, 616);
+			this->tab_Lista->Size = System::Drawing::Size(718, 619);
 			this->tab_Lista->TabIndex = 1;
 			this->tab_Lista->Text = L"Lista";
 			this->tab_Lista->UseVisualStyleBackColor = true;
@@ -491,7 +493,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label7->Location = System::Drawing::Point(5, 5);
 			this->label7->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(784, 48);
+			this->label7->Size = System::Drawing::Size(698, 44);
 			this->label7->TabIndex = 3;
 			this->label7->Text = L"Para modificar los productos cambie los valores en la tabla y presione guardar ca"
 				L"mbios\r\nsino, cancele los cambios";
@@ -576,10 +578,10 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->tab_Registro->Controls->Add(this->label3);
 			this->tab_Registro->Controls->Add(this->label2);
 			this->tab_Registro->Controls->Add(this->txt_prodName);
-			this->tab_Registro->Location = System::Drawing::Point(4, 37);
+			this->tab_Registro->Location = System::Drawing::Point(4, 34);
 			this->tab_Registro->Name = L"tab_Registro";
 			this->tab_Registro->Padding = System::Windows::Forms::Padding(3);
-			this->tab_Registro->Size = System::Drawing::Size(718, 616);
+			this->tab_Registro->Size = System::Drawing::Size(718, 619);
 			this->tab_Registro->TabIndex = 0;
 			this->tab_Registro->Text = L"Registro";
 			this->tab_Registro->UseVisualStyleBackColor = true;
@@ -588,17 +590,17 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// 
 			this->tablePanel_Registro->ColumnCount = 2;
 			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				55)));
+				50)));
 			this->tablePanel_Registro->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				45)));
+				50)));
 			this->tablePanel_Registro->Controls->Add(this->es_Granel, 0, 0);
 			this->tablePanel_Registro->Controls->Add(this->es_Unitario, 1, 0);
-			this->tablePanel_Registro->Location = System::Drawing::Point(130, 44);
+			this->tablePanel_Registro->Location = System::Drawing::Point(158, 44);
 			this->tablePanel_Registro->Name = L"tablePanel_Registro";
 			this->tablePanel_Registro->RowCount = 1;
 			this->tablePanel_Registro->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
 				100)));
-			this->tablePanel_Registro->Size = System::Drawing::Size(502, 38);
+			this->tablePanel_Registro->Size = System::Drawing::Size(412, 38);
 			this->tablePanel_Registro->TabIndex = 17;
 			// 
 			// es_Granel
@@ -606,7 +608,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->es_Granel->AutoSize = true;
 			this->es_Granel->Location = System::Drawing::Point(3, 3);
 			this->es_Granel->Name = L"es_Granel";
-			this->es_Granel->Size = System::Drawing::Size(195, 32);
+			this->es_Granel->Size = System::Drawing::Size(180, 29);
 			this->es_Granel->TabIndex = 0;
 			this->es_Granel->Text = L"Producto Granel";
 			this->es_Granel->UseVisualStyleBackColor = true;
@@ -615,9 +617,9 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// es_Unitario
 			// 
 			this->es_Unitario->AutoSize = true;
-			this->es_Unitario->Location = System::Drawing::Point(279, 3);
+			this->es_Unitario->Location = System::Drawing::Point(209, 3);
 			this->es_Unitario->Name = L"es_Unitario";
-			this->es_Unitario->Size = System::Drawing::Size(217, 32);
+			this->es_Unitario->Size = System::Drawing::Size(200, 29);
 			this->es_Unitario->TabIndex = 1;
 			this->es_Unitario->Text = L"Producto Unitario";
 			this->es_Unitario->UseVisualStyleBackColor = true;
@@ -628,7 +630,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->L_unidadPrecio->AutoSize = true;
 			this->L_unidadPrecio->Location = System::Drawing::Point(496, 275);
 			this->L_unidadPrecio->Name = L"L_unidadPrecio";
-			this->L_unidadPrecio->Size = System::Drawing::Size(0, 28);
+			this->L_unidadPrecio->Size = System::Drawing::Size(0, 25);
 			this->L_unidadPrecio->TabIndex = 16;
 			// 
 			// L_unidad
@@ -636,7 +638,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->L_unidad->AutoSize = true;
 			this->L_unidad->Location = System::Drawing::Point(491, 206);
 			this->L_unidad->Name = L"L_unidad";
-			this->L_unidad->Size = System::Drawing::Size(0, 28);
+			this->L_unidad->Size = System::Drawing::Size(0, 25);
 			this->L_unidad->TabIndex = 15;
 			// 
 			// seleccionador_unidad
@@ -647,7 +649,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->seleccionador_unidad->Items->Add(L"Mililitro");
 			this->seleccionador_unidad->Location = System::Drawing::Point(168, 345);
 			this->seleccionador_unidad->Name = L"seleccionador_unidad";
-			this->seleccionador_unidad->Size = System::Drawing::Size(276, 31);
+			this->seleccionador_unidad->Size = System::Drawing::Size(276, 28);
 			this->seleccionador_unidad->TabIndex = 14;
 			this->seleccionador_unidad->Text = L"Seleccione una unidad...";
 			this->seleccionador_unidad->Visible = false;
@@ -661,7 +663,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->incrementador_precio->Location = System::Drawing::Point(168, 275);
 			this->incrementador_precio->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->incrementador_precio->Name = L"incrementador_precio";
-			this->incrementador_precio->Size = System::Drawing::Size(313, 31);
+			this->incrementador_precio->Size = System::Drawing::Size(313, 28);
 			this->incrementador_precio->TabIndex = 13;
 			this->incrementador_precio->Visible = false;
 			// 
@@ -669,7 +671,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// 
 			this->incrementador_cantidad->Location = System::Drawing::Point(168, 205);
 			this->incrementador_cantidad->Name = L"incrementador_cantidad";
-			this->incrementador_cantidad->Size = System::Drawing::Size(313, 31);
+			this->incrementador_cantidad->Size = System::Drawing::Size(313, 28);
 			this->incrementador_cantidad->TabIndex = 12;
 			this->incrementador_cantidad->Visible = false;
 			// 
@@ -702,7 +704,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label_unidad->AutoSize = true;
 			this->label_unidad->Location = System::Drawing::Point(168, 315);
 			this->label_unidad->Name = L"label_unidad";
-			this->label_unidad->Size = System::Drawing::Size(397, 28);
+			this->label_unidad->Size = System::Drawing::Size(362, 25);
 			this->label_unidad->TabIndex = 8;
 			this->label_unidad->Text = L"Unidad del producto: (Kg, g, L, mL)";
 			this->label_unidad->Visible = false;
@@ -712,7 +714,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label4->AutoSize = true;
 			this->label4->Location = System::Drawing::Point(168, 245);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(89, 28);
+			this->label4->Size = System::Drawing::Size(82, 25);
 			this->label4->TabIndex = 6;
 			this->label4->Text = L"Precio:";
 			this->label4->Visible = false;
@@ -722,7 +724,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(168, 175);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(320, 28);
+			this->label3->Size = System::Drawing::Size(292, 25);
 			this->label3->TabIndex = 4;
 			this->label3->Text = L"Cantidad total del producto:";
 			this->label3->Visible = false;
@@ -732,7 +734,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->label2->AutoSize = true;
 			this->label2->Location = System::Drawing::Point(168, 105);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(232, 28);
+			this->label2->Size = System::Drawing::Size(212, 25);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"Nombre del producto:";
 			this->label2->Visible = false;
@@ -741,19 +743,18 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			// 
 			this->txt_prodName->Location = System::Drawing::Point(168, 135);
 			this->txt_prodName->Name = L"txt_prodName";
-			this->txt_prodName->Size = System::Drawing::Size(393, 31);
+			this->txt_prodName->Size = System::Drawing::Size(393, 28);
 			this->txt_prodName->TabIndex = 2;
 			this->txt_prodName->Visible = false;
-			this->txt_prodName->TextChanged += gcnew System::EventHandler(this, &frm_MenuPrincipal::txt_prodName_TextChanged);
 			// 
 			// panel1
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
+			this->panel1->Controls->Add(this->pictureBox1);
 			this->panel1->Controls->Add(this->label6);
 			this->panel1->Controls->Add(this->bttn_salir);
 			this->panel1->Controls->Add(this->bttn_CambiarCredenciales);
-			this->panel1->Controls->Add(this->label1);
 			this->panel1->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->panel1->Location = System::Drawing::Point(1, 1);
@@ -761,15 +762,25 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->panel1->Size = System::Drawing::Size(253, 657);
 			this->panel1->TabIndex = 1;
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(46, 34);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(150, 150);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox1->TabIndex = 4;
+			this->pictureBox1->TabStop = false;
+			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ForeColor = System::Drawing::Color::White;
-			this->label6->Location = System::Drawing::Point(17, 159);
+			this->label6->Location = System::Drawing::Point(30, 191);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(210, 56);
+			this->label6->Size = System::Drawing::Size(192, 50);
 			this->label6->TabIndex = 3;
 			this->label6->Text = L"Sistema de Almacén\r\ny Ventas";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -796,21 +807,11 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			this->bttn_CambiarCredenciales->UseVisualStyleBackColor = true;
 			this->bttn_CambiarCredenciales->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_CambiarCredenciales_Click);
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"label1.Image")));
-			this->label1->Location = System::Drawing::Point(60, 8);
-			this->label1->MinimumSize = System::Drawing::Size(125, 125);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(125, 125);
-			this->label1->TabIndex = 0;
-			// 
 			// frm_MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(984, 659);
+			this->ClientSize = System::Drawing::Size(984, 661);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->tab_Control);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -836,6 +837,7 @@ private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->incrementador_cantidad))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
