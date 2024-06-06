@@ -145,12 +145,12 @@ namespace GUIEstructuraDeDatos {
 		}
 
 		void borraItem(int id) {
-		//TODO: revisar que se borre correctamente el elemento
-			
+			//TODO: revisar que se borre correctamente el elemento
+
 			itemVenta^ aux_borrar;
 			itemVenta^ anterior = nullptr;
 			aux_borrar = item;
-			while (aux_borrar != nullptr && aux_borrar->producto->Id == id) {
+			while (aux_borrar != nullptr && aux_borrar->producto->Id != id) {
 				anterior = aux_borrar;
 				aux_borrar = aux_borrar->next;
 			}
@@ -463,7 +463,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_realizaVenta
 			// 
-			this->bttn_realizaVenta->Location = System::Drawing::Point(228, 557);
+			this->bttn_realizaVenta->Location = System::Drawing::Point(207, 557);
 			this->bttn_realizaVenta->Name = L"bttn_realizaVenta";
 			this->bttn_realizaVenta->Size = System::Drawing::Size(189, 43);
 			this->bttn_realizaVenta->TabIndex = 2;
@@ -759,9 +759,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->bttn_Borrar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->bttn_Borrar->Location = System::Drawing::Point(207, 450);
+			this->bttn_Borrar->Location = System::Drawing::Point(290, 500);
 			this->bttn_Borrar->Name = L"bttn_Borrar";
-			this->bttn_Borrar->Size = System::Drawing::Size(110, 40);
+			this->bttn_Borrar->Size = System::Drawing::Size(128, 40);
 			this->bttn_Borrar->TabIndex = 11;
 			this->bttn_Borrar->Text = L"Borrar";
 			this->bttn_Borrar->UseVisualStyleBackColor = false;
@@ -770,7 +770,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_Registrar
 			// 
-			this->bttn_Registrar->Location = System::Drawing::Point(384, 450);
+			this->bttn_Registrar->Location = System::Drawing::Point(290, 426);
 			this->bttn_Registrar->Name = L"bttn_Registrar";
 			this->bttn_Registrar->Size = System::Drawing::Size(128, 40);
 			this->bttn_Registrar->TabIndex = 10;
@@ -844,6 +844,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// pictureBox1
 			// 
+			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(48, 34);
 			this->pictureBox1->Name = L"pictureBox1";
@@ -1242,25 +1243,29 @@ namespace GUIEstructuraDeDatos {
 					System::Decimal^ canti_extraida = gcnew Decimal(0.0);
 					canti_extraida = System::Convert::ToDecimal(match->Groups[1]->Value);
 
-					if (!unidad->Equals("")) {
+					if (!unidad->Equals("")) {		// Granel
+
+						if (canti_extraida->CompareTo(System::Decimal::Zero) == 0) {
+							lista->borraItem(id);
+						}
+						if (compruebaCantidad(auxiliar, canti_extraida) == 0) {
+							auxiliar->cantidad = canti_extraida;
+							auxiliar->recalcularSubtotal();
+						}
+					}
+					else if (unidad->Equals("")) {	//Unitario
+
+						canti_extraida = System::Decimal::Truncate(static_cast<System::Decimal>(canti_extraida));
 
 						if (canti_extraida->CompareTo(System::Decimal::Zero) == 0) {
 							lista->borraItem(id);
 						}
 
-						auxiliar->cantidad = canti_extraida;
-						auxiliar->recalcularSubtotal();
-					}
-					else if (unidad->Equals("")) {
-
-						canti_extraida = System::Decimal::Truncate(static_cast<System::Decimal>(canti_extraida));
-
-						if (canti_extraida->CompareTo(System::Decimal::Zero)==0) {
-							lista->borraItem(id);
+						if (compruebaCantidad(auxiliar, canti_extraida) == 0)
+						{
+							auxiliar->cantidad = canti_extraida;
+							auxiliar->recalcularSubtotal();
 						}
-
-						auxiliar->cantidad = canti_extraida;
-						auxiliar->recalcularSubtotal();
 					}
 
 				}
@@ -1369,8 +1374,29 @@ namespace GUIEstructuraDeDatos {
 		return 0; // no se encontró repetición.
 	}
 
-	private: int compruebaCantidad(Producto^ prod, System::Decimal^ cantidad) {
-		return 0;
+	private: int compruebaCantidad(itemVenta^ item, System::Decimal^ cantidad)
+	{
+		Granel^ auxG = dynamic_cast<Granel^>(item->producto);
+		Unitario^ auxU = dynamic_cast<Unitario^>(item->producto);
+		if (auxG != nullptr) {
+			if (auxG->cantidad->CompareTo(cantidad)<0) { // Nueva cantidad inválida
+				MessageBox::Show("Cantidad máxima disponible excedida\n El producto \"" + auxG->Nombre + "\" solo tiene disponibles: " + auxG->cantidad + " " + auxG->unidad);
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		else if (auxU != nullptr) {
+			if (auxU->cantidad < System::Convert::ToInt32(cantidad)) {
+				MessageBox::Show("Cantidad máxima disponible excedida\n El producto \"" + auxU->Nombre + "\" solo tiene disponibles: "+auxU->cantidad+" Unidades");
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		return -1;
 	}
 
 	private: System::Void bttn_cancelarCambiosVenta_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1380,6 +1406,6 @@ namespace GUIEstructuraDeDatos {
 		lista->vaciarLista();
 		DibujaListaVenta();
 	}
-	
+
 	};
 }
