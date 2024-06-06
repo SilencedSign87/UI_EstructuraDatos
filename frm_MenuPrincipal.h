@@ -145,6 +145,8 @@ namespace GUIEstructuraDeDatos {
 		}
 
 		void borraItem(int id) {
+		//TODO: revisar que se borre correctamente el elemento
+			
 			itemVenta^ aux_borrar;
 			itemVenta^ anterior = nullptr;
 			aux_borrar = item;
@@ -1237,11 +1239,12 @@ namespace GUIEstructuraDeDatos {
 				System::String^ unidad = auxiliar->unidad;
 
 				if (match->Success) {
-					System::Decimal^ canti_extraida = System::Convert::ToDecimal(match->Groups[1]->Value);
+					System::Decimal^ canti_extraida = gcnew Decimal(0.0);
+					canti_extraida = System::Convert::ToDecimal(match->Groups[1]->Value);
 
 					if (!unidad->Equals("")) {
 
-						if (canti_extraida == System::Decimal::Zero) {
+						if (canti_extraida->CompareTo(System::Decimal::Zero) == 0) {
 							lista->borraItem(id);
 						}
 
@@ -1249,9 +1252,10 @@ namespace GUIEstructuraDeDatos {
 						auxiliar->recalcularSubtotal();
 					}
 					else if (unidad->Equals("")) {
+
 						canti_extraida = System::Decimal::Truncate(static_cast<System::Decimal>(canti_extraida));
 
-						if (canti_extraida== System::Decimal::Zero) {
+						if (canti_extraida->CompareTo(System::Decimal::Zero)==0) {
 							lista->borraItem(id);
 						}
 
