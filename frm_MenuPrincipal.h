@@ -66,6 +66,7 @@ namespace GUIEstructuraDeDatos {
 			this->subtotal = System::Decimal::Multiply(static_cast<System::Decimal>(this->cantidad), static_cast<System::Decimal>(this->producto->Precio));
 		}
 	};
+
 	private: ref class ListaVenta {
 	public:
 		itemVenta^ item;
@@ -131,13 +132,13 @@ namespace GUIEstructuraDeDatos {
 		itemVenta^ getItem(int id) {
 			itemVenta^ aux = gcnew itemVenta();
 			aux = item;
-			while (aux!=nullptr)
+			while (aux != nullptr)
 			{
 				if (aux->producto->Id == id) {
 					return aux;
 				}
 				else {
-					aux=aux->next;
+					aux = aux->next;
 				}
 			}
 			return nullptr;
@@ -163,6 +164,15 @@ namespace GUIEstructuraDeDatos {
 				anterior->next = aux_borrar->next;
 				longitud--;
 				delete aux_borrar;
+			}
+		}
+
+		void vaciarLista() {
+			while (longitud > 0) {
+				itemVenta^ aux = item;
+				item = aux->next;
+				delete aux;
+				longitud--;
 			}
 		}
 
@@ -259,12 +269,22 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ data_precio;
 	private: System::Windows::Forms::TableLayoutPanel^ tablePanel_Registro;
 
+
+
+
+
+	private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_nombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
-	private: System::Windows::Forms::Button^ bttn_cancelarCambiosVenta;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
+
+
+
 
 
 
@@ -398,12 +418,13 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_cancelarCambiosVenta
 			// 
-			this->bttn_cancelarCambiosVenta->Location = System::Drawing::Point(479, 131);
+			this->bttn_cancelarCambiosVenta->Location = System::Drawing::Point(479, 118);
 			this->bttn_cancelarCambiosVenta->Name = L"bttn_cancelarCambiosVenta";
 			this->bttn_cancelarCambiosVenta->Size = System::Drawing::Size(199, 39);
 			this->bttn_cancelarCambiosVenta->TabIndex = 8;
 			this->bttn_cancelarCambiosVenta->Text = L"Cancelar Cambios";
 			this->bttn_cancelarCambiosVenta->UseVisualStyleBackColor = true;
+			this->bttn_cancelarCambiosVenta->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_cancelarCambiosVenta_Click);
 			// 
 			// numero_total_venta
 			// 
@@ -427,6 +448,7 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_cancelaVenta->TabIndex = 6;
 			this->bttn_cancelaVenta->Text = L"Borrar";
 			this->bttn_cancelaVenta->UseVisualStyleBackColor = false;
+			this->bttn_cancelaVenta->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_cancelaVenta_Click);
 			// 
 			// label5
 			// 
@@ -478,9 +500,11 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// c_cantidad
 			// 
+			this->c_cantidad->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
 			this->c_cantidad->HeaderText = L"Cantidad";
 			this->c_cantidad->MinimumWidth = 6;
 			this->c_cantidad->Name = L"c_cantidad";
+			this->c_cantidad->Resizable = System::Windows::Forms::DataGridViewTriState::True;
 			this->c_cantidad->Width = 150;
 			// 
 			// c_subtotal
@@ -493,9 +517,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_guardaCambiosVenta
 			// 
-			this->bttn_guardaCambiosVenta->Location = System::Drawing::Point(482, 79);
+			this->bttn_guardaCambiosVenta->Location = System::Drawing::Point(479, 66);
 			this->bttn_guardaCambiosVenta->Name = L"bttn_guardaCambiosVenta";
-			this->bttn_guardaCambiosVenta->Size = System::Drawing::Size(196, 39);
+			this->bttn_guardaCambiosVenta->Size = System::Drawing::Size(199, 39);
 			this->bttn_guardaCambiosVenta->TabIndex = 3;
 			this->bttn_guardaCambiosVenta->Text = L"Guardar Cambios";
 			this->bttn_guardaCambiosVenta->UseVisualStyleBackColor = true;
@@ -554,7 +578,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_cancelarCambios
 			// 
-			this->bttn_cancelarCambios->Location = System::Drawing::Point(6, 578);
+			this->bttn_cancelarCambios->Location = System::Drawing::Point(76, 575);
 			this->bttn_cancelarCambios->Margin = System::Windows::Forms::Padding(2);
 			this->bttn_cancelarCambios->Name = L"bttn_cancelarCambios";
 			this->bttn_cancelarCambios->Size = System::Drawing::Size(155, 30);
@@ -565,7 +589,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_actualizarDatosTabla
 			// 
-			this->bttn_actualizarDatosTabla->Location = System::Drawing::Point(520, 578);
+			this->bttn_actualizarDatosTabla->Location = System::Drawing::Point(440, 575);
 			this->bttn_actualizarDatosTabla->Margin = System::Windows::Forms::Padding(2);
 			this->bttn_actualizarDatosTabla->Name = L"bttn_actualizarDatosTabla";
 			this->bttn_actualizarDatosTabla->Size = System::Drawing::Size(179, 30);
@@ -733,7 +757,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->bttn_Borrar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->bttn_Borrar->Location = System::Drawing::Point(371, 409);
+			this->bttn_Borrar->Location = System::Drawing::Point(207, 450);
 			this->bttn_Borrar->Name = L"bttn_Borrar";
 			this->bttn_Borrar->Size = System::Drawing::Size(110, 40);
 			this->bttn_Borrar->TabIndex = 11;
@@ -744,7 +768,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// bttn_Registrar
 			// 
-			this->bttn_Registrar->Location = System::Drawing::Point(218, 409);
+			this->bttn_Registrar->Location = System::Drawing::Point(384, 450);
 			this->bttn_Registrar->Name = L"bttn_Registrar";
 			this->bttn_Registrar->Size = System::Drawing::Size(128, 40);
 			this->bttn_Registrar->TabIndex = 10;
@@ -956,16 +980,17 @@ namespace GUIEstructuraDeDatos {
 		cambiarCredencial->Show();
 		this->Hide();
 	}
-		   //----------------------------------------------------------------------------------------------------------------- cuando el texto cambia
+		   //---------------------------------------------------------------------------------------------------- cuando el texto cambia
 	private: System::Void txt_busqueda_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
 		list_busqueda->Items->Clear();
-
-		if (txt_busqueda->Text->Length < 1) {
+		list_busqueda->Enabled = true;
+		if (txt_busqueda->Text->Length < 2) {
 			return;
 		}
 
 		System::Collections::Generic::List<Producto^ >^ aux = Datos::Instance->buscarDinamico(txt_busqueda->Text);
+
 		if (aux != nullptr)
 		{
 			for each (Producto ^ p in aux)
@@ -973,12 +998,8 @@ namespace GUIEstructuraDeDatos {
 				list_busqueda->Items->Add(p->Nombre);
 			}
 		}
-		else
-		{
-
-		}
 	}
-		   //-------------------------------------------------------------------------------------------------------------------
+		   //--------------------------------------------------------------------------------------------------------
 	private: System::Void txt_busqueda_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		txt_busqueda->Text = "";
@@ -1112,14 +1133,17 @@ namespace GUIEstructuraDeDatos {
 		}
 
 	}
+
 	private: void Borrar() {
 		incrementador_cantidad->Value = 0;
 		incrementador_precio->Value = 0;
 		txt_prodName->Text = "";
+		seleccionador_unidad->SelectedIndex = 0;;
 		seleccionador_unidad->Text = "Seleccione una unidad...";
 		L_unidadPrecio->Text = "";
 		L_unidad->Text = "";
 	}
+
 		   // ---------------------------------------------------------------------------------------------------- Guarda los cambios
 	private: System::Void bttn_actualizarDatosTabla_Click(System::Object^ sender, System::EventArgs^ e)
 	{
@@ -1178,6 +1202,7 @@ namespace GUIEstructuraDeDatos {
 		MessageBox::Show("Datos actualizados\n(Si se le notifico un error, ese producto no se modificó)");
 		delete regex;
 	}
+		   //------------------------------------------------------------ Boton de cancelar cambios lista
 	private: System::Void bttn_cancelarCambios_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		Tabla_productos->Rows->Clear(); //limpia los datos
@@ -1196,7 +1221,7 @@ namespace GUIEstructuraDeDatos {
 			}
 		}
 	}
-		   //------------------------------------- click del boton de guardad cambios en Ventas -------------------------------------------------
+		   //------------------------------------- click del boton de guardar cambios en Ventas -------------------------------------------------
 	private: System::Void bttn_añadir2Lista_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		System::Text::RegularExpressions::Regex^ regex = gcnew System::Text::RegularExpressions::Regex("^\\s*(\\d+(?:\\.\\d+)?)\\s*(\\w*)\\s*$");
@@ -1215,18 +1240,21 @@ namespace GUIEstructuraDeDatos {
 					System::Decimal^ canti_extraida = System::Convert::ToDecimal(match->Groups[1]->Value);
 
 					if (!unidad->Equals("")) {
-						if (canti_extraida->Equals(0)) {
+
+						if (canti_extraida == System::Decimal::Zero) {
 							lista->borraItem(id);
 						}
+
 						auxiliar->cantidad = canti_extraida;
 						auxiliar->recalcularSubtotal();
 					}
 					else if (unidad->Equals("")) {
 						canti_extraida = System::Decimal::Truncate(static_cast<System::Decimal>(canti_extraida));
 
-						if (canti_extraida->Equals(0)) {
+						if (canti_extraida== System::Decimal::Zero) {
 							lista->borraItem(id);
 						}
+
 						auxiliar->cantidad = canti_extraida;
 						auxiliar->recalcularSubtotal();
 					}
@@ -1240,26 +1268,47 @@ namespace GUIEstructuraDeDatos {
 		   //------------------------------------- doble click en la lista de busqueda -------------------------------------------------
 	private: System::Void list_busqueda_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-		System::String^ aux = list_busqueda->SelectedItem->ToString()->ToLower();
+		int index = list_busqueda->IndexFromPoint(e->Location);
+		if (index == -1) {
+			txt_busqueda->Text = "";
+			return;
+		}
+
+		System::String^ aux = list_busqueda->SelectedItem->ToString();
+
+		aux = aux->ToLower();
+
+		if (compruebaRepeticion(aux) == 1) {
+			list_busqueda->Enabled = false;
+			txt_busqueda->Text = "";
+			return;
+		}
 
 		Producto^ productoAux = Datos::Instance->buscarProductoNombre(aux);
+
 		if (productoAux != nullptr) {
 			Granel^ tempGra = dynamic_cast<Granel^>(productoAux);
 			if (tempGra != nullptr) {
 				lista->agregarGranel(tempGra, 1);
 				DibujaListaVenta();
+				list_busqueda->Enabled = false;
+				txt_busqueda->Text = "";
 				return;
 			}
 			Unitario^ tempgUni = dynamic_cast<Unitario^>(productoAux);
 			if (tempgUni != nullptr) {
 				lista->agregarUnitario(tempgUni, 1);
 				DibujaListaVenta();
+				list_busqueda->Enabled = false;
+				txt_busqueda->Text = "";
 				return;
 			}
 
 		}
 		else {
 			MessageBox::Show("Ocurrio un error inesperado, nada a cambiado");
+			list_busqueda->Enabled = false;
+			txt_busqueda->Text = "";
 			return;
 		}
 
@@ -1268,6 +1317,8 @@ namespace GUIEstructuraDeDatos {
 
 		ListaVenta^ temp = lista;
 		itemVenta^ itemActual = temp->item;
+
+		System::Decimal total;
 
 		tabla_venta->Rows->Clear();
 
@@ -1278,6 +1329,9 @@ namespace GUIEstructuraDeDatos {
 			System::Decimal^ subtotal = itemActual->subtotal;
 			System::String^ unidad = itemActual->unidad;
 			System::String^ cantidad_compuesta;
+
+			total = System::Decimal::Add(total, static_cast<System::Decimal>(subtotal));
+
 			if (!unidad->Equals("")) {
 				cantidad_compuesta = cantidad->ToString() + " " + unidad;
 			}
@@ -1290,6 +1344,38 @@ namespace GUIEstructuraDeDatos {
 
 			itemActual = itemActual->next; //siguiente item en la lista
 		}
+
+		numero_total_venta->Value = total;
 	}
+	private: int compruebaRepeticion(System::String^ nombre) {
+		int idAux = Datos::Instance->nombre_Id(nombre);
+
+		itemVenta^ temp = gcnew itemVenta();
+		temp = lista->item;
+
+		if (idAux != -1) {
+			while (temp != nullptr) {
+				if (temp->producto->Id == idAux) {// es producto seleccionado ya está en la lista
+					MessageBox::Show("El producto ya se encuentra en la lista, si desea cambiar la cantidad hágalo en la tabla de ventas");
+					return 1; // se encontró una repetición
+				}
+				temp = temp->next;
+			}
+		}
+		return 0; // no se encontró repetición.
+	}
+
+	private: int compruebaCantidad(Producto^ prod, System::Decimal^ cantidad) {
+		return 0;
+	}
+
+	private: System::Void bttn_cancelarCambiosVenta_Click(System::Object^ sender, System::EventArgs^ e) {
+		DibujaListaVenta();
+	}
+	private: System::Void bttn_cancelaVenta_Click(System::Object^ sender, System::EventArgs^ e) {
+		lista->vaciarLista();
+		DibujaListaVenta();
+	}
+	
 	};
 }

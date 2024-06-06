@@ -26,6 +26,7 @@ private:
 
 	Nodo^ raiz; //raiz del arbol
 	int cantidad;
+
 	System::Collections::Generic::Dictionary<System::String^, int>^ nombre2id; //dicionadio de nombres a id's
 
 
@@ -175,6 +176,15 @@ public:
 	void añadeProducto(Producto^ producto) {
 		raiz = insertarNuevo(raiz, producto);
 		this->nombre2id[producto->Nombre] = producto->Id;
+	}
+
+	int nombre_Id(System::String^ nombre) {
+		if (nombre2id->ContainsKey(nombre)) {
+			return nombre2id[nombre];
+		}
+		else {
+			return -1;
+		}
 	}
 
 	Producto^ buscarProductoId(int id) {
