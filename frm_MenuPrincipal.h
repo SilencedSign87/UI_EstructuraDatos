@@ -1051,9 +1051,31 @@ namespace GUIEstructuraDeDatos {
 		   //--------------------------------------------------------------------------------------------------- realizar venta
 	private: System::Void bttn_realizaVenta_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+		System::Decimal totalVenta = numero_total_venta->Value;
+		itemVenta^ temp = lista->item;
 		for (int i = 0; i < lista->longitud; i++) { // Recorre la lista
+			Granel^ refG = dynamic_cast<Granel^>(temp->producto);
 
+			Unitario^ refU = dynamic_cast<Unitario^>(temp->producto);
+
+			if (refG != nullptr) {
+				refG->cantidad = System::Decimal::Add(System::Decimal::Negate(static_cast<System::Decimal>(temp->cantidad)), static_cast<System::Decimal>(refG->cantidad));
+				if (refG->cantidad->CompareTo(System::Decimal::Zero) == 0) {
+					Datos::Instance->borrarPorId(refG->Id);
+				}
+			}
+			else if (refU != nullptr) {
+				refU->cantidad -= System::Convert::ToInt32(temp->cantidad);
+				if (refU->cantidad == 0) {
+					Datos::Instance->borrarPorId(refU->Id);
+				}
+			}
+
+			temp = temp->next;
 		}
+		MessageBox::Show("Venta realizada correctamente, total a cobrar: S/." + totalVenta);
+		lista->vaciarLista();
+		DibujaListaVenta();
 	}
 		   //---------------------------------------------------------------------------------------------------
 	private: System::Void seleccionador_unidad_SelectedItemChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -1137,7 +1159,7 @@ namespace GUIEstructuraDeDatos {
 		L_unidad->Text = "";
 	}
 
-	// ---------------------------------------------------------------------------------------------------- Guarda los cambios tabla de productos
+		   // ---------------------------------------------------------------------------------------------------- Guarda los cambios tabla de productos
 	private: System::Void bttn_actualizarDatosTabla_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		System::Collections::Generic::List<Producto^>^ productos = Datos::Instance->obtenerTodosProducto(); //obten los productos
