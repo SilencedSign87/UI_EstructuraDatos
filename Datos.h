@@ -123,6 +123,73 @@ private:
 
 		return nodo;
 	}
+	//--------------------------------------------------------------------------------------- Valor minimo de un nodo
+	Nodo^ minValorNodo(Nodo^ nodo) {
+		Nodo^ actual = nodo;
+		while (actual->izquierda != nullptr) {
+			actual = actual->izquierda;
+		}
+		return actual;
+	}
+	//--------------------------------------------------------------------------------------- Eliminar un nodo
+	Nodo^ borrarNodo(Nodo^ nodo, int id) {
+		if (nodo == nullptr) {
+			return nodo;
+		}
+		if (id < nodo->producto->Id) {
+			nodo->izquierda = borrarNodo(nodo->izquierda, id);
+		}
+		else if (nodo->producto->Id < id) {
+			nodo->derecha = borrarNodo(nodo->derecha, id);
+		}
+		else {
+			if (nodo->izquierda == nullptr || nodo->derecha == nullptr) {
+				Nodo^ temp = nodo->izquierda ? nodo->izquierda : nodo->derecha;
+
+				if (temp == nullptr) {
+					temp = nodo;
+					nodo = nullptr;
+				}
+				else {
+					nodo = temp;
+				}
+
+				delete temp;
+			}
+			else {
+				Nodo^ temp = minValorNodo(nodo->izquierda);
+				nodo->producto = temp->producto;
+				
+				nodo->derecha = borrarNodo(nodo->derecha, temp->producto->Id);
+			}
+		}
+
+		if (nodo == nullptr) {
+			return nullptr;
+		}
+
+		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda),getAltura(nodo->derecha));
+
+		int balance = getBalance(nodo);
+
+		if (balance > 1 && getBalance(nodo->izquierda) >= 0) {
+			return rotarDerecha(nodo);
+		}
+		if (balance > 1 && getBalance(nodo->izquierda) < 0) {
+			nodo->izquierda = rotarIzquierda(nodo->izquierda);
+			return rotarDerecha(nodo);
+		}
+		if (balance < -1 && getBalance(nodo->derecha) <= 0) {
+			return rotarIzquierda(nodo);
+		}
+		if (balance < -1 && getBalance(nodo->derecha)>0) {
+			nodo->derecha = rotarDerecha(nodo->derecha);
+			return rotarIzquierda(nodo);
+		}
+
+		return nodo;
+
+	}
 
 	//--------------------------------------------------------------------------------------- Buscar
 
@@ -155,6 +222,7 @@ private:
 		}
 	}
 
+
 public:
 
 	//datos publicos
@@ -178,6 +246,25 @@ public:
 		this->nombre2id[producto->Nombre] = producto->Id;
 	}
 
+	void borrarPorId(int id) {
+		raiz = borrarNodo(raiz, id);
+
+		for each (auto kvp in nombre2id) {
+			if (kvp.Value == id) {
+				nombre2id->Remove(kvp.Key);
+				break;
+			}
+		}
+	}
+
+	void borrarPorNombre(System::String^ nombre) {
+		nombre = nombre->ToLower();
+		if (nombre2id->ContainsKey(nombre)) {
+			int id = nombre2id[nombre];
+			borrarPorId(id);
+		}
+	}
+
 	int nombre_Id(System::String^ nombre) {
 		if (nombre2id->ContainsKey(nombre)) {
 			return nombre2id[nombre];
@@ -195,6 +282,15 @@ public:
 	Producto^ buscarProductoNombre(System::String^ nombre) {
 		Nodo^ aux = buscarNodoNombre(raiz, nombre);
 		return aux->producto;
+	}
+
+	void actualizaDatos(System::String^ nuevoNombre, int id) {
+		Nodo^ nodo = buscarNodoId(raiz, id);
+		if (nodo != nullptr) {
+			System::String^ antiguoNombre = nodo->producto->Nombre;
+			nombre2id->Remove(antiguoNombre);
+			nombre2id[nuevoNombre] = id;
+		}
 	}
 
 	System::Collections::Generic::List<Producto^ >^ buscarDinamico(System::String^ segmento) {

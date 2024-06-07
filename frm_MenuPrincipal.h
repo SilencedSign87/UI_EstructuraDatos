@@ -1019,21 +1019,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Void tab_Control_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 	{
 		if (tab_Control->SelectedIndex == 1) { //selecciona la lista de productos
-			Tabla_productos->Rows->Clear(); //limpia los datos
-			System::Collections::Generic::List<Producto^>^ productos = Datos::Instance->obtenerTodosProducto();
-			for each (Producto ^ prod in  productos) {
-				Granel^ gra = dynamic_cast<Granel^>(prod);
-				if (gra != nullptr) { //es granel
-					System::String^ cantidad = gra->cantidad->ToString() + " " + gra->unidad;
-					Tabla_productos->Rows->Add(gra->Nombre, gra->Id, cantidad, gra->Precio);
-				}
-				else {
-					Unitario^ un = dynamic_cast<Unitario^>(prod);
-					if (un != nullptr) { //es Unitario
-						Tabla_productos->Rows->Add(un->Nombre, un->Id, un->cantidad.ToString(), un->Precio);
-					}
-				}
-			}
+			dibujaListaProducto();
 		}
 		if (tab_Control->SelectedIndex != 2)
 		{
@@ -1062,10 +1048,14 @@ namespace GUIEstructuraDeDatos {
 		}
 
 	}
-	private: System::Void bttn_realizaVenta_Click(System::Object^ sender, System::EventArgs^ e) //realizar venta
+		   //--------------------------------------------------------------------------------------------------- realizar venta
+	private: System::Void bttn_realizaVenta_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+		for (int i = 0; i < lista->longitud; i++) { // Recorre la lista
 
+		}
 	}
+		   //---------------------------------------------------------------------------------------------------
 	private: System::Void seleccionador_unidad_SelectedItemChanged(System::Object^ sender, System::EventArgs^ e) {
 		switch (seleccionador_unidad->SelectedIndex)
 		{
@@ -1147,7 +1137,7 @@ namespace GUIEstructuraDeDatos {
 		L_unidad->Text = "";
 	}
 
-		   // ---------------------------------------------------------------------------------------------------- Guarda los cambios
+	// ---------------------------------------------------------------------------------------------------- Guarda los cambios tabla de productos
 	private: System::Void bttn_actualizarDatosTabla_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		System::Collections::Generic::List<Producto^>^ productos = Datos::Instance->obtenerTodosProducto(); //obten los productos
@@ -1176,22 +1166,34 @@ namespace GUIEstructuraDeDatos {
 
 					Granel^ auxG = dynamic_cast<Granel^>(e); //castealo a un granel
 
+					if (cantidadG->CompareTo(System::Decimal::Zero) == 0) { // Si la cantidad es 0 borra el producto
+						Datos::Instance->borrarPorId(id);
+					}
+
 					if (auxG != nullptr) {
 						auxG->cantidad = cantidadG;
 						auxG->Nombre = nombre;
 						auxG->Precio = precio;
 						auxG->unidad = unidad;
+						Datos::Instance->actualizaDatos(nombre, id);
 					}
 					delete e;
 				}
 				else if (unidad->Equals("")) { //Es unitario
 					cantidadU = System::Convert::ToInt32(Tabla_productos->Rows[i]->Cells["data_Cantidad"]->Value);
 					Producto^ e = Datos::Instance->buscarProductoId(id);
+
 					Unitario^ auxU = dynamic_cast<Unitario^>(e);
+
+					if (cantidadU == 0) { // Si la cantidad es 0 borra el producto
+						Datos::Instance->borrarPorId(id);
+					}
+
 					if (auxU != nullptr) {
 						auxU->Nombre = nombre;
 						auxU->cantidad = cantidadU;
 						auxU->Precio = precio;
+						Datos::Instance->actualizaDatos(nombre, id);
 					}
 					delete e;
 				}
@@ -1203,6 +1205,7 @@ namespace GUIEstructuraDeDatos {
 
 		}
 		MessageBox::Show("Datos actualizados\n(Si se le notifico un error, ese producto no se modificó)");
+		dibujaListaProducto();
 		delete regex;
 	}
 		   //------------------------------------------------------------ Boton de cancelar cambios lista
@@ -1379,7 +1382,7 @@ namespace GUIEstructuraDeDatos {
 		Granel^ auxG = dynamic_cast<Granel^>(item->producto);
 		Unitario^ auxU = dynamic_cast<Unitario^>(item->producto);
 		if (auxG != nullptr) {
-			if (auxG->cantidad->CompareTo(cantidad)<0) { // Nueva cantidad inválida
+			if (auxG->cantidad->CompareTo(cantidad) < 0) { // Nueva cantidad inválida
 				MessageBox::Show("Cantidad máxima disponible excedida\n El producto \"" + auxG->Nombre + "\" solo tiene disponibles: " + auxG->cantidad + " " + auxG->unidad);
 				return 1;
 			}
@@ -1389,7 +1392,7 @@ namespace GUIEstructuraDeDatos {
 		}
 		else if (auxU != nullptr) {
 			if (auxU->cantidad < System::Convert::ToInt32(cantidad)) {
-				MessageBox::Show("Cantidad máxima disponible excedida\n El producto \"" + auxU->Nombre + "\" solo tiene disponibles: "+auxU->cantidad+" Unidades");
+				MessageBox::Show("Cantidad máxima disponible excedida\n El producto \"" + auxU->Nombre + "\" solo tiene disponibles: " + auxU->cantidad + " Unidades");
 				return 1;
 			}
 			else {
@@ -1405,6 +1408,24 @@ namespace GUIEstructuraDeDatos {
 	private: System::Void bttn_cancelaVenta_Click(System::Object^ sender, System::EventArgs^ e) {
 		lista->vaciarLista();
 		DibujaListaVenta();
+	}
+
+	private: void dibujaListaProducto() {
+		Tabla_productos->Rows->Clear(); //limpia los datos
+		System::Collections::Generic::List<Producto^>^ productos = Datos::Instance->obtenerTodosProducto();
+		for each (Producto ^ prod in  productos) {
+			Granel^ gra = dynamic_cast<Granel^>(prod);
+			if (gra != nullptr) { //es granel
+				System::String^ cantidad = gra->cantidad->ToString() + " " + gra->unidad;
+				Tabla_productos->Rows->Add(gra->Nombre, gra->Id, cantidad, gra->Precio);
+			}
+			else {
+				Unitario^ un = dynamic_cast<Unitario^>(prod);
+				if (un != nullptr) { //es Unitario
+					Tabla_productos->Rows->Add(un->Nombre, un->Id, un->cantidad.ToString(), un->Precio);
+				}
+			}
+		}
 	}
 
 	};
