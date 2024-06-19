@@ -4,6 +4,7 @@
 #include "Producto.hpp"
 #include "Granel.hpp"
 #include "Unitario.hpp"
+#include "BaseDatos.h"
 
 public ref class Datos
 {
@@ -31,6 +32,7 @@ private:
 
 
 	static Datos^ instance; //instancia estática
+	AdministradorDB^ dbManager;
 
 	Datos() //constructor privado
 	{
@@ -39,6 +41,41 @@ private:
 		this->raiz = nullptr;
 		this->nombre2id = gcnew System::Collections::Generic::Dictionary<System::String^, int>();
 		this->cantidad = 0;
+		this->dbManager = gcnew AdministradorDB("Inventario.db");
+		dbManager->abreConexion();
+		dbManager->creaTabla();
+		CargarDatos();
+	}
+	//--------------------------------------------------------------------------------------- Carga los datos de la Base de Datos
+	void CargarDatos()
+	{
+		List<Producto^>^ productosGranel = dbManager->LoadGranel();
+		for each (Producto ^ producto in productosGranel)
+		{
+			añadeProducto(producto);
+		}
+
+		List<Producto^>^ productosUnitario = dbManager->LoadUnitario();
+		for each (Producto ^ producto in productosUnitario)
+		{
+			añadeProducto(producto);
+		}
+	}
+	//--------------------------------------------------------------------------------------- Guarda los datos a la Base de Datos
+	void GuardarDatos()
+	{
+		List<Producto^>^ productos = obtenerTodosProducto();
+		for each (Producto ^ producto in productos)
+		{
+			if (Granel^ granel = dynamic_cast<Granel^>(producto))
+			{
+				dbManager->InsertGranel(granel->Id, granel->Nombre, granel->Precio, granel->cantidad, granel->unidad);
+			}
+			else if (Unitario^ unitario = dynamic_cast<Unitario^>(producto))
+			{
+				dbManager->InsertUnitario(unitario->Id, unitario->Nombre, unitario->Precio, unitario->cantidad);
+			}
+		}
 	}
 
 	//--------------------------------------------------------------------------------------- obtener datos de los nodos
@@ -159,7 +196,7 @@ private:
 			else {
 				Nodo^ temp = minValorNodo(nodo->izquierda);
 				nodo->producto = temp->producto;
-				
+
 				nodo->derecha = borrarNodo(nodo->derecha, temp->producto->Id);
 			}
 		}
@@ -168,7 +205,7 @@ private:
 			return nullptr;
 		}
 
-		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda),getAltura(nodo->derecha));
+		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda), getAltura(nodo->derecha));
 
 		int balance = getBalance(nodo);
 
@@ -241,6 +278,12 @@ public:
 			return instance;
 		}
 	}
+
+	~Datos() {
+		GuardarDatos();
+		dbManager->cierraConexion();
+	}
+
 	void añadeProducto(Producto^ producto) {
 		raiz = insertarNuevo(raiz, producto);
 		this->nombre2id[producto->Nombre] = producto->Id;
