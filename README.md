@@ -1,11 +1,16 @@
 # UI_EstructuraDatos
 
-# Confirgurar visual Studio
+# Prerequisitos (Visual Studio)
 
-# tener c++/cli
+## Tener c++/cli
 asegurate que tengas Compatibilidad con c++/cli  para herramientas  de compilación v143 (más reciente) instalado:
 
 ![image](https://github.com/SilencedSign87/UI_EstructuraDatos/assets/134737468/ecbcd847-4105-4755-982c-3bf993fced42)
+
+## Tener el paquete de compatibilidad de .NET Framework 4.6
+
+![image](https://github.com/SilencedSign87/UI_EstructuraDatos/assets/134737468/b45aa6a5-4925-48f5-aca6-2a0703fafff4)
+
 
 # Confirgurar el proyecto en visual studio
 
