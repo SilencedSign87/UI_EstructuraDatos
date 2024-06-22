@@ -1190,6 +1190,7 @@ namespace GUIEstructuraDeDatos {
 
 					if (cantidadG->CompareTo(System::Decimal::Zero) == 0) { // Si la cantidad es 0 borra el producto
 						Datos::Instance->borrarPorId(id);
+						Datos::Instance->borrarGranelDB(id);
 					}
 
 					if (auxG != nullptr) {
@@ -1209,6 +1210,7 @@ namespace GUIEstructuraDeDatos {
 
 					if (cantidadU == 0) { // Si la cantidad es 0 borra el producto
 						Datos::Instance->borrarPorId(id);
+						Datos::Instance->borrarUnitarioDB(id);
 					}
 
 					if (auxU != nullptr) {
@@ -1227,6 +1229,7 @@ namespace GUIEstructuraDeDatos {
 
 		}
 		MessageBox::Show("Datos actualizados\n(Si se le notifico un error, ese producto no se modificó)");
+		Datos::Instance->GuardarDatos();
 		dibujaListaProducto();
 		delete regex;
 	}
@@ -1272,6 +1275,7 @@ namespace GUIEstructuraDeDatos {
 
 						if (canti_extraida->CompareTo(System::Decimal::Zero) == 0) {
 							lista->borraItem(id);
+							Datos::Instance->borrarGranelDB(id);
 						}
 						if (compruebaCantidad(auxiliar, canti_extraida) == 0) {
 							auxiliar->cantidad = canti_extraida;
@@ -1284,6 +1288,7 @@ namespace GUIEstructuraDeDatos {
 
 						if (canti_extraida->CompareTo(System::Decimal::Zero) == 0) {
 							lista->borraItem(id);
+							Datos::Instance->borrarUnitarioDB(id);
 						}
 
 						if (compruebaCantidad(auxiliar, canti_extraida) == 0)
@@ -1297,6 +1302,7 @@ namespace GUIEstructuraDeDatos {
 			}
 
 		}
+		Datos::Instance->GuardarDatos();
 		DibujaListaVenta();
 	}
 		   //------------------------------------- doble click en la lista de busqueda -------------------------------------------------

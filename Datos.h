@@ -46,37 +46,6 @@ private:
 		dbManager->creaTabla();
 		CargarDatos();
 	}
-	//--------------------------------------------------------------------------------------- Carga los datos de la Base de Datos
-	void CargarDatos()
-	{
-		List<Producto^>^ productosGranel = dbManager->LoadGranel();
-		for each (Producto ^ producto in productosGranel)
-		{
-			añadeProducto(producto);
-		}
-
-		List<Producto^>^ productosUnitario = dbManager->LoadUnitario();
-		for each (Producto ^ producto in productosUnitario)
-		{
-			añadeProducto(producto);
-		}
-	}
-	//--------------------------------------------------------------------------------------- Guarda los datos a la Base de Datos
-	void GuardarDatos()
-	{
-		List<Producto^>^ productos = obtenerTodosProducto();
-		for each (Producto ^ producto in productos)
-		{
-			if (Granel^ granel = dynamic_cast<Granel^>(producto))
-			{
-				dbManager->InsertGranel(granel->Id, granel->Nombre, granel->Precio, granel->cantidad, granel->unidad);
-			}
-			else if (Unitario^ unitario = dynamic_cast<Unitario^>(producto))
-			{
-				dbManager->InsertUnitario(unitario->Id, unitario->Nombre, unitario->Precio, unitario->cantidad);
-			}
-		}
-	}
 
 	//--------------------------------------------------------------------------------------- obtener datos de los nodos
 
@@ -357,10 +326,50 @@ public:
 		return productos;
 	}
 
+
 	property int CantidadProducto {
 		int get() {
 			return cantidad;
 		}
+	}
+
+	//--------------------------------------------------------------------------------------- Carga los datos de la Base de Datos
+	void CargarDatos()
+	{
+		List<Producto^>^ productosGranel = dbManager->LoadGranel();
+		for each (Producto ^ producto in productosGranel)
+		{
+			añadeProducto(producto);
+		}
+
+		List<Producto^>^ productosUnitario = dbManager->LoadUnitario();
+		for each (Producto ^ producto in productosUnitario)
+		{
+			añadeProducto(producto);
+		}
+	}
+	//--------------------------------------------------------------------------------------- Guarda los datos a la Base de Datos
+	void GuardarDatos()
+	{
+		List<Producto^>^ productos = obtenerTodosProducto();
+		for each (Producto ^ producto in productos)
+		{
+			if (Granel^ granel = dynamic_cast<Granel^>(producto))
+			{
+				dbManager->InsertGranel(granel->Id, granel->Nombre, granel->Precio, granel->cantidad, granel->unidad);
+			}
+			else if (Unitario^ unitario = dynamic_cast<Unitario^>(producto))
+			{
+				dbManager->InsertUnitario(unitario->Id, unitario->Nombre, unitario->Precio, unitario->cantidad);
+			}
+		}
+	}
+
+	void borrarGranelDB(int id) {
+		dbManager->DeleteGranel(id);
+	}
+	void borrarUnitarioDB(int id) {
+		dbManager->DeleteUnitario(id);
 	}
 
 };
