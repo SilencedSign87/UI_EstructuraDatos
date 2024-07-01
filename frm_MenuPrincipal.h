@@ -283,6 +283,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
+private: System::Windows::Forms::Button^ button1;
 
 
 
@@ -372,6 +373,7 @@ namespace GUIEstructuraDeDatos {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -831,6 +833,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
+			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->pictureBox1);
 			this->panel1->Controls->Add(this->label6);
 			this->panel1->Controls->Add(this->bttn_salir);
@@ -887,6 +890,15 @@ namespace GUIEstructuraDeDatos {
 			this->bttn_CambiarCredenciales->Text = L"Cambiar Credenciales";
 			this->bttn_CambiarCredenciales->UseVisualStyleBackColor = true;
 			this->bttn_CambiarCredenciales->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_CambiarCredenciales_Click);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(48, 312);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(155, 70);
+			this->button1->TabIndex = 5;
+			this->button1->Text = L"Historial de Ventas";
+			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// frm_MenuPrincipal
 			// 

@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="frm_CambiarCred.cpp" />
+    <ClCompile Include="frm_Historial.cpp" />
     <ClCompile Include="frm_Login.cpp" />
     <ClCompile Include="frm_MenuPrincipal.cpp" />
   </ItemGroup>
@@ -133,6 +134,9 @@
     <ClInclude Include="BaseDatos.h" />
     <ClInclude Include="Datos.h" />
     <ClInclude Include="frm_CambiarCred.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frm_Historial.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="frm_Login.h">
@@ -148,6 +152,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frm_CambiarCred.resx">
       <DependentUpon>frm_CambiarCred.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Historial.resx">
+      <DependentUpon>frm_Historial.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Login.resx">
       <DependentUpon>frm_Login.h</DependentUpon>
