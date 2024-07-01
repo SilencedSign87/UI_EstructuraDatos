@@ -1123,7 +1123,7 @@ namespace GUIEstructuraDeDatos {
 				}
 
 				Granel^ nuevo = gcnew Granel(txt_prodName->Text, id, incrementador_precio->Value, incrementador_cantidad->Value, unidad);
-				Datos::Instance->añadeProducto(nuevo);
+				Datos::Instance->addProducto(nuevo);
 				MessageBox::Show(L"Producto registrado correctamente!");
 				Borrar();
 			}
@@ -1137,7 +1137,7 @@ namespace GUIEstructuraDeDatos {
 				int id = Datos::Instance->CantidadProducto + 10000;
 				int cantidad = System::Decimal::ToInt32(incrementador_cantidad->Value); //castea a un int
 				Unitario^ nuevo = gcnew Unitario(txt_prodName->Text, id, incrementador_precio->Value, cantidad);
-				Datos::Instance->añadeProducto(nuevo);
+				Datos::Instance->addProducto(nuevo);
 				MessageBox::Show(L"Producto registrado correctamente!");
 				Borrar();
 			}

@@ -253,7 +253,7 @@ public:
 		dbManager->cierraConexion();
 	}
 
-	void añadeProducto(Producto^ producto) {
+	void addProducto(Producto^ producto) {
 		raiz = insertarNuevo(raiz, producto);
 		this->nombre2id[producto->Nombre] = producto->Id;
 	}
@@ -339,13 +339,13 @@ public:
 		List<Producto^>^ productosGranel = dbManager->LoadGranel();
 		for each (Producto ^ producto in productosGranel)
 		{
-			añadeProducto(producto);
+			addProducto(producto);
 		}
 
 		List<Producto^>^ productosUnitario = dbManager->LoadUnitario();
 		for each (Producto ^ producto in productosUnitario)
 		{
-			añadeProducto(producto);
+			addProducto(producto);
 		}
 	}
 	//--------------------------------------------------------------------------------------- Guarda los datos a la Base de Datos
