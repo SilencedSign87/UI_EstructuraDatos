@@ -138,7 +138,7 @@ private:
 		return actual;
 	}
 	//--------------------------------------------------------------------------------------- Eliminar un nodo
-	Nodo^ borrarNodo(Nodo^ nodo, int id) {
+	/*Nodo^ borrarNodo(Nodo^ nodo, int id) {
 		if (nodo == nullptr) {
 			return nodo;
 		}
@@ -195,6 +195,53 @@ private:
 
 		return nodo;
 
+	}*/
+
+	Nodo^ borrarNodo(Nodo^ nodo, int id) {
+		if (nodo == nullptr) {
+			return nodo;
+		}
+		if (id < nodo->producto->Id) {
+			nodo->izquierda = borrarNodo(nodo->izquierda, id);
+		}
+		else if (nodo->producto->Id < id) {
+			nodo->derecha = borrarNodo(nodo->derecha, id);
+		}
+		else {
+			if (nodo->izquierda == nullptr) {
+				Nodo^ temp = nodo->derecha;
+				delete nodo;
+				return temp;
+			}
+			else if (nodo->derecha == nullptr) {
+				Nodo^ temp = nodo->izquierda;
+				delete nodo;
+				return temp;
+			}
+			Nodo^ temp = minValorNodo(nodo->derecha);
+			nodo->producto = temp->producto;
+			nodo->derecha = borrarNodo(nodo->derecha, temp->producto->Id);
+		}
+		if (nodo == nullptr) {
+			return nullptr;
+		}
+		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda), getAltura(nodo->derecha));
+		int balance = getBalance(nodo);
+		if (balance > 1 && getBalance(nodo->izquierda) >= 0) {
+			return rotarDerecha(nodo);
+		}
+		if (balance > 1 && getBalance(nodo->izquierda) < 0) {
+			nodo->izquierda = rotarIzquierda(nodo->izquierda);
+			return rotarDerecha(nodo);
+		}
+		if (balance < -1 && getBalance(nodo->derecha) <= 0) {
+			return rotarIzquierda(nodo);
+		}
+		if (balance < -1 && getBalance(nodo->derecha) > 0) {
+			nodo->derecha = rotarDerecha(nodo->derecha);
+			return rotarIzquierda(nodo);
+		}
+		return nodo;
 	}
 
 	//--------------------------------------------------------------------------------------- Buscar
