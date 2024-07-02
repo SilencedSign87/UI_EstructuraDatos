@@ -46,7 +46,7 @@ public:
 		dbConexion->Close();
 	}
 
-	void creaTabla(){
+	void creaTabla() {
 		String^ sqlGranel = "CREATE TABLE IF NOT EXISTS Granel (Id INTEGER PRIMARY KEY, Nombre TEXT, Precio REAL, Cantidad REAL, Unidad TEXT)";
 		SQLiteCommand^ commandGranel = gcnew SQLiteCommand(sqlGranel, dbConexion);
 		commandGranel->ExecuteNonQuery();
@@ -54,6 +54,10 @@ public:
 		String^ sqlUnitario = "CREATE TABLE IF NOT EXISTS Unitario (Id INTEGER PRIMARY KEY, Nombre TEXT, Precio REAL, Cantidad INTEGER)";
 		SQLiteCommand^ commandUnitario = gcnew SQLiteCommand(sqlUnitario, dbConexion);
 		commandUnitario->ExecuteNonQuery();
+
+		String^ sqlUsuarios = "CREATE TABLE IF NOT EXISTS Usuarios (Id INTEGER PRIMARY KEY, Usuario TEXT, Password TEXT, Vendedor TEXT)";
+		SQLiteCommand^ commandUsuarios = gcnew SQLiteCommand(sqlUsuarios, dbConexion);
+		commandUsuarios->ExecuteNonQuery();
 	}
 
 	void InsertGranel(int id, String^ nombre, Decimal^ precio, Decimal^ cantidad, String^ unidad)
@@ -66,6 +70,8 @@ public:
 		command->Parameters->AddWithValue("@cantidad", cantidad);
 		command->Parameters->AddWithValue("@unidad", unidad);
 		command->ExecuteNonQuery();
+		delete sql;
+		delete command;
 	}
 
 	void InsertUnitario(int id, String^ nombre, Decimal^ precio, int cantidad)
@@ -77,7 +83,57 @@ public:
 		command->Parameters->AddWithValue("@precio", precio);
 		command->Parameters->AddWithValue("@cantidad", cantidad);
 		command->ExecuteNonQuery();
+		delete sql;
+		delete command;
 	}
+
+	void nuevoUsuario(int id, String^ usuario, String^ contraseña, String^ vendedor) {
+		String^ sql = "INSERT OR REPLACE INTO Usuarios (Id, Usuario, Password, Vendedor) VALUES (@id, @usuario, @password, @vendedor)";
+		SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
+		command->Parameters->AddWithValue("@id", id);
+		command->Parameters->AddWithValue("@usuario", usuario);
+		command->Parameters->AddWithValue("@password", contraseña);
+		command->Parameters->AddWithValue("@vendedor", vendedor);
+		command->ExecuteNonQuery();
+		delete sql;
+		delete command;
+	}
+
+	int obtenerUsuarioId(String^ user, String^ password) {
+		String^ sql = "SELECT Id FROM Usuarios WHERE Usuario = @usuario AND Password = @password";
+		SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
+		command->Parameters->AddWithValue("@usuario", user);
+		command->Parameters->AddWithValue("@password", password);
+
+		SQLiteDataReader^ lector = command->ExecuteReader();
+		if (lector->Read()) {
+			return lector->GetInt32(0);
+		}
+		else {
+			return -1;
+		}
+		delete sql;
+		delete command;
+		delete lector;
+	}
+
+	String^ obtenerVendedor(int id) {
+		String^ sql = "SELECT Vendedor FROM Usuarios WHERE Id = @id";
+		SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
+		command->Parameters->AddWithValue("@id", id);
+
+		SQLiteDataReader^ lector = command->ExecuteReader();
+		if (lector->Read()) {
+			return lector->GetString(0);
+		}
+		else {
+			return nullptr;
+		}
+		delete sql;
+		delete command;
+		delete lector;
+	}
+
 
 	List<Producto^>^ LoadGranel()
 	{
