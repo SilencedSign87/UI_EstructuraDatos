@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "frm_CambiarCred.h"
+#include "frm_Historial.h"
 #include "Datos.h"
+#include "Historial.h"
 #include "Granel.hpp"
 #include "Unitario.hpp"
 
@@ -27,6 +29,7 @@ namespace GUIEstructuraDeDatos {
 			//TODO: agregar código de constructor aquí
 			//
 			this->previousForm = previousForm;
+			
 		}
 
 	protected:
@@ -283,7 +286,7 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
-private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button1;
 
 
 
@@ -369,11 +372,11 @@ private: System::Windows::Forms::Button^ button1;
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->txt_prodName = (gcnew System::Windows::Forms::TextBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tab_Control->SuspendLayout();
 			this->tab_venta->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numero_total_venta))->BeginInit();
@@ -845,6 +848,16 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel1->Size = System::Drawing::Size(253, 657);
 			this->panel1->TabIndex = 1;
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(48, 312);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(155, 70);
+			this->button1->TabIndex = 5;
+			this->button1->Text = L"Historial de Ventas";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::button1_Click);
+			// 
 			// pictureBox1
 			// 
 			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
@@ -890,15 +903,6 @@ private: System::Windows::Forms::Button^ button1;
 			this->bttn_CambiarCredenciales->Text = L"Cambiar Credenciales";
 			this->bttn_CambiarCredenciales->UseVisualStyleBackColor = true;
 			this->bttn_CambiarCredenciales->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::bttn_CambiarCredenciales_Click);
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(48, 312);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(155, 70);
-			this->button1->TabIndex = 5;
-			this->button1->Text = L"Historial de Ventas";
-			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// frm_MenuPrincipal
 			// 
@@ -1063,7 +1067,12 @@ private: System::Windows::Forms::Button^ button1;
 		   //--------------------------------------------------------------------------------------------------- realizar venta
 	private: System::Void bttn_realizaVenta_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		System::Decimal totalVenta = numero_total_venta->Value;
+		Historial::Instance->abreHistorial();
+		System::DateTime ahora = System::DateTime::Now; //obten la hora
+		System::Decimal totalVenta = numero_total_venta->Value; //obten el total
+
+		int idventa = Historial::Instance->InsertarVenta(ahora, System::Decimal(totalVenta), "Vendedor");
+
 		itemVenta^ temp = lista->item;
 		for (int i = 0; i < lista->longitud; i++) { // Recorre la lista
 			Granel^ refG = dynamic_cast<Granel^>(temp->producto);
@@ -1071,6 +1080,7 @@ private: System::Windows::Forms::Button^ button1;
 			Unitario^ refU = dynamic_cast<Unitario^>(temp->producto);
 
 			if (refG != nullptr) {
+				Historial::Instance->InsertarDetalleVenta(idventa, refG->Id, refG->Nombre, temp->cantidad, refG->Precio);
 				refG->cantidad = System::Decimal::Add(System::Decimal::Negate(static_cast<System::Decimal>(temp->cantidad)), static_cast<System::Decimal>(refG->cantidad));
 				if (refG->cantidad->CompareTo(System::Decimal::Zero) == 0) {
 					Datos::Instance->borrarPorId(refG->Id);
@@ -1081,13 +1091,16 @@ private: System::Windows::Forms::Button^ button1;
 				if (refU->cantidad == 0) {
 					Datos::Instance->borrarPorId(refU->Id);
 				}
+				Historial::Instance->InsertarDetalleVenta(idventa, refU->Id, refU->Nombre, temp->cantidad, refU->Precio);
 			}
 
 			temp = temp->next;
 		}
 		MessageBox::Show("Venta realizada correctamente, total a cobrar: S/." + totalVenta);
+
 		lista->vaciarLista();
 		DibujaListaVenta();
+		Historial::Instance->cierraHistorial();
 	}
 		   //---------------------------------------------------------------------------------------------------
 	private: System::Void seleccionador_unidad_SelectedItemChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -1468,5 +1481,10 @@ private: System::Windows::Forms::Button^ button1;
 		}
 	}
 
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		frm_Historial^ frm = gcnew frm_Historial(this);
+		frm->Show();
+		this->Hide();
+	}
 	};
 }

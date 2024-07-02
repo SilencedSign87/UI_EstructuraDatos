@@ -1,17 +1,40 @@
 #pragma once
-#include "Datos.h"
+//#include "Datos.h"
+#include "Producto.hpp"
+#include "Granel.hpp"
+#include "Unitario.hpp"
+#include <msclr\marshal_cppstd.h>
 
 using namespace System;
 using namespace System::Data;
 using namespace System::Data::SQLite;
 using namespace System::Collections::Generic;
+using namespace System::IO;
+using namespace System::Reflection;
 
 public ref class AdministradorDB {
 private:
 	SQLiteConnection^ dbConexion;
-public:
-	AdministradorDB(String^ dbPath)
+
+	String^ GetRelativeDatabasePath()
 	{
+		// Obtiene el directorio del ejecutable
+		String^ exePath = Assembly::GetExecutingAssembly()->Location;
+		String^ exeDir = Path::GetDirectoryName(exePath);
+
+		// Construye la ruta relativa a la base de datos
+		String^ dbPath = Path::Combine(exeDir, "data", "Inventario.db");
+
+		// Asegúrate de que el directorio exista
+		Directory::CreateDirectory(Path::GetDirectoryName(dbPath));
+
+		return dbPath;
+	}
+
+public:
+	AdministradorDB()
+	{
+		String^ dbPath = GetRelativeDatabasePath(); //obten la ruta relativa.
 		String^ connectionString = "Data Source=" + dbPath + ";Version=3;";
 		dbConexion = gcnew SQLiteConnection(connectionString);
 	}
@@ -23,7 +46,7 @@ public:
 		dbConexion->Close();
 	}
 
-	void creaTabla() {
+	void creaTabla(){
 		String^ sqlGranel = "CREATE TABLE IF NOT EXISTS Granel (Id INTEGER PRIMARY KEY, Nombre TEXT, Precio REAL, Cantidad REAL, Unidad TEXT)";
 		SQLiteCommand^ commandGranel = gcnew SQLiteCommand(sqlGranel, dbConexion);
 		commandGranel->ExecuteNonQuery();

@@ -32,6 +32,7 @@ private:
 
 
 	static Datos^ instance; //instancia estática
+
 	AdministradorDB^ dbManager;
 
 	Datos() //constructor privado
@@ -41,9 +42,9 @@ private:
 		this->raiz = nullptr;
 		this->nombre2id = gcnew System::Collections::Generic::Dictionary<System::String^, int>();
 		this->cantidad = 0;
-		this->dbManager = gcnew AdministradorDB("Inventario.db");
-		dbManager->abreConexion();
-		dbManager->creaTabla();
+		this->dbManager = gcnew AdministradorDB();
+		this->dbManager->abreConexion();
+		this->dbManager->creaTabla();
 		CargarDatos();
 	}
 
@@ -138,64 +139,6 @@ private:
 		return actual;
 	}
 	//--------------------------------------------------------------------------------------- Eliminar un nodo
-	/*Nodo^ borrarNodo(Nodo^ nodo, int id) {
-		if (nodo == nullptr) {
-			return nodo;
-		}
-		if (id < nodo->producto->Id) {
-			nodo->izquierda = borrarNodo(nodo->izquierda, id);
-		}
-		else if (nodo->producto->Id < id) {
-			nodo->derecha = borrarNodo(nodo->derecha, id);
-		}
-		else {
-			if (nodo->izquierda == nullptr || nodo->derecha == nullptr) {
-				Nodo^ temp = nodo->izquierda ? nodo->izquierda : nodo->derecha;
-
-				if (temp == nullptr) {
-					temp = nodo;
-					nodo = nullptr;
-				}
-				else {
-					nodo = temp;
-				}
-
-				delete temp;
-			}
-			else {
-				Nodo^ temp = minValorNodo(nodo->izquierda);
-				nodo->producto = temp->producto;
-
-				nodo->derecha = borrarNodo(nodo->derecha, temp->producto->Id);
-			}
-		}
-
-		if (nodo == nullptr) {
-			return nullptr;
-		}
-
-		nodo->altura = 1 + System::Math::Max(getAltura(nodo->izquierda), getAltura(nodo->derecha));
-
-		int balance = getBalance(nodo);
-
-		if (balance > 1 && getBalance(nodo->izquierda) >= 0) {
-			return rotarDerecha(nodo);
-		}
-		if (balance > 1 && getBalance(nodo->izquierda) < 0) {
-			nodo->izquierda = rotarIzquierda(nodo->izquierda);
-			return rotarDerecha(nodo);
-		}
-		if (balance < -1 && getBalance(nodo->derecha) <= 0) {
-			return rotarIzquierda(nodo);
-		}
-		if (balance < -1 && getBalance(nodo->derecha)>0) {
-			nodo->derecha = rotarDerecha(nodo->derecha);
-			return rotarIzquierda(nodo);
-		}
-
-		return nodo;
-
-	}*/
 
 	Nodo^ borrarNodo(Nodo^ nodo, int id) {
 		if (nodo == nullptr) {
@@ -297,7 +240,7 @@ public:
 
 	~Datos() {
 		GuardarDatos();
-		dbManager->cierraConexion();
+		this->dbManager->cierraConexion();
 	}
 
 	void addProducto(Producto^ producto) {
@@ -383,13 +326,13 @@ public:
 	//--------------------------------------------------------------------------------------- Carga los datos de la Base de Datos
 	void CargarDatos()
 	{
-		List<Producto^>^ productosGranel = dbManager->LoadGranel();
+		List<Producto^>^ productosGranel = this->dbManager->LoadGranel();
 		for each (Producto ^ producto in productosGranel)
 		{
 			addProducto(producto);
 		}
 
-		List<Producto^>^ productosUnitario = dbManager->LoadUnitario();
+		List<Producto^>^ productosUnitario = this->dbManager->LoadUnitario();
 		for each (Producto ^ producto in productosUnitario)
 		{
 			addProducto(producto);
@@ -403,20 +346,20 @@ public:
 		{
 			if (Granel^ granel = dynamic_cast<Granel^>(producto))
 			{
-				dbManager->InsertGranel(granel->Id, granel->Nombre, granel->Precio, granel->cantidad, granel->unidad);
+				this->dbManager->InsertGranel(granel->Id, granel->Nombre, granel->Precio, granel->cantidad, granel->unidad);
 			}
 			else if (Unitario^ unitario = dynamic_cast<Unitario^>(producto))
 			{
-				dbManager->InsertUnitario(unitario->Id, unitario->Nombre, unitario->Precio, unitario->cantidad);
+				this->dbManager->InsertUnitario(unitario->Id, unitario->Nombre, unitario->Precio, unitario->cantidad);
 			}
 		}
 	}
 
 	void borrarGranelDB(int id) {
-		dbManager->DeleteGranel(id);
+		this->dbManager->DeleteGranel(id);
 	}
 	void borrarUnitarioDB(int id) {
-		dbManager->DeleteUnitario(id);
+		this->dbManager->DeleteUnitario(id);
 	}
 
 };
