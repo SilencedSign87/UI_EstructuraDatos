@@ -89,6 +89,7 @@ namespace GUIEstructuraDeDatos {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->L_mensajeA = (gcnew System::Windows::Forms::Label());
 			this->txt_Nvendedor = (gcnew System::Windows::Forms::TextBox());
 			this->L_NVendedor = (gcnew System::Windows::Forms::Label());
 			this->bttn_cambiar = (gcnew System::Windows::Forms::Button());
@@ -101,7 +102,6 @@ namespace GUIEstructuraDeDatos {
 			this->txt_user = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->L_mensajeA = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -116,28 +116,28 @@ namespace GUIEstructuraDeDatos {
 			this->panel1->Font = (gcnew System::Drawing::Font(L"Fira Code", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->panel1->Location = System::Drawing::Point(0, 0);
+			this->panel1->MinimumSize = System::Drawing::Size(264, 661);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(264, 560);
+			this->panel1->Size = System::Drawing::Size(264, 661);
 			this->panel1->TabIndex = 0;
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Fira Code", 15, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->label4->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Bold));
 			this->label4->ForeColor = System::Drawing::Color::White;
-			this->label4->Location = System::Drawing::Point(12, 182);
+			this->label4->Location = System::Drawing::Point(21, 179);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(242, 64);
+			this->label4->Size = System::Drawing::Size(221, 56);
 			this->label4->TabIndex = 3;
 			this->label4->Text = L"Sistema de Almacén \r\ny Ventas";
 			this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(68, 505);
+			this->button1->Location = System::Drawing::Point(69, 556);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(122, 27);
+			this->button1->Size = System::Drawing::Size(122, 40);
 			this->button1->TabIndex = 2;
 			this->button1->Text = L"Cancelar";
 			this->button1->UseVisualStyleBackColor = true;
@@ -172,15 +172,26 @@ namespace GUIEstructuraDeDatos {
 				static_cast<System::Byte>(0)));
 			this->panel2->Location = System::Drawing::Point(270, 0);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(460, 560);
+			this->panel2->Size = System::Drawing::Size(716, 661);
 			this->panel2->TabIndex = 1;
+			// 
+			// L_mensajeA
+			// 
+			this->L_mensajeA->AutoSize = true;
+			this->L_mensajeA->ForeColor = System::Drawing::SystemColors::Highlight;
+			this->L_mensajeA->Location = System::Drawing::Point(135, 271);
+			this->L_mensajeA->Name = L"L_mensajeA";
+			this->L_mensajeA->Size = System::Drawing::Size(463, 28);
+			this->L_mensajeA->TabIndex = 12;
+			this->L_mensajeA->Text = L"Los espacios en blanco no se actualizarán";
+			this->L_mensajeA->Visible = false;
 			// 
 			// txt_Nvendedor
 			// 
 			this->txt_Nvendedor->Enabled = false;
-			this->txt_Nvendedor->Location = System::Drawing::Point(50, 439);
+			this->txt_Nvendedor->Location = System::Drawing::Point(196, 503);
 			this->txt_Nvendedor->Name = L"txt_Nvendedor";
-			this->txt_Nvendedor->Size = System::Drawing::Size(351, 28);
+			this->txt_Nvendedor->Size = System::Drawing::Size(351, 31);
 			this->txt_Nvendedor->TabIndex = 11;
 			this->txt_Nvendedor->Visible = false;
 			// 
@@ -188,9 +199,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->L_NVendedor->AutoSize = true;
 			this->L_NVendedor->Enabled = false;
-			this->L_NVendedor->Location = System::Drawing::Point(50, 410);
+			this->L_NVendedor->Location = System::Drawing::Point(196, 474);
 			this->L_NVendedor->Name = L"L_NVendedor";
-			this->L_NVendedor->Size = System::Drawing::Size(262, 25);
+			this->L_NVendedor->Size = System::Drawing::Size(287, 28);
 			this->L_NVendedor->TabIndex = 10;
 			this->L_NVendedor->Text = L"Nuevo nombre de vendedor:";
 			this->L_NVendedor->Visible = false;
@@ -198,7 +209,7 @@ namespace GUIEstructuraDeDatos {
 			// bttn_cambiar
 			// 
 			this->bttn_cambiar->Enabled = false;
-			this->bttn_cambiar->Location = System::Drawing::Point(100, 492);
+			this->bttn_cambiar->Location = System::Drawing::Point(246, 556);
 			this->bttn_cambiar->Name = L"bttn_cambiar";
 			this->bttn_cambiar->Size = System::Drawing::Size(253, 33);
 			this->bttn_cambiar->TabIndex = 9;
@@ -210,10 +221,10 @@ namespace GUIEstructuraDeDatos {
 			// txt_Npass
 			// 
 			this->txt_Npass->Enabled = false;
-			this->txt_Npass->Location = System::Drawing::Point(50, 360);
+			this->txt_Npass->Location = System::Drawing::Point(196, 424);
 			this->txt_Npass->Name = L"txt_Npass";
 			this->txt_Npass->PasswordChar = '*';
-			this->txt_Npass->Size = System::Drawing::Size(351, 28);
+			this->txt_Npass->Size = System::Drawing::Size(351, 31);
 			this->txt_Npass->TabIndex = 8;
 			this->txt_Npass->UseSystemPasswordChar = true;
 			this->txt_Npass->Visible = false;
@@ -222,9 +233,9 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->L_Npass->AutoSize = true;
 			this->L_Npass->Enabled = false;
-			this->L_Npass->Location = System::Drawing::Point(50, 335);
+			this->L_Npass->Location = System::Drawing::Point(196, 399);
 			this->L_Npass->Name = L"L_Npass";
-			this->L_Npass->Size = System::Drawing::Size(182, 25);
+			this->L_Npass->Size = System::Drawing::Size(199, 28);
 			this->L_Npass->TabIndex = 7;
 			this->L_Npass->Text = L"Nueva contraseña:";
 			this->L_Npass->Visible = false;
@@ -232,9 +243,9 @@ namespace GUIEstructuraDeDatos {
 			// txt_Nuser
 			// 
 			this->txt_Nuser->Enabled = false;
-			this->txt_Nuser->Location = System::Drawing::Point(50, 285);
+			this->txt_Nuser->Location = System::Drawing::Point(196, 349);
 			this->txt_Nuser->Name = L"txt_Nuser";
-			this->txt_Nuser->Size = System::Drawing::Size(351, 28);
+			this->txt_Nuser->Size = System::Drawing::Size(351, 31);
 			this->txt_Nuser->TabIndex = 6;
 			this->txt_Nuser->Visible = false;
 			// 
@@ -242,16 +253,16 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->L_Nuser->AutoSize = true;
 			this->L_Nuser->Enabled = false;
-			this->L_Nuser->Location = System::Drawing::Point(50, 260);
+			this->L_Nuser->Location = System::Drawing::Point(196, 324);
 			this->L_Nuser->Name = L"L_Nuser";
-			this->L_Nuser->Size = System::Drawing::Size(152, 25);
+			this->L_Nuser->Size = System::Drawing::Size(166, 28);
 			this->L_Nuser->TabIndex = 5;
 			this->L_Nuser->Text = L"Nuevo usuario:";
 			this->L_Nuser->Visible = false;
 			// 
 			// bttn_Confirmar
 			// 
-			this->bttn_Confirmar->Location = System::Drawing::Point(100, 179);
+			this->bttn_Confirmar->Location = System::Drawing::Point(246, 191);
 			this->bttn_Confirmar->Name = L"bttn_Confirmar";
 			this->bttn_Confirmar->Size = System::Drawing::Size(253, 33);
 			this->bttn_Confirmar->TabIndex = 4;
@@ -261,59 +272,48 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// txt_pass
 			// 
-			this->txt_pass->Location = System::Drawing::Point(50, 129);
+			this->txt_pass->Location = System::Drawing::Point(196, 141);
 			this->txt_pass->Name = L"txt_pass";
 			this->txt_pass->PasswordChar = '*';
-			this->txt_pass->Size = System::Drawing::Size(351, 28);
+			this->txt_pass->Size = System::Drawing::Size(351, 31);
 			this->txt_pass->TabIndex = 3;
 			this->txt_pass->UseSystemPasswordChar = true;
 			// 
 			// txt_user
 			// 
-			this->txt_user->Location = System::Drawing::Point(50, 54);
+			this->txt_user->Location = System::Drawing::Point(196, 66);
 			this->txt_user->Name = L"txt_user";
-			this->txt_user->Size = System::Drawing::Size(351, 28);
+			this->txt_user->Size = System::Drawing::Size(351, 31);
 			this->txt_user->TabIndex = 2;
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(50, 104);
+			this->label3->Location = System::Drawing::Point(196, 116);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(192, 25);
+			this->label3->Size = System::Drawing::Size(210, 28);
 			this->label3->TabIndex = 1;
 			this->label3->Text = L"Contraseña actual:";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(50, 29);
+			this->label2->Location = System::Drawing::Point(196, 41);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(162, 25);
+			this->label2->Size = System::Drawing::Size(177, 28);
 			this->label2->TabIndex = 0;
 			this->label2->Text = L"Usuario actual:";
-			// 
-			// L_mensajeA
-			// 
-			this->L_mensajeA->AutoSize = true;
-			this->L_mensajeA->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->L_mensajeA->Location = System::Drawing::Point(18, 225);
-			this->L_mensajeA->Name = L"L_mensajeA";
-			this->L_mensajeA->Size = System::Drawing::Size(422, 25);
-			this->L_mensajeA->TabIndex = 12;
-			this->L_mensajeA->Text = L"Los espacios en blanco no se actualizarán";
-			this->L_mensajeA->Visible = false;
 			// 
 			// frm_CambiarCred
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(734, 561);
+			this->ClientSize = System::Drawing::Size(984, 659);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->MaximumSize = System::Drawing::Size(750, 600);
-			this->MinimumSize = System::Drawing::Size(750, 600);
+			this->MaximumSize = System::Drawing::Size(1000, 700);
+			this->MinimumSize = System::Drawing::Size(1000, 700);
 			this->Name = L"frm_CambiarCred";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Cambio de Credenciales";
