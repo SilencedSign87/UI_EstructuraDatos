@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "frm_CambiarCred.h"
 #include "frm_Historial.h"
+#include "frm_NuevoVendedor.h"
 #include "Datos.h"
 #include "Historial.h"
 #include "Granel.hpp"
@@ -29,7 +30,14 @@ namespace GUIEstructuraDeDatos {
 			//TODO: agregar código de constructor aquí
 			//
 			this->previousForm = previousForm;
-			
+			if (Datos::Instance->UserId == 1) {
+				bttn_agregarV->Visible = true;
+			}
+			else
+			{
+				bttn_agregarV->Visible = false;
+			}
+
 		}
 
 	protected:
@@ -287,7 +295,9 @@ namespace GUIEstructuraDeDatos {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_cantidad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ c_subtotal;
 	private: System::Windows::Forms::Button^ button1;
-private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ bttn_agregarV;
+
 
 
 
@@ -374,6 +384,7 @@ private: System::Windows::Forms::Label^ label1;
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->txt_prodName = (gcnew System::Windows::Forms::TextBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->bttn_agregarV = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
@@ -858,6 +869,7 @@ private: System::Windows::Forms::Label^ label1;
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
+			this->panel1->Controls->Add(this->bttn_agregarV);
 			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->pictureBox1);
 			this->panel1->Controls->Add(this->label6);
@@ -869,6 +881,17 @@ private: System::Windows::Forms::Label^ label1;
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(253, 657);
 			this->panel1->TabIndex = 1;
+			// 
+			// bttn_agregarV
+			// 
+			this->bttn_agregarV->Location = System::Drawing::Point(48, 263);
+			this->bttn_agregarV->Name = L"bttn_agregarV";
+			this->bttn_agregarV->Size = System::Drawing::Size(155, 68);
+			this->bttn_agregarV->TabIndex = 6;
+			this->bttn_agregarV->Text = L"Gestionar Vendedores";
+			this->bttn_agregarV->UseVisualStyleBackColor = true;
+			this->bttn_agregarV->Visible = false;
+			this->bttn_agregarV->Click += gcnew System::EventHandler(this, &frm_MenuPrincipal::button2_Click);
 			// 
 			// button1
 			// 
@@ -1089,7 +1112,7 @@ private: System::Windows::Forms::Label^ label1;
 		   //--------------------------------------------------------------------------------------------------- realizar venta
 	private: System::Void bttn_realizaVenta_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		
+
 		System::DateTime ahora = System::DateTime::Now; //obten la hora
 		System::Decimal totalVenta = numero_total_venta->Value; //obten el total
 
@@ -1122,7 +1145,7 @@ private: System::Windows::Forms::Label^ label1;
 
 		lista->vaciarLista();
 		DibujaListaVenta();
-		
+
 	}
 		   //---------------------------------------------------------------------------------------------------
 	private: System::Void seleccionador_unidad_SelectedItemChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -1508,5 +1531,13 @@ private: System::Windows::Forms::Label^ label1;
 		frm->Show();
 		this->Hide();
 	}
-};
+		   //----------------------------------------------- Agregar Nuevo Vendedor
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (Datos::Instance->UserId == 1) {
+			frm_NuevoVendedor^ frm = gcnew frm_NuevoVendedor(this);
+			this->Hide();
+			frm->Show();
+		}
+	}
+	};
 }

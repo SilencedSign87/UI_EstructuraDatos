@@ -129,6 +129,7 @@
     <ClCompile Include="frm_Historial.cpp" />
     <ClCompile Include="frm_Login.cpp" />
     <ClCompile Include="frm_MenuPrincipal.cpp" />
+    <ClCompile Include="frm_NuevoVendedor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseDatos.h" />
@@ -143,6 +144,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="frm_MenuPrincipal.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frm_NuevoVendedor.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Granel.hpp" />
@@ -162,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_MenuPrincipal.resx">
       <DependentUpon>frm_MenuPrincipal.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_NuevoVendedor.resx">
+      <DependentUpon>frm_NuevoVendedor.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
