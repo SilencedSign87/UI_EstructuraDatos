@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "Producto.hpp"
-#include "Granel.hpp"
-#include "Unitario.hpp"
-#include "BaseDatos.h"
+#include "BaseDatos.h" //Aqui ya se declara Producto y sus hijos
 
 public ref class Datos
 {
 private:
+
+	int userid;
+	AdministradorDB^ dbManager;
 
 	ref struct Nodo  //arbol
 	{
@@ -33,12 +33,11 @@ private:
 
 	static Datos^ instance; //instancia estática
 
-	AdministradorDB^ dbManager;
+
 
 	Datos() //constructor privado
 	{
-		this->Username = "admin";
-		this->Password = "admin";
+		this->userid = -1;
 		this->raiz = nullptr;
 		this->nombre2id = gcnew System::Collections::Generic::Dictionary<System::String^, int>();
 		this->cantidad = 0;
@@ -46,6 +45,7 @@ private:
 		this->dbManager->abreConexion();
 		this->dbManager->creaTabla();
 		CargarDatos();
+		//this->dbManager->cierraConexion();
 	}
 
 	//--------------------------------------------------------------------------------------- obtener datos de los nodos
@@ -219,11 +219,22 @@ private:
 	}
 
 
+
 public:
 
-	//datos publicos
-	property System::String^ Username;
-	property System::String^ Password;
+	//ID del usuario, -1 si falló la autentificación
+	property int UserId {
+		int get() {
+			return this->userid;
+		}
+	}
+
+	property AdministradorDB^ conectionDB {
+		AdministradorDB^ get() {
+			return this->dbManager;
+		}
+	}
+
 
 	//instancia estática (única)
 	static property Datos^ Instance
@@ -239,6 +250,7 @@ public:
 	}
 
 	~Datos() {
+		//this->dbManager->abreConexion();
 		GuardarDatos();
 		this->dbManager->cierraConexion();
 	}
@@ -362,4 +374,18 @@ public:
 		this->dbManager->DeleteUnitario(id);
 	}
 
+	void Autentificar(String^ user, String^ pass) {
+
+		//this->dbManager->abreConexion();
+		this->userid = dbManager->obtenerUsuarioId(user, pass);
+		//this->dbManager->cierraConexion();
+	}
+
+	int obtenerIDUser(String^ user, String^ pass)
+	{
+		//this->dbManager->abreConexion();
+		int id = dbManager->obtenerUsuarioId(user, pass);
+		//this->dbManager->cierraConexion();
+		return id;
+	}
 };

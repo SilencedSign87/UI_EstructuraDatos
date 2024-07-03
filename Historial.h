@@ -26,6 +26,15 @@ private:
 		String^ dbDireccion = GetRelativeDatabasePath();
 		dbDireccion = "Data Source=" + dbDireccion + ";Version=3;";
 		this->conn = gcnew SQLiteConnection(dbDireccion);
+		abreHistorial();
+	}
+
+	void abreHistorial() {
+		conn->Open();
+	}
+
+	void cierraHistorial() {
+		conn->Close();
 	}
 
 	String^ GetRelativeDatabasePath()
@@ -44,13 +53,12 @@ private:
 	}
 
 	void crearTablas() {
-		this->abreHistorial();
 		String^ sqlCreaTabla = "CREATE TABLE IF NOT EXISTS Ventas ("
 			"Id INTEGER PRIMARY KEY AUTOINCREMENT, "
 			"Vendedor TEXT, "
 			"Fecha DATETIME, "
 			"Total REAL)";
-			
+
 		SQLiteCommand^ comand = gcnew SQLiteCommand(sqlCreaTabla, conn);
 		comand->ExecuteNonQuery();
 
@@ -65,7 +73,6 @@ private:
 			"FOREIGN KEY(VentaId) REFERENCES Ventas(Id))";
 		SQLiteCommand^ commandDetallesVenta = gcnew SQLiteCommand(sqlDetallesVenta, conn);
 		commandDetallesVenta->ExecuteNonQuery();
-		this->cierraHistorial();
 	}
 
 public:
@@ -81,12 +88,8 @@ public:
 		}
 	}
 
-	void abreHistorial() {
-		conn->Open();
-	}
-
-	void cierraHistorial() {
-		conn->Close();
+	~Historial() {
+		cierraHistorial();
 	}
 
 	//retorna la id de la venta

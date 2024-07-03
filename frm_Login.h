@@ -20,9 +20,6 @@ namespace GUIEstructuraDeDatos {
 		frm_Login(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: agregar código de constructor aquí
-			//
 		}
 
 	protected:
@@ -237,7 +234,8 @@ namespace GUIEstructuraDeDatos {
 	private: System::Void bttn_inicar_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ user = txt_User->Text;
 		String^ pass = txt_Pass->Text;
-		if (user == Datos::Instance->Username && pass == Datos::Instance->Password) {
+		Datos::Instance->Autentificar(user, pass);
+		if (Datos::Instance->UserId!=-1) {
 			L_estadoSesion->Text = "Sesión iniciada!";
 			frm_MenuPrincipal^ menuPrincipal = gcnew frm_MenuPrincipal(this); // Inicializa la nueva ventana
 			menuPrincipal->Show();

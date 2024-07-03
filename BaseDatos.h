@@ -1,5 +1,5 @@
 #pragma once
-//#include "Datos.h"
+
 #include "Producto.hpp"
 #include "Granel.hpp"
 #include "Unitario.hpp"
@@ -32,6 +32,10 @@ private:
 	}
 
 public:
+
+	
+
+	//Crea la clase adminitrativa de la base de datos inventario, la conexión esta cerrada por defecto
 	AdministradorDB()
 	{
 		String^ dbPath = GetRelativeDatabasePath(); //obten la ruta relativa.
@@ -39,11 +43,15 @@ public:
 		dbConexion = gcnew SQLiteConnection(connectionString);
 	}
 	void abreConexion() {
-		dbConexion->Open();
+		if (dbConexion->State == ConnectionState::Closed) {
+			dbConexion->Open();
+		}
 	}
 
 	void cierraConexion() {
-		dbConexion->Close();
+		if (dbConexion->State == ConnectionState::Open) {
+			dbConexion->Close();
+		}
 	}
 
 	void creaTabla() {
@@ -58,6 +66,13 @@ public:
 		String^ sqlUsuarios = "CREATE TABLE IF NOT EXISTS Usuarios (Id INTEGER PRIMARY KEY, Usuario TEXT, Password TEXT, Vendedor TEXT)";
 		SQLiteCommand^ commandUsuarios = gcnew SQLiteCommand(sqlUsuarios, dbConexion);
 		commandUsuarios->ExecuteNonQuery();
+		//Crear usuario por defecto si esta vacía:
+		String^ defaultU = "SELECT COUNT(*) FROM Usuarios";
+		SQLiteCommand^ comm = gcnew SQLiteCommand(defaultU, dbConexion);
+		int cantidadU = Convert::ToInt32(comm->ExecuteScalar());
+		if (cantidadU == 0) {
+			nuevoUsuario(1, "admin", "admin", "admin");
+		}
 	}
 
 	void InsertGranel(int id, String^ nombre, Decimal^ precio, Decimal^ cantidad, String^ unidad)
@@ -87,6 +102,7 @@ public:
 		delete command;
 	}
 
+	//Añade un usuario usando la id del usuario
 	void nuevoUsuario(int id, String^ usuario, String^ contraseña, String^ vendedor) {
 		String^ sql = "INSERT OR REPLACE INTO Usuarios (Id, Usuario, Password, Vendedor) VALUES (@id, @usuario, @password, @vendedor)";
 		SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);

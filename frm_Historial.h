@@ -69,6 +69,8 @@ namespace GUIEstructuraDeDatos {
 
 
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label3;
 
 
 
@@ -97,9 +99,11 @@ namespace GUIEstructuraDeDatos {
 			this->Historial_Completo = (gcnew System::Windows::Forms::TabPage());
 			this->TablaHistorial = (gcnew System::Windows::Forms::DataGridView());
 			this->Historial_Detalles = (gcnew System::Windows::Forms::TabPage());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label_totalDetalles = (gcnew System::Windows::Forms::Label());
 			this->TablaDetallesVenta = (gcnew System::Windows::Forms::DataGridView());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->tabControl1->SuspendLayout();
@@ -137,7 +141,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(49, 33);
+			this->pictureBox1->Location = System::Drawing::Point(59, 33);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(150, 150);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
@@ -150,9 +154,9 @@ namespace GUIEstructuraDeDatos {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ForeColor = System::Drawing::Color::White;
-			this->label6->Location = System::Drawing::Point(21, 191);
+			this->label6->Location = System::Drawing::Point(39, 191);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(210, 56);
+			this->label6->Size = System::Drawing::Size(192, 50);
 			this->label6->TabIndex = 5;
 			this->label6->Text = L"Sistema de Almacén\r\ny Ventas";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -170,11 +174,12 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// Historial_Completo
 			// 
+			this->Historial_Completo->Controls->Add(this->label3);
 			this->Historial_Completo->Controls->Add(this->TablaHistorial);
-			this->Historial_Completo->Location = System::Drawing::Point(4, 33);
+			this->Historial_Completo->Location = System::Drawing::Point(4, 30);
 			this->Historial_Completo->Name = L"Historial_Completo";
 			this->Historial_Completo->Padding = System::Windows::Forms::Padding(3);
-			this->Historial_Completo->Size = System::Drawing::Size(704, 624);
+			this->Historial_Completo->Size = System::Drawing::Size(704, 627);
 			this->Historial_Completo->TabIndex = 0;
 			this->Historial_Completo->Text = L"Historial";
 			this->Historial_Completo->UseVisualStyleBackColor = true;
@@ -186,46 +191,64 @@ namespace GUIEstructuraDeDatos {
 			this->TablaHistorial->AllowUserToOrderColumns = true;
 			this->TablaHistorial->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->TablaHistorial->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->TablaHistorial->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->TablaHistorial->Location = System::Drawing::Point(3, 3);
+			this->TablaHistorial->Location = System::Drawing::Point(3, 51);
 			this->TablaHistorial->Name = L"TablaHistorial";
 			this->TablaHistorial->ReadOnly = true;
 			this->TablaHistorial->RowHeadersWidth = 45;
-			this->TablaHistorial->Size = System::Drawing::Size(698, 618);
+			this->TablaHistorial->Size = System::Drawing::Size(701, 573);
 			this->TablaHistorial->TabIndex = 0;
 			this->TablaHistorial->SelectionChanged += gcnew System::EventHandler(this, &frm_Historial::TablaHistorial_SelectionChanged);
 			// 
 			// Historial_Detalles
 			// 
+			this->Historial_Detalles->Controls->Add(this->label2);
 			this->Historial_Detalles->Controls->Add(this->label1);
 			this->Historial_Detalles->Controls->Add(this->label_totalDetalles);
 			this->Historial_Detalles->Controls->Add(this->TablaDetallesVenta);
-			this->Historial_Detalles->Location = System::Drawing::Point(4, 33);
+			this->Historial_Detalles->Location = System::Drawing::Point(4, 30);
 			this->Historial_Detalles->Name = L"Historial_Detalles";
 			this->Historial_Detalles->Padding = System::Windows::Forms::Padding(3);
-			this->Historial_Detalles->Size = System::Drawing::Size(704, 624);
+			this->Historial_Detalles->Size = System::Drawing::Size(704, 627);
 			this->Historial_Detalles->TabIndex = 1;
 			this->Historial_Detalles->Text = L"Detalles de ventas";
 			this->Historial_Detalles->UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::DarkGray;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Fira Code", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->ForeColor = System::Drawing::SystemColors::HighlightText;
+			this->label2->Location = System::Drawing::Point(513, 568);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(64, 24);
+			this->label2->TabIndex = 5;
+			this->label2->Text = L"Total:";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(38, 24);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(622, 24);
+			this->label1->Size = System::Drawing::Size(554, 22);
 			this->label1->TabIndex = 4;
 			this->label1->Text = L"Aqui se muestran los detalles de la venta selecciona en el historial";
 			// 
 			// label_totalDetalles
 			// 
 			this->label_totalDetalles->AutoSize = true;
-			this->label_totalDetalles->Location = System::Drawing::Point(514, 583);
+			this->label_totalDetalles->BackColor = System::Drawing::Color::DarkGray;
+			this->label_totalDetalles->Font = (gcnew System::Drawing::Font(L"Fira Code", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label_totalDetalles->ForeColor = System::Drawing::SystemColors::HighlightText;
+			this->label_totalDetalles->Location = System::Drawing::Point(583, 568);
 			this->label_totalDetalles->Name = L"label_totalDetalles";
-			this->label_totalDetalles->Size = System::Drawing::Size(145, 24);
+			this->label_totalDetalles->Size = System::Drawing::Size(82, 24);
 			this->label_totalDetalles->TabIndex = 3;
-			this->label_totalDetalles->Text = L"Total: S/. 0.00";
-			this->label_totalDetalles->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->label_totalDetalles->Text = L"S/. 0.00";
+			this->label_totalDetalles->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// TablaDetallesVenta
 			// 
@@ -242,6 +265,17 @@ namespace GUIEstructuraDeDatos {
 			this->TablaDetallesVenta->Size = System::Drawing::Size(625, 500);
 			this->TablaDetallesVenta->TabIndex = 1;
 			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Cursor = System::Windows::Forms::Cursors::Default;
+			this->label3->ForeColor = System::Drawing::SystemColors::Highlight;
+			this->label3->Location = System::Drawing::Point(6, 14);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(482, 22);
+			this->label3->TabIndex = 1;
+			this->label3->Text = L"Presione la celda de la izquierda para seleccionar la venta";
+			// 
 			// frm_Historial
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -249,6 +283,7 @@ namespace GUIEstructuraDeDatos {
 			this->ClientSize = System::Drawing::Size(984, 659);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->tabControl1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"frm_Historial";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"frm_Historial";
@@ -258,6 +293,7 @@ namespace GUIEstructuraDeDatos {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->tabControl1->ResumeLayout(false);
 			this->Historial_Completo->ResumeLayout(false);
+			this->Historial_Completo->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TablaHistorial))->EndInit();
 			this->Historial_Detalles->ResumeLayout(false);
 			this->Historial_Detalles->PerformLayout();
@@ -274,14 +310,13 @@ namespace GUIEstructuraDeDatos {
 		}
 	}
 	private: void CargarVentas() {
-		Historial::Instance->abreHistorial();
 		this->TablaHistorial->DataSource = Historial::Instance->ObtenerVentas();
-		Historial::Instance->cierraHistorial();
+		
 	}
 	private: void cargarDetalles(int id) {
-		Historial::Instance->abreHistorial();
+		
 		this->TablaDetallesVenta->DataSource = Historial::Instance->ObtenerDetallesVenta(id);
-		Historial::Instance->cierraHistorial();
+		
 
 		Double total = 0.0;
 		for (int i = 0; i < TablaDetallesVenta->Rows->Count; i++) {
