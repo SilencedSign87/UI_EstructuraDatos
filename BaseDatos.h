@@ -31,17 +31,6 @@ private:
 		return dbPath;
 	}
 
-public:
-
-	
-
-	//Crea la clase adminitrativa de la base de datos inventario, la conexión esta cerrada por defecto
-	AdministradorDB()
-	{
-		String^ dbPath = GetRelativeDatabasePath(); //obten la ruta relativa.
-		String^ connectionString = "Data Source=" + dbPath + ";Version=3;";
-		dbConexion = gcnew SQLiteConnection(connectionString);
-	}
 	void abreConexion() {
 		if (dbConexion->State == ConnectionState::Closed) {
 			dbConexion->Open();
@@ -53,6 +42,16 @@ public:
 			dbConexion->Close();
 		}
 	}
+public:
+
+	//Crea la clase adminitrativa de la base de datos inventario, la conexión esta cerrada por defecto
+	AdministradorDB()
+	{
+		String^ dbPath = GetRelativeDatabasePath(); //obten la ruta relativa.
+		String^ connectionString = "Data Source=" + dbPath + ";Version=3;";
+		dbConexion = gcnew SQLiteConnection(connectionString);
+	}
+
 
 	void creaTabla() {
 		String^ sqlGranel = "CREATE TABLE IF NOT EXISTS Granel (Id INTEGER PRIMARY KEY, Nombre TEXT, Precio REAL, Cantidad REAL, Unidad TEXT)";
@@ -104,15 +103,18 @@ public:
 
 	//Añade un usuario usando la id del usuario
 	void nuevoUsuario(int id, String^ usuario, String^ contraseña, String^ vendedor) {
-		String^ sql = "INSERT OR REPLACE INTO Usuarios (Id, Usuario, Password, Vendedor) VALUES (@id, @usuario, @password, @vendedor)";
-		SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
-		command->Parameters->AddWithValue("@id", id);
-		command->Parameters->AddWithValue("@usuario", usuario);
-		command->Parameters->AddWithValue("@password", contraseña);
-		command->Parameters->AddWithValue("@vendedor", vendedor);
-		command->ExecuteNonQuery();
-		delete sql;
-		delete command;
+
+		if (id != -5) {
+			String^ sql = "INSERT OR REPLACE INTO Usuarios (Id, Usuario, Password, Vendedor) VALUES (@id, @usuario, @password, @vendedor)";
+			SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
+			command->Parameters->AddWithValue("@id", id);
+			command->Parameters->AddWithValue("@usuario", usuario);
+			command->Parameters->AddWithValue("@password", contraseña);
+			command->Parameters->AddWithValue("@vendedor", vendedor);
+			command->ExecuteNonQuery();
+			delete sql;
+			delete command;
+		}
 	}
 
 	int obtenerUsuarioId(String^ user, String^ password) {
