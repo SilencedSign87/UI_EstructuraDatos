@@ -4,7 +4,7 @@
 public ref class Granel : public Producto
 {
 private:
-	System::String^ _unidad;
+	System::String^ _unidad; //esto guarda la unidad del producto
 	System::Decimal^ _cantidad;
 public:
 	Granel(System::String^ nombre, int id, System::Decimal^ precio, System::Decimal^ cantidad, System::String^ unidad) :Producto(nombre, id, precio) //constructor
