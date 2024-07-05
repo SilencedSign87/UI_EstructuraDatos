@@ -20,7 +20,7 @@ namespace GUIEstructuraDeDatos {
 		{
 			this->prevForm = formAnterior;
 			InitializeComponent();
-			this->CargarVentas();
+			this->CargarVentas();//carga la tabla 
 
 		}
 

@@ -77,7 +77,7 @@ namespace GUIEstructuraDeDatos {
 			this->subtotal = System::Decimal::Multiply(static_cast<System::Decimal>(this->cantidad), static_cast<System::Decimal>(this->producto->Precio));
 		}
 	};
-
+	//comentario de prueba
 	private: ref class ListaVenta {
 	public:
 		itemVenta^ item;
@@ -1513,7 +1513,7 @@ namespace GUIEstructuraDeDatos {
 		System::Collections::Generic::List<Producto^>^ productos = Datos::Instance->obtenerTodosProducto();
 		for each (Producto ^ prod in  productos) {
 			Granel^ gra = dynamic_cast<Granel^>(prod);
-			if (gra != nullptr) { //es granel
+			if (gra != nullptr){ //es granel
 				System::String^ cantidad = gra->cantidad->ToString() + " " + gra->unidad;
 				Tabla_productos->Rows->Add(gra->Nombre, gra->Id, cantidad, gra->Precio);
 			}
