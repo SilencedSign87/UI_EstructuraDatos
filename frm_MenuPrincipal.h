@@ -77,7 +77,7 @@ namespace GUIEstructuraDeDatos {
 			this->subtotal = System::Decimal::Multiply(static_cast<System::Decimal>(this->cantidad), static_cast<System::Decimal>(this->producto->Precio));
 		}
 	};
-
+	//comentario de prueba
 	private: ref class ListaVenta {
 	public:
 		itemVenta^ item;
