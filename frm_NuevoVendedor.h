@@ -21,6 +21,7 @@ namespace GUIEstructuraDeDatos {
 			InitializeComponent();
 
 			this->prevForm = prevForm;
+			this->rellenaTabla();
 		}
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::TextBox^ txt_NVend;
@@ -50,7 +51,7 @@ namespace GUIEstructuraDeDatos {
 	protected:
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::Panel^ panel1;
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::Button^ bttn_salir;
 	private: System::Windows::Forms::Button^ bttn_CambiarCredenciales;
 	private: System::Windows::Forms::TabControl^ tabControl1;
@@ -78,7 +79,6 @@ namespace GUIEstructuraDeDatos {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->bttn_salir = (gcnew System::Windows::Forms::Button());
 			this->bttn_CambiarCredenciales = (gcnew System::Windows::Forms::Button());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
@@ -129,26 +129,15 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(171)), static_cast<System::Int32>(static_cast<System::Byte>(167)),
 				static_cast<System::Int32>(static_cast<System::Byte>(202)));
-			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->pictureBox1);
 			this->panel1->Controls->Add(this->label6);
 			this->panel1->Controls->Add(this->bttn_salir);
-			this->panel1->Controls->Add(this->bttn_CambiarCredenciales);
 			this->panel1->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->panel1->Location = System::Drawing::Point(1, 1);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(253, 657);
 			this->panel1->TabIndex = 2;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(47, 307);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(155, 45);
-			this->button1->TabIndex = 5;
-			this->button1->Text = L"Registrar";
-			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// bttn_salir
 			// 
@@ -164,12 +153,13 @@ namespace GUIEstructuraDeDatos {
 			// 
 			this->bttn_CambiarCredenciales->Font = (gcnew System::Drawing::Font(L"Fira Code", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bttn_CambiarCredenciales->Location = System::Drawing::Point(48, 391);
+			this->bttn_CambiarCredenciales->Location = System::Drawing::Point(49, 318);
 			this->bttn_CambiarCredenciales->Name = L"bttn_CambiarCredenciales";
-			this->bttn_CambiarCredenciales->Size = System::Drawing::Size(156, 39);
+			this->bttn_CambiarCredenciales->Size = System::Drawing::Size(280, 39);
 			this->bttn_CambiarCredenciales->TabIndex = 1;
 			this->bttn_CambiarCredenciales->Text = L"Cancelar";
 			this->bttn_CambiarCredenciales->UseVisualStyleBackColor = true;
+			this->bttn_CambiarCredenciales->Click += gcnew System::EventHandler(this, &frm_NuevoVendedor::bttn_CambiarCredenciales_Click);
 			// 
 			// tabControl1
 			// 
@@ -187,6 +177,7 @@ namespace GUIEstructuraDeDatos {
 			this->tab_nuevoV->Controls->Add(this->button2);
 			this->tab_nuevoV->Controls->Add(this->txt_NVend);
 			this->tab_nuevoV->Controls->Add(this->label4);
+			this->tab_nuevoV->Controls->Add(this->bttn_CambiarCredenciales);
 			this->tab_nuevoV->Controls->Add(this->txt_NPass);
 			this->tab_nuevoV->Controls->Add(this->label3);
 			this->tab_nuevoV->Controls->Add(this->txt_NUser);
@@ -201,7 +192,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(22, 236);
+			this->button2->Location = System::Drawing::Point(50, 262);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(279, 32);
 			this->button2->TabIndex = 6;
@@ -211,7 +202,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// txt_NVend
 			// 
-			this->txt_NVend->Location = System::Drawing::Point(21, 182);
+			this->txt_NVend->Location = System::Drawing::Point(49, 208);
 			this->txt_NVend->Name = L"txt_NVend";
 			this->txt_NVend->Size = System::Drawing::Size(280, 29);
 			this->txt_NVend->TabIndex = 5;
@@ -219,7 +210,7 @@ namespace GUIEstructuraDeDatos {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(17, 154);
+			this->label4->Location = System::Drawing::Point(45, 180);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(262, 26);
 			this->label4->TabIndex = 4;
@@ -227,7 +218,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// txt_NPass
 			// 
-			this->txt_NPass->Location = System::Drawing::Point(21, 112);
+			this->txt_NPass->Location = System::Drawing::Point(49, 138);
 			this->txt_NPass->Name = L"txt_NPass";
 			this->txt_NPass->PasswordChar = '*';
 			this->txt_NPass->Size = System::Drawing::Size(280, 29);
@@ -236,7 +227,7 @@ namespace GUIEstructuraDeDatos {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(17, 84);
+			this->label3->Location = System::Drawing::Point(45, 110);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(182, 26);
 			this->label3->TabIndex = 2;
@@ -244,7 +235,7 @@ namespace GUIEstructuraDeDatos {
 			// 
 			// txt_NUser
 			// 
-			this->txt_NUser->Location = System::Drawing::Point(21, 45);
+			this->txt_NUser->Location = System::Drawing::Point(49, 71);
 			this->txt_NUser->Name = L"txt_NUser";
 			this->txt_NUser->Size = System::Drawing::Size(280, 29);
 			this->txt_NUser->TabIndex = 1;
@@ -252,7 +243,7 @@ namespace GUIEstructuraDeDatos {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(17, 17);
+			this->label2->Location = System::Drawing::Point(45, 43);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(252, 26);
 			this->label2->TabIndex = 0;
@@ -283,9 +274,12 @@ namespace GUIEstructuraDeDatos {
 			// Tabla_vendedores
 			// 
 			this->Tabla_vendedores->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->Tabla_vendedores->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedHeaders;
 			this->Tabla_vendedores->ColumnHeadersHeight = 25;
 			this->Tabla_vendedores->Location = System::Drawing::Point(6, 67);
+			this->Tabla_vendedores->MultiSelect = false;
 			this->Tabla_vendedores->Name = L"Tabla_vendedores";
+			this->Tabla_vendedores->ReadOnly = true;
 			this->Tabla_vendedores->RowHeadersWidth = 45;
 			this->Tabla_vendedores->Size = System::Drawing::Size(701, 493);
 			this->Tabla_vendedores->TabIndex = 0;
@@ -300,6 +294,7 @@ namespace GUIEstructuraDeDatos {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MinimumSize = System::Drawing::Size(1000, 700);
 			this->Name = L"frm_NuevoVendedor";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Gestion de Vendedores";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &frm_NuevoVendedor::frm_NuevoVendedor_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -332,12 +327,26 @@ namespace GUIEstructuraDeDatos {
 			String^ user = txt_NUser->Text;
 			String^ pass = txt_NPass->Text;
 			String^ vend = txt_NVend->Text;
-			Datos::Instance->conectionDB->nuevoUsuario()
-
+			Datos::Instance->conectionDB->nuevoUsuario(user, pass, vend);
+			MessageBox::Show("Usuario registrado correctamente");
+			limpiaFormulario();
 		}
 		else {
 			MessageBox::Show("Uno o mas espacios en blanco, no se registró el vendedor");
+			limpiaFormulario();
 		}
 	}
-};
+	private: void limpiaFormulario() {
+		txt_NUser->Text = "";
+		txt_NPass->Text = "";
+		txt_NVend->Text = "";
+		this->rellenaTabla();
+	}
+	private: System::Void bttn_CambiarCredenciales_Click(System::Object^ sender, System::EventArgs^ e) {
+		limpiaFormulario();
+	}
+	private: void rellenaTabla() {
+		Tabla_vendedores->DataSource = Datos::Instance->obtenerVendedores();
+	}
+	};
 }

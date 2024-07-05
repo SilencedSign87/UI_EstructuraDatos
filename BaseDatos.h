@@ -31,6 +31,8 @@ private:
 		return dbPath;
 	}
 
+public:
+
 	void abreConexion() {
 		if (dbConexion->State == ConnectionState::Closed) {
 			dbConexion->Open();
@@ -42,7 +44,6 @@ private:
 			dbConexion->Close();
 		}
 	}
-public:
 
 	//Crea la clase adminitrativa de la base de datos inventario, la conexión esta cerrada por defecto
 	AdministradorDB()
@@ -70,7 +71,7 @@ public:
 		SQLiteCommand^ comm = gcnew SQLiteCommand(defaultU, dbConexion);
 		int cantidadU = Convert::ToInt32(comm->ExecuteScalar());
 		if (cantidadU == 0) {
-			nuevoUsuario(1, "admin", "admin", "admin");
+			insertarUsuario(1, "admin", "admin", "admin");
 		}
 	}
 
@@ -102,19 +103,38 @@ public:
 	}
 
 	//Añade un usuario usando la id del usuario
-	void nuevoUsuario(int id, String^ usuario, String^ contraseña, String^ vendedor) {
+	void insertarUsuario(int id, String^ usuario, String^ pass, String^ vendedor) {
 
-		if (id != -5) {
+		if (id > 0) {
 			String^ sql = "INSERT OR REPLACE INTO Usuarios (Id, Usuario, Password, Vendedor) VALUES (@id, @usuario, @password, @vendedor)";
 			SQLiteCommand^ command = gcnew SQLiteCommand(sql, dbConexion);
 			command->Parameters->AddWithValue("@id", id);
 			command->Parameters->AddWithValue("@usuario", usuario);
-			command->Parameters->AddWithValue("@password", contraseña);
+			command->Parameters->AddWithValue("@password", pass);
 			command->Parameters->AddWithValue("@vendedor", vendedor);
 			command->ExecuteNonQuery();
 			delete sql;
 			delete command;
 		}
+	}
+	//Añade un nuevo usuario sin necesidad de una id
+	void nuevoUsuario(String^ user, String^ pass, String^ vend) {
+		String^ defaultU = "SELECT COUNT(*) FROM Usuarios";
+		SQLiteCommand^ comm = gcnew SQLiteCommand(defaultU, dbConexion);
+		int cantidadU = Convert::ToInt32(comm->ExecuteScalar());
+		if (cantidadU > 0) {
+			insertarUsuario(cantidadU + 1, user, pass, vend);
+		}
+
+	}
+
+	DataTable^ obtenerVendedores() {
+		String^ sql = "SELECT Id, Usuario, Vendedor FROM Usuarios ORDER BY Id DESC";
+		SQLiteCommand^ comm = gcnew SQLiteCommand(sql, dbConexion);
+		SQLiteDataAdapter^ adapter = gcnew SQLiteDataAdapter(comm);
+		DataTable^ table = gcnew DataTable();
+		adapter->Fill(table);
+		return table;
 	}
 
 	int obtenerUsuarioId(String^ user, String^ password) {
