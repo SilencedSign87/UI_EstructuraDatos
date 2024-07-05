@@ -367,6 +367,10 @@ public:
 		}
 	}
 
+	DataTable^ obtenerVendedores() {
+		return dbManager->obtenerVendedores();
+	}
+
 	void borrarGranelDB(int id) {
 		this->dbManager->DeleteGranel(id);
 	}

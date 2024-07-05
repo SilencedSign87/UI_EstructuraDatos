@@ -397,7 +397,7 @@ namespace GUIEstructuraDeDatos {
 
 
 		try {
-			Datos::Instance->conectionDB->nuevoUsuario(Datos::Instance->UserId, Nuser, Npass, Nvend);
+			Datos::Instance->conectionDB->insertarUsuario(Datos::Instance->UserId, Nuser, Npass, Nvend);
 			MessageBox::Show("Usuario o contraseña actualizados\nEspacios en blanco no fueron actualizados");
 		}
 		catch (SQLiteException^ ex) {
